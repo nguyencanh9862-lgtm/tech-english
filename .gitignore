@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Environment Variables & Secrets
+.env
+
+# Uploads (user generated media)
+uploads/*
+!uploads/.gitkeep
+
+# System & Log files
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EnglishMaster – Học Tiếng Anh Miễn Phí</title>
+  <meta name="description" content="Website học tiếng Anh miễn phí với từ vựng, ngữ pháp, bài kiểm tra và nhiều hơn nữa." />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+  <!-- ===== HEADER / NAVBAR ===== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="nav-logo">
+        <i class="fas fa-laptop-code" style="color:#6366f1"></i>
+        <span>Tech<strong>English</strong></span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link active">Trang chủ</a></li>
+          <li><a href="#it-academy" class="nav-link"><i class="fas fa-code"></i> Học CNTT</a></li>
+          <li><a href="#tech-news" class="nav-link"><i class="fas fa-newspaper"></i> Tin tức CNTT</a></li>
+          <li><a href="#code-playground" class="nav-link"><i class="fas fa-terminal"></i> Thực hành Code</a></li>
+          <li><a href="#vocabulary" class="nav-link">Từ vựng</a></li>
+          <li><a href="#grammar" class="nav-link">Ngữ pháp</a></li>
+          <li><a href="#quiz" class="nav-link">Kiểm tra</a></li>
+          <li><a href="#flashcard" class="nav-link">Flashcard</a></li>
+        </ul>
+        <div class="nav-actions" id="navAuthContainer">
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin">
+            <i class="fab fa-google"></i> Đăng nhập
+          </button>
+          <a href="admin/index.html" class="btn btn--outline nav-cta" style="font-size:.85rem;padding:.55rem 1.1rem">
+            <i class="fas fa-shield-halved"></i> Admin
+          </a>
+        </div>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="home">
+    <div class="hero-bg-shapes">
+      <div class="shape shape--1"></div>
+      <div class="shape shape--2"></div>
+      <div class="shape shape--3"></div>
+    </div>
+    <div class="container hero-container">
+      <div class="hero-content" data-aos="fade-right">
+        <span class="hero-badge"><i class="fas fa-rocket"></i> Nền tảng Học Tiếng Anh & CNTT Song Ngữ Toàn Diện</span>
+        <h1 class="hero-title">
+          Tiếng Anh & CNTT<br>
+          <span class="gradient-text">Bứt phá Sự nghiệp Tech</span>
+        </h1>
+        <p class="hero-desc">
+          Kết hợp hoàn hảo giữa <strong>học Tiếng Anh chuyên ngành</strong> và <strong>kiến thức Lập trình thực chiến</strong>: Web, Backend, Thuật toán, DevOps, AI cùng cổng tin tức công nghệ cập nhật liên tục!
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn--primary btn--lg" onclick="scrollToSection('it-academy')">
+            <i class="fas fa-laptop-code"></i> Khám phá Học CNTT
+          </button>
+          <button class="btn btn--outline btn--lg" onclick="scrollToSection('tech-news')">
+            <i class="fas fa-newspaper"></i> Tin tức Công nghệ
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong class="counter" data-target="10000">0</strong>+
+            <span>Từ vựng & Thuật ngữ</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <strong class="counter" data-target="120">0</strong>+
+            <span>Bài học CNTT & Code</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <strong class="counter" data-target="50000">0</strong>+
+            <span>Lập trình viên & Học viên</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" data-aos="fade-left">
+        <div class="hero-card-group">
+          <div class="floating-card card--word">
+            <div class="word-of-day">
+              <span class="wod-label">Word of the Day</span>
+              <h3 class="wod-word">Serendipity</h3>
+              <p class="wod-phonetic">/ˌserənˈdɪpɪti/</p>
+              <p class="wod-meaning">n. May mắn tình cờ; điều kỳ diệu bất ngờ</p>
+              <button class="btn btn--ghost btn--sm" onclick="speakWord('Serendipity')">
+                <i class="fas fa-volume-up"></i> Nghe phát âm
+              </button>
+            </div>
+          </div>
+          <div class="floating-card card--progress">
+            <div class="progress-mini">
+              <i class="fas fa-fire" style="color:#ff6b35"></i>
+              <span>7 ngày liên tiếp 🔥</span>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width:72%"></div>
+            </div>
+            <small>72% mục tiêu tuần</small>
+          </div>
+          <div class="floating-card card--level">
+            <i class="fas fa-trophy" style="color:#f59e0b"></i>
+            <span>Level B2</span>
+            <span class="badge-new">Upper Intermediate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES SECTION ===== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Tính năng</span>
+        <h2 class="section-title">Tại sao chọn <span class="gradient-text">EnglishMaster?</span></h2>
+        <p class="section-desc">Chúng tôi mang đến trải nghiệm học tiếng Anh tốt nhất với công nghệ hiện đại</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-aos="fade-up" data-delay="0">
+          <div class="feature-icon feature-icon--blue">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>Học thông minh</h3>
+          <p>Hệ thống AI nhớ điểm yếu của bạn và tự động gợi ý bài tập phù hợp</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-delay="100">
+          <div class="feature-icon feature-icon--purple">
+            <i class="fas fa-headphones"></i>
+          </div>
+          <h3>Phát âm chuẩn</h3>
+          <p>Nghe phát âm từ người bản ngữ với Web Speech API tích hợp sẵn</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-delay="200">
+          <div class="feature-icon feature-icon--green">
+            <i class="fas fa-gamepad"></i>
+          </div>
+          <h3>Gamification</h3>
+          <p>Kiếm điểm, huy hiệu và leo bảng xếp hạng khi hoàn thành bài học</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-delay="300">
+          <div class="feature-icon feature-icon--orange">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Mọi thiết bị</h3>
+          <p>Responsive hoàn hảo trên điện thoại, máy tính bảng và máy tính</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-delay="400">
+          <div class="feature-icon feature-icon--red">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Theo dõi tiến độ</h3>
+          <p>Xem biểu đồ tiến bộ chi tiết và nhận phân tích điểm mạnh, yếu</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-delay="500">
+          <div class="feature-icon feature-icon--teal">
+            <i class="fas fa-infinity"></i>
+          </div>
+          <h3>Miễn phí mãi mãi</h3>
+          <p>Tất cả tính năng cơ bản hoàn toàn miễn phí, không giới hạn thời gian</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IT & CODING ACADEMY SECTION ===== -->
+  <section class="it-section" id="it-academy">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-terminal"></i> IT & Coding Academy</span>
+        <h2 class="section-title">Học <span class="gradient-text">Công Nghệ Thông Tin</span> & Tiếng Anh Chuyên Ngành</h2>
+        <p class="section-desc">Lộ trình bài học kỹ thuật chuẩn quốc tế: Lập trình Web, Backend, Thuật toán, DevOps, AI kết hợp thuật ngữ IT song ngữ Anh - Việt.</p>
+      </div>
+
+      <!-- Banner Highlight -->
+      <div class="it-banner-highlight">
+        <div class="it-banner-text">
+          <h3><i class="fas fa-graduation-cap" style="color:#6366f1"></i> Chương trình Đào tạo Song ngữ IT</h3>
+          <p>Mỗi bài học được thiết kế với lý thuyết ngắn gọn, đoạn code mẫu thực chiến và bộ từ vựng chuyên ngành giúp bạn tự tin đọc tài liệu tiếng Anh và phỏng vấn công ty quốc tế.</p>
+        </div>
+        <div class="it-banner-badges">
+          <span class="it-pill"><i class="fab fa-js" style="color:#f7df1e"></i> Fullstack Web</span>
+          <span class="it-pill"><i class="fab fa-node" style="color:#339933"></i> Node.js & API</span>
+          <span class="it-pill"><i class="fas fa-brain" style="color:#8b5cf6"></i> AI & Prompt</span>
+          <span class="it-pill"><i class="fab fa-git-alt" style="color:#f05032"></i> Git & DevOps</span>
+        </div>
+      </div>
+
+      <!-- Category Tabs -->
+      <div class="it-tabs" id="itCategoryTabs">
+        <button class="it-tab-btn active" data-cat="all" onclick="filterITCourses('all', this)"><i class="fas fa-layer-group"></i> Tất cả khóa học</button>
+        <button class="it-tab-btn" data-cat="web" onclick="filterITCourses('web', this)"><i class="fab fa-html5"></i> Web Frontend</button>
+        <button class="it-tab-btn" data-cat="backend" onclick="filterITCourses('backend', this)"><i class="fab fa-node-js"></i> Backend & API</button>
+        <button class="it-tab-btn" data-cat="dsa" onclick="filterITCourses('dsa', this)"><i class="fas fa-diagram-project"></i> Thuật toán (DSA)</button>
+        <button class="it-tab-btn" data-cat="devops" onclick="filterITCourses('devops', this)"><i class="fab fa-git-alt"></i> Git & DevOps</button>
+        <button class="it-tab-btn" data-cat="ai" onclick="filterITCourses('ai', this)"><i class="fas fa-brain"></i> Trí tuệ Nhân tạo AI</button>
+        <button class="it-tab-btn" data-cat="security" onclick="filterITCourses('security', this)"><i class="fas fa-shield-halved"></i> An toàn Thông tin</button>
+      </div>
+
+      <!-- Courses Grid -->
+      <div class="it-courses-grid" id="itCoursesGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- IT Terminology Explorer -->
+      <div class="it-terms-wrapper">
+        <div class="it-terms-header">
+          <div>
+            <h3><i class="fas fa-spell-check" style="color:#6366f1"></i> Tra cứu Thuật ngữ CNTT (IT Terminology)</h3>
+            <p style="color:var(--text-secondary);font-size:.9rem;margin-top:.25rem">Kho từ vựng tiếng Anh chuyên ngành công nghệ thông tin có kèm phiên âm và phát âm chuẩn</p>
+          </div>
+          <div class="it-search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="itTermSearchInput" placeholder="Tìm thuật ngữ (API, Async, Polymorphism...)" oninput="filterITTerms(this.value)" />
+          </div>
+        </div>
+        <div class="it-terms-grid" id="itTermsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTERACTIVE CODE PLAYGROUND ===== -->
+  <section class="code-playground-section" id="code-playground">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-code"></i> Live Sandbox</span>
+        <h2 class="section-title">Thực Hành Code <span class="gradient-text">Tương Tác Trực Tiếp</span></h2>
+        <p class="section-desc">Viết code, thử nghiệm thuật toán và kiểm tra kết quả ngay trong trình duyệt mà không cần cài đặt môi trường.</p>
+      </div>
+
+      <div class="playground-box">
+        <div class="playground-topbar">
+          <div class="playground-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span style="color:#94a3b8;font-size:.8rem;font-weight:700;margin-left:.5rem">DevSandbox – JavaScript & Tech Engine</span>
+          </div>
+          <div class="playground-select-wrap">
+            <span style="color:#94a3b8;font-size:.82rem">Mẫu code:</span>
+            <select class="playground-select" id="playgroundTemplateSelect" onchange="loadCodeTemplate(this.value)">
+              <option value="js-algo">JavaScript: Thuật toán & Mảng</option>
+              <option value="dom-counter">Interactive UI: Thẻ từ vựng IT</option>
+              <option value="async-fetch">API Async/Await: Gọi tin tức</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="playground-main">
+          <!-- Editor Side -->
+          <div class="playground-editor-side">
+            <div class="side-header">
+              <span><i class="fas fa-file-code"></i> Code Editor (script.js)</span>
+              <button class="btn btn--xs btn--ghost" style="color:#94a3b8" onclick="clearCodeEditor()">Xóa code</button>
+            </div>
+            <textarea class="playground-code-input" id="playgroundCodeInput" spellcheck="false" placeholder="Nhập mã JavaScript của bạn ở đây..."></textarea>
+          </div>
+
+          <!-- Console Output Side -->
+          <div class="playground-output-side">
+            <div class="side-header">
+              <span><i class="fas fa-terminal"></i> Console Output</span>
+              <button class="btn btn--xs btn--ghost" style="color:#94a3b8" onclick="clearConsoleOutput()">Xóa màn hình</button>
+            </div>
+            <div class="playground-console-output" id="playgroundConsoleOutput">
+              <span class="console-msg-log">Sẵn sàng thực thi. Nhấn "Chạy Code" để xem kết quả...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="playground-bottombar">
+          <div style="color:#94a3b8;font-size:.82rem">
+            <i class="fas fa-lightbulb" style="color:#f59e0b"></i> Gõ code và dùng <code>console.log()</code> để in kết quả ra màn hình.
+          </div>
+          <div style="display:flex;gap:.75rem">
+            <button class="btn btn--outline btn--sm" style="color:#fff;border-color:#475569" onclick="resetCodeTemplate()">
+              <i class="fas fa-rotate-left"></i> Đặt lại
+            </button>
+            <button class="btn btn--primary btn--sm" onclick="runPlaygroundCode()">
+              <i class="fas fa-play"></i> Chạy Code (Run)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TECH NEWS SECTION ===== -->
+  <section class="news-section" id="tech-news">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-newspaper"></i> Cổng Tin Tức CNTT</span>
+        <h2 class="section-title">Tin Tức <span class="gradient-text">Công Nghệ & Sự Nghiệp IT</span></h2>
+        <p class="section-desc">Cập nhật tin tức công nghệ mới nhất về Trí tuệ Nhân tạo (AI), Lập trình, Bảo mật mạng và học từ vựng tiếng Anh chuyên ngành từ bài báo.</p>
+      </div>
+
+      <div class="news-search-toolbar">
+        <div class="news-filter-group" id="newsCategoryFilters">
+          <button class="news-filter-btn active" data-cat="all" onclick="filterTechNews('all', this)">Tất cả</button>
+          <button class="news-filter-btn" data-cat="ai" onclick="filterTechNews('ai', this)">Trí tuệ nhân tạo (AI)</button>
+          <button class="news-filter-btn" data-cat="dev" onclick="filterTechNews('dev', this)">Lập trình Web</button>
+          <button class="news-filter-btn" data-cat="security" onclick="filterTechNews('security', this)">An ninh mạng</button>
+          <button class="news-filter-btn" data-cat="cloud" onclick="filterTechNews('cloud', this)">Cloud & DevOps</button>
+          <button class="news-filter-btn" data-cat="career" onclick="filterTechNews('career', this)">Sự nghiệp IT</button>
+        </div>
+        <div class="news-search-input-wrap">
+          <i class="fas fa-search"></i>
+          <input type="text" id="newsSearchInput" placeholder="Tìm kiếm bài viết công nghệ..." oninput="handleNewsSearch(this.value)" />
+        </div>
+      </div>
+
+      <div class="news-grid" id="techNewsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VOCABULARY SECTION ===== -->
+  <section class="vocabulary" id="vocabulary">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Từ vựng</span>
+        <h2 class="section-title">Học <span class="gradient-text">Từ Vựng</span> Theo Chủ Đề</h2>
+        <p class="section-desc">Hơn 10,000 từ được phân loại theo chủ đề và cấp độ</p>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="vocab-filter">
+        <button class="filter-btn active" data-filter="all">Tất cả</button>
+        <button class="filter-btn" data-filter="daily">Hàng ngày</button>
+        <button class="filter-btn" data-filter="business">Kinh doanh</button>
+        <button class="filter-btn" data-filter="travel">Du lịch</button>
+        <button class="filter-btn" data-filter="academic">Học thuật</button>
+        <button class="filter-btn" data-filter="idiom">Thành ngữ</button>
+      </div>
+
+      <div class="vocab-grid" id="vocabGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn--outline" id="loadMoreVocab">
+          <i class="fas fa-plus"></i> Xem thêm từ vựng
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GRAMMAR SECTION ===== -->
+  <section class="grammar" id="grammar">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Ngữ pháp</span>
+        <h2 class="section-title">Ngữ Pháp <span class="gradient-text">Tiếng Anh</span></h2>
+        <p class="section-desc">Từ cơ bản đến nâng cao với ví dụ sinh động</p>
+      </div>
+      <div class="grammar-layout">
+        <div class="grammar-sidebar">
+          <ul class="grammar-menu" id="grammarMenu">
+            <li class="grammar-menu-item active" data-lesson="0">
+              <i class="fas fa-circle-dot"></i> Thì Hiện tại đơn
+            </li>
+            <li class="grammar-menu-item" data-lesson="1">
+              <i class="fas fa-circle-dot"></i> Thì Hiện tại tiếp diễn
+            </li>
+            <li class="grammar-menu-item" data-lesson="2">
+              <i class="fas fa-circle-dot"></i> Thì Quá khứ đơn
+            </li>
+            <li class="grammar-menu-item" data-lesson="3">
+              <i class="fas fa-circle-dot"></i> Thì Tương lai đơn
+            </li>
+            <li class="grammar-menu-item" data-lesson="4">
+              <i class="fas fa-circle-dot"></i> Câu điều kiện
+            </li>
+            <li class="grammar-menu-item" data-lesson="5">
+              <i class="fas fa-circle-dot"></i> Mệnh đề quan hệ
+            </li>
+          </ul>
+        </div>
+        <div class="grammar-content" id="grammarContent">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUIZ SECTION ===== -->
+  <section class="quiz-section" id="quiz">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Kiểm tra</span>
+        <h2 class="section-title">Kiểm Tra <span class="gradient-text">Kiến Thức</span></h2>
+        <p class="section-desc">Làm bài kiểm tra để đánh giá trình độ của bạn</p>
+      </div>
+
+      <div class="quiz-wrapper" id="quizWrapper">
+        <!-- Quiz Start Screen -->
+        <div class="quiz-start" id="quizStart">
+          <div class="quiz-start-icon">
+            <i class="fas fa-clipboard-question"></i>
+          </div>
+          <h3>Chọn loại bài kiểm tra</h3>
+          <div class="quiz-type-grid">
+            <button class="quiz-type-btn" data-type="vocabulary" onclick="startQuiz('vocabulary')">
+              <i class="fas fa-spell-check"></i>
+              <span>Từ vựng</span>
+              <small>20 câu hỏi</small>
+            </button>
+            <button class="quiz-type-btn" data-type="grammar" onclick="startQuiz('grammar')">
+              <i class="fas fa-pen-nib"></i>
+              <span>Ngữ pháp</span>
+              <small>15 câu hỏi</small>
+            </button>
+            <button class="quiz-type-btn" data-type="listening" onclick="startQuiz('listening')">
+              <i class="fas fa-headphones"></i>
+              <span>Nghe hiểu</span>
+              <small>10 câu hỏi</small>
+            </button>
+            <button class="quiz-type-btn" data-type="mixed" onclick="startQuiz('mixed')">
+              <i class="fas fa-shuffle"></i>
+              <span>Tổng hợp</span>
+              <small>25 câu hỏi</small>
+            </button>
+            <button class="quiz-type-btn" data-type="it" onclick="startQuiz('it')" style="border-color:#6366f1">
+              <i class="fas fa-laptop-code" style="color:#6366f1"></i>
+              <span>CNTT & IT English</span>
+              <small>10 câu hỏi</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Game -->
+        <div class="quiz-game" id="quizGame" style="display:none;">
+          <div class="quiz-header">
+            <div class="quiz-info">
+              <span id="quizTypeLabel" class="quiz-type-label"></span>
+              <span id="quizProgress">Câu 1 / 10</span>
+            </div>
+            <div class="quiz-timer">
+              <i class="fas fa-clock"></i>
+              <span id="timerDisplay">30</span>s
+            </div>
+            <div class="quiz-score-live">
+              <i class="fas fa-star"></i>
+              <span id="liveScore">0</span>
+            </div>
+          </div>
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quizProgressFill"></div>
+          </div>
+          <div class="quiz-body">
+            <div class="question-card">
+              <p class="question-text" id="questionText"></p>
+              <div class="options-grid" id="optionsGrid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Result -->
+        <div class="quiz-result" id="quizResult" style="display:none;">
+          <div class="result-icon" id="resultIcon"></div>
+          <h3 id="resultTitle"></h3>
+          <p id="resultMessage"></p>
+          <div class="result-stats">
+            <div class="result-stat">
+              <strong id="resultScore"></strong>
+              <span>Điểm số</span>
+            </div>
+            <div class="result-stat">
+              <strong id="resultCorrect"></strong>
+              <span>Đúng</span>
+            </div>
+            <div class="result-stat">
+              <strong id="resultTime"></strong>
+              <span>Thời gian</span>
+            </div>
+          </div>
+          <div class="result-actions">
+            <button class="btn btn--primary" onclick="retryQuiz()">
+              <i class="fas fa-redo"></i> Làm lại
+            </button>
+            <button class="btn btn--outline" onclick="resetQuiz()">
+              <i class="fas fa-home"></i> Chọn loại khác
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FLASHCARD SECTION ===== -->
+  <section class="flashcard-section" id="flashcard">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Flashcard</span>
+        <h2 class="section-title">Ôn tập với <span class="gradient-text">Flashcard</span></h2>
+        <p class="section-desc">Ghi nhớ từ vựng nhanh chóng với phương pháp Spaced Repetition</p>
+      </div>
+
+      <div class="flashcard-wrapper">
+        <div class="flashcard-controls">
+          <select class="select-input" id="flashcardCategory">
+            <option value="all">Tất cả chủ đề</option>
+            <option value="daily">Hàng ngày</option>
+            <option value="business">Kinh doanh</option>
+            <option value="travel">Du lịch</option>
+            <option value="academic">Học thuật</option>
+          </select>
+          <button class="btn btn--ghost" id="shuffleBtn" onclick="shuffleFlashcards()">
+            <i class="fas fa-shuffle"></i> Trộn bài
+          </button>
+        </div>
+
+        <div class="flashcard-stage">
+          <button class="fc-nav fc-nav--prev" id="fcPrev" onclick="prevCard()">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <div class="flashcard" id="flashcard" onclick="flipCard()">
+            <div class="flashcard-inner" id="flashcardInner">
+              <div class="flashcard-front">
+                <span class="fc-category" id="fcCategory"></span>
+                <h2 class="fc-word" id="fcWord"></h2>
+                <p class="fc-phonetic" id="fcPhonetic"></p>
+                <button class="btn btn--ghost btn--sm fc-audio" onclick="event.stopPropagation(); speakWord(currentCard.word)">
+                  <i class="fas fa-volume-up"></i>
+                </button>
+                <p class="fc-hint">Click để xem nghĩa</p>
+              </div>
+              <div class="flashcard-back">
+                <span class="fc-pos" id="fcPos"></span>
+                <h3 class="fc-meaning" id="fcMeaning"></h3>
+                <p class="fc-example" id="fcExample"></p>
+                <p class="fc-example-vi" id="fcExampleVi"></p>
+              </div>
+            </div>
+          </div>
+
+          <button class="fc-nav fc-nav--next" id="fcNext" onclick="nextCard()">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="fc-counter">
+          <span id="fcCurrent">1</span> / <span id="fcTotal">1</span>
+        </div>
+
+        <div class="fc-actions">
+          <button class="btn btn--danger btn--sm" onclick="markCard('hard')">
+            <i class="fas fa-times"></i> Khó
+          </button>
+          <button class="btn btn--warning btn--sm" onclick="markCard('medium')">
+            <i class="fas fa-minus"></i> Bình thường
+          </button>
+          <button class="btn btn--success btn--sm" onclick="markCard('easy')">
+            <i class="fas fa-check"></i> Dễ
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRESS TRACKER ===== -->
+  <section class="progress-section" id="progress">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Tiến độ</span>
+        <h2 class="section-title">Theo Dõi <span class="gradient-text">Tiến Độ</span></h2>
+      </div>
+      <div class="progress-dashboard">
+        <div class="progress-card">
+          <div class="prog-card-header">
+            <i class="fas fa-book" style="color:#6366f1"></i>
+            <h4>Từ vựng đã học</h4>
+          </div>
+          <div class="prog-number" id="learnedWords">0</div>
+          <div class="prog-bar">
+            <div class="prog-bar-fill prog-bar--purple" id="wordProgress" style="width:0%"></div>
+          </div>
+          <small id="wordProgressText">0 / 100 từ hôm nay</small>
+        </div>
+        <div class="progress-card">
+          <div class="prog-card-header">
+            <i class="fas fa-fire" style="color:#f59e0b"></i>
+            <h4>Chuỗi học liên tiếp</h4>
+          </div>
+          <div class="prog-number" id="streakDays">0</div>
+          <div class="streak-flames" id="streakFlames"></div>
+          <small>Ngày liên tiếp</small>
+        </div>
+        <div class="progress-card">
+          <div class="prog-card-header">
+            <i class="fas fa-star" style="color:#10b981"></i>
+            <h4>Điểm XP</h4>
+          </div>
+          <div class="prog-number" id="xpPoints">0</div>
+          <div class="prog-bar">
+            <div class="prog-bar-fill prog-bar--green" id="xpProgress" style="width:0%"></div>
+          </div>
+          <small id="xpProgressText">0 / 500 XP lên cấp</small>
+        </div>
+        <div class="progress-card">
+          <div class="prog-card-header">
+            <i class="fas fa-trophy" style="color:#ef4444"></i>
+            <h4>Huy hiệu</h4>
+          </div>
+          <div class="badges-grid" id="badgesGrid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <span class="section-badge">Liên hệ</span>
+          <h2>Bạn cần <span class="gradient-text">hỗ trợ?</span></h2>
+          <p>Đội ngũ của chúng tôi luôn sẵn sàng giúp bạn trong hành trình học tiếng Anh.</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>support@englishmaster.vn</span>
+            </div>
+            <div class="contact-item">
+              <i class="fab fa-facebook"></i>
+              <span>facebook.com/englishmaster</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>Hỗ trợ 24/7 qua chat</span>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm" onsubmit="handleContactSubmit(event)">
+          <div class="form-group">
+            <label for="contactName">Họ và tên</label>
+            <input type="text" id="contactName" placeholder="Nguyễn Văn A" required />
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email</label>
+            <input type="email" id="contactEmail" placeholder="email@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="contactMsg">Tin nhắn</label>
+            <textarea id="contactMsg" rows="4" placeholder="Nội dung tin nhắn..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">
+            <i class="fas fa-paper-plane"></i> Gửi tin nhắn
+          </button>
+          <div class="form-feedback" id="formFeedback"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>English<strong>Master</strong></span>
+          </a>
+          <p>Nền tảng học tiếng Anh trực tuyến miễn phí, hiệu quả và vui vẻ dành cho người Việt.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Học tập</h4>
+          <ul>
+            <li><a href="#vocabulary">Từ vựng</a></li>
+            <li><a href="#grammar">Ngữ pháp</a></li>
+            <li><a href="#quiz">Bài kiểm tra</a></li>
+            <li><a href="#flashcard">Flashcard</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Cấp độ</h4>
+          <ul>
+            <li><a href="#">Beginner (A1)</a></li>
+            <li><a href="#">Elementary (A2)</a></li>
+            <li><a href="#">Intermediate (B1)</a></li>
+            <li><a href="#">Upper-Int (B2)</a></li>
+            <li><a href="#">Advanced (C1)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hỗ trợ</h4>
+          <ul>
+            <li><a href="#">Về chúng tôi</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+            <li><a href="#">Điều khoản sử dụng</a></li>
+            <li><a href="#contact">Liên hệ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 EnglishMaster. Được tạo với <i class="fas fa-heart" style="color:#ef4444"></i> tại Việt Nam.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCROLL TO TOP ===== -->
+  <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== AUTH MODAL (GOOGLE & EMAIL LOGIN) ===== -->
+  <div class="auth-modal-overlay" id="authModal" style="display:none">
+    <div class="auth-modal-box">
+      <button class="auth-modal-close" onclick="closeAuthModal()"><i class="fas fa-times"></i></button>
+      <div class="auth-modal-header">
+        <div class="auth-logo"><i class="fas fa-graduation-cap"></i> English<strong>Master</strong></div>
+        <h3 id="authModalTitle">Đăng nhập tài khoản</h3>
+        <p id="authModalSubtitle">Đồng bộ tiến độ học tập và điểm số trên MongoDB</p>
+      </div>
+
+      <!-- TABS -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Đăng nhập</button>
+        <button type="button" class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Đăng ký mới</button>
+      </div>
+
+      <!-- FORM -->
+      <form id="authForm" onsubmit="handleAuthSubmit(event)">
+        <div class="auth-group" id="groupName" style="display:none">
+          <label><i class="fas fa-user"></i> Họ và tên</label>
+          <input type="text" id="authName" placeholder="Nguyễn Văn A" />
+        </div>
+        <div class="auth-group">
+          <label><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" id="authEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="auth-group">
+          <label><i class="fas fa-lock"></i> Mật khẩu</label>
+          <input type="password" id="authPassword" placeholder="••••••••" required />
+        </div>
+        <div class="auth-error" id="authError"></div>
+        <button type="submit" class="btn btn--primary btn--full" id="authSubmitBtn" style="width:100%;justify-content:center">
+          <i class="fas fa-sign-in-alt"></i> Đăng nhập
+        </button>
+      </form>
+
+      <div class="auth-divider">
+        <span>HOẶC TÀI KHOẢN GOOGLE</span>
+      </div>
+
+      <!-- GOOGLE SIGN-IN SECTION -->
+      <div class="auth-google-section">
+        <div id="g_id_onload"
+          data-client_id=""
+          data-callback="handleGoogleCredentialResponse"
+          data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" style="display:flex;justify-content:center;margin-bottom:.5rem"></div>
+
+        <button type="button" class="btn-google-custom" onclick="triggerGoogleLogin()">
+          <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          <span>Tiếp tục với Google</span>
+        </button>
+      </div>
+
+      <!-- DEMO TEST LOGIN -->
+      <div class="auth-demo-box">
+        <span>💡 Muốn thử nghiệm nhanh tính năng?</span>
+        <button type="button" class="btn-demo-login" onclick="quickDemoLogin()">
+          <i class="fab fa-google"></i> Đăng nhập thử với Google Account
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TECH ARTICLE READER MODAL ===== -->
+  <div class="detail-modal-overlay" id="articleModal" style="display:none">
+    <div class="detail-modal-box">
+      <button class="modal-close-btn" onclick="closeArticleModal()"><i class="fas fa-times"></i></button>
+      <div id="articleModalContent">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== IT COURSE DETAILS MODAL ===== -->
+  <div class="detail-modal-overlay" id="courseModal" style="display:none">
+    <div class="detail-modal-box">
+      <button class="modal-close-btn" onclick="closeCourseModal()"><i class="fas fa-times"></i></button>
+      <div id="courseModalContent">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
