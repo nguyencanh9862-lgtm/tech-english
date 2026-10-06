@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Vocabulary = require('../models/Vocabulary');
+const { escapeRegex } = require('../middleware/security');
 
 // GET /api/vocab - Get all vocabulary items
 router.get('/', async (req, res) => {
@@ -15,10 +16,11 @@ router.get('/', async (req, res) => {
       query.level = level;
     }
     if (search) {
+      const safeSearch = escapeRegex(search);
       query.$or = [
-        { word: { $regex: search, $options: 'i' } },
-        { meaning: { $regex: search, $options: 'i' } },
-        { example: { $regex: search, $options: 'i' } }
+        { word: { $regex: safeSearch, $options: 'i' } },
+        { meaning: { $regex: safeSearch, $options: 'i' } },
+        { example: { $regex: safeSearch, $options: 'i' } }
       ];
     }
 

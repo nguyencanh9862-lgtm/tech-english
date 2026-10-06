@@ -24,10 +24,13 @@ const storage = multer.diskStorage({
   }
 });
 
-// File filter for images
+// File filter for images (Validate MIME and Extension strictly)
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
-  if (allowedTypes.includes(file.mimetype)) {
+  const allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+  const allowedExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+  const ext = path.extname(file.originalname || '').toLowerCase();
+
+  if (allowedMimes.includes(file.mimetype) && (allowedExts.includes(ext) || !ext)) {
     cb(null, true);
   } else {
     cb(new Error('Chỉ chấp nhận file hình ảnh (JPG, PNG, GIF, WEBP, SVG)'), false);
@@ -122,15 +125,22 @@ router.get('/media', async (req, res) => {
   }
 });
 
-// DELETE /api/media/:filename - Delete image by filename
+// DELETE /api/media/:filename - Delete image by filename safely
 router.delete('/media/:filename', async (req, res) => {
   try {
-    const filename = req.params.filename;
-    await Media.findOneAndDelete({ filename });
+    const rawFilename = req.params.filename;
+    const cleanFilename = path.basename(rawFilename);
+    const resolvedPath = path.resolve(uploadDir, cleanFilename);
 
-    const filePath = path.join(uploadDir, filename);
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
+    // Prevent directory traversal attacks
+    if (!resolvedPath.startsWith(path.resolve(uploadDir))) {
+      return res.status(400).json({ success: false, message: 'Tên file không hợp lệ' });
+    }
+
+    await Media.findOneAndDelete({ filename: cleanFilename });
+
+    if (fs.existsSync(resolvedPath)) {
+      fs.unlinkSync(resolvedPath);
     }
 
     res.json({ success: true, message: 'Đã xóa ảnh thành công' });
@@ -140,3 +150,4 @@ router.delete('/media/:filename', async (req, res) => {
 });
 
 module.exports = router;
+module.exports.fileFilter = fileFilter;

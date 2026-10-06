@@ -5,16 +5,18 @@ const Grammar = require('../models/Grammar');
 const Quiz = require('../models/Quiz');
 const Media = require('../models/Media');
 const User = require('../models/User');
+const Course = require('../models/Course');
 
 // GET /api/stats
 router.get('/', async (req, res) => {
   try {
-    const [vocabCount, grammarCount, quizCount, mediaCount, userCount] = await Promise.all([
+    const [vocabCount, grammarCount, quizCount, mediaCount, userCount, courseCount] = await Promise.all([
       Vocabulary.countDocuments(),
       Grammar.countDocuments(),
       Quiz.countDocuments(),
       Media.countDocuments(),
-      User.countDocuments()
+      User.countDocuments(),
+      Course.countDocuments()
     ]);
 
     // Group vocabulary by category & level
@@ -33,6 +35,7 @@ router.get('/', async (req, res) => {
         quizCount,
         mediaCount,
         userCount,
+        courseCount,
         categories: catStats,
         levels: lvlStats
       }

@@ -779,6 +779,259 @@ loadTechNews();`
   }
 ];
 
+const ENGLISH_COURSES_DATA = [
+  {
+    id: 1,
+    title: "Tiếng Anh Giao Tiếp Hàng Ngày Cho Người Mới Bắt Đầu",
+    titleEn: "Everyday English Conversation for Beginners",
+    category: "communication",
+    level: "Cơ bản (A1-A2)",
+    badge: "Phổ biến nhất",
+    instructor: "ThS. Emma & TechEnglish",
+    thumbnail: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
+    youtubeUrl: "https://www.youtube.com/watch?v=juKd26qkNAw",
+    youtubeId: "juKd26qkNAw",
+    views: 1250,
+    rating: 4.9,
+    description: "Khóa học video toàn diện giúp bạn tự tin giao tiếp tiếng Anh tự nhiên trong đời sống hàng ngày: chào hỏi, giới thiệu bản thân, mua sắm, hỏi đường và kết bạn.",
+    lessons: [
+      {
+        id: 1,
+        title: "Bài 1: 50 Mẫu câu Chào hỏi & Tự giới thiệu bản thân chuẩn bản xứ",
+        youtubeUrl: "https://www.youtube.com/watch?v=juKd26qkNAw",
+        youtubeId: "juKd26qkNAw",
+        duration: "14:20",
+        description: "Học cách bắt chuyện tự nhiên, phá vỡ khoảng cách (break the ice) và giới thiệu nghề nghiệp, sở thích.",
+        order: 1,
+        vocabularies: [
+          { word: "Introduce", phonetic: "/ˌɪntrəˈdjuːs/", meaning: "Giới thiệu", example: "Let me introduce myself." },
+          { word: "Pleasure", phonetic: "/ˈpleʒər/", meaning: "Niềm hân hạnh", example: "It's a pleasure to meet you." },
+          { word: "Occupation", phonetic: "/ˌɒkjuˈpeɪʃn/", meaning: "Nghề nghiệp", example: "What is your current occupation?" }
+        ]
+      },
+      {
+        id: 2,
+        title: "Bài 2: Giao tiếp tiếng Anh khi Mua sắm & Hỏi giá tiền",
+        youtubeUrl: "https://www.youtube.com/watch?v=0b1r9H5h1bI",
+        youtubeId: "0b1r9H5h1bI",
+        duration: "12:45",
+        description: "Học các mẫu câu hỏi kích cỡ, màu sắc, trả giá và thanh toán bằng thẻ hay tiền mặt.",
+        order: 2,
+        vocabularies: [
+          { word: "Affordable", phonetic: "/əˈfɔːdəbl/", meaning: "Giá cả phải chăng", example: "This jacket is very affordable." },
+          { word: "Discount", phonetic: "/ˈdɪskaʊnt/", meaning: "Giảm giá", example: "Can I get a discount on this?" },
+          { word: "Receipt", phonetic: "/rɪˈsiːt/", meaning: "Hóa đơn / Biên lai", example: "Keep your receipt for returns." }
+        ]
+      },
+      {
+        id: 3,
+        title: "Bài 3: Đặt bàn và Gọi món tại Nhà hàng & Quán cà phê",
+        youtubeUrl: "https://www.youtube.com/watch?v=Xh_M5cMqmZc",
+        youtubeId: "Xh_M5cMqmZc",
+        duration: "16:10",
+        description: "Tự tin bước vào nhà hàng quốc tế, đọc menu, yêu cầu món ăn đặc biệt và yêu cầu thanh toán hóa đơn.",
+        order: 3,
+        vocabularies: [
+          { word: "Reservation", phonetic: "/ˌrezəˈveɪʃn/", meaning: "Đặt chỗ trước", example: "I have a reservation for two." },
+          { word: "Recommend", phonetic: "/ˌrekəˈmend/", meaning: "Gợi ý / Khuyên dùng", example: "What dish do you recommend?" },
+          { word: "Delicious", phonetic: "/dɪˈlɪʃəs/", meaning: "Ngon miệng", example: "The pasta looks delicious." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Tiếng Anh Chuyên Ngành CNTT & Kỹ Năng Phỏng Vấn Tech",
+    titleEn: "English for Software Developers & Tech Interviews",
+    category: "it",
+    level: "Trung cấp (B1-B2)",
+    badge: "Dành cho IT",
+    instructor: "Alex Chen (Senior Tech Lead)",
+    thumbnail: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+    youtubeUrl: "https://www.youtube.com/watch?v=kJEsTjH5mVg",
+    youtubeId: "kJEsTjH5mVg",
+    views: 3120,
+    rating: 5.0,
+    description: "Bộ bài giảng video chuyên sâu dành cho Developers, Testers, DevOps và IT Leaders: báo cáo Daily Standup, thảo luận Pull Request, mô tả kiến trúc phần mềm và trả lời phỏng vấn công ty quốc tế.",
+    lessons: [
+      {
+        id: 1,
+        title: "Bài 1: Báo cáo công việc trôi chảy trong Daily Standup & Scrum",
+        youtubeUrl: "https://www.youtube.com/watch?v=kJEsTjH5mVg",
+        youtubeId: "kJEsTjH5mVg",
+        duration: "15:30",
+        description: "Cách nói về việc đã làm hôm qua, kế hoạch hôm nay và các vấn đề gặp phải (blockers) ngắn gọn, mạch lạc.",
+        order: 1,
+        vocabularies: [
+          { word: "Blocker", phonetic: "/ˈblɒkər/", meaning: "Rào cản / Khó khăn cản trở", example: "I have no blockers today." },
+          { word: "Deploy", phonetic: "/dɪˈplɔɪ/", meaning: "Triển khai lên server", example: "We will deploy the hotfix tonight." },
+          { word: "Refactor", phonetic: "/ˌriːˈfæktər/", meaning: "Tối ưu và cấu trúc lại code", example: "I need to refactor the auth service." }
+        ]
+      },
+      {
+        id: 2,
+        title: "Bài 2: Kỹ năng Review Code & Thảo luận Pull Request bằng tiếng Anh",
+        youtubeUrl: "https://www.youtube.com/watch?v=VyfhJc2GkZ8",
+        youtubeId: "VyfhJc2GkZ8",
+        duration: "18:45",
+        description: "Học cách viết và nói nhận xét code mang tính xây dựng, thảo luận hiệu năng và kiến trúc chuẩn phong cách quốc tế.",
+        order: 2,
+        vocabularies: [
+          { word: "Maintainable", phonetic: "/meɪnˈteɪnəbl/", meaning: "Dễ bảo trì", example: "This structure is much more maintainable." },
+          { word: "Bottleneck", phonetic: "/ˈbɒtlnek/", meaning: "Điểm nghẽn hiệu năng", example: "Database queries are the main bottleneck." },
+          { word: "Redundant", phonetic: "/rɪˈdʌndənt/", meaning: "Thừa thãi / Trùng lặp", example: "This variable check seems redundant." }
+        ]
+      },
+      {
+        id: 3,
+        title: "Bài 3: Trả lời câu hỏi Phỏng vấn Kỹ thuật & Tình huống (STAR Method)",
+        youtubeUrl: "https://www.youtube.com/watch?v=uK8f6bYk-X4",
+        youtubeId: "uK8f6bYk-X4",
+        duration: "21:10",
+        description: "Chiến lược trả lời phỏng vấn mượt mà theo phương pháp STAR: Tình huống (Situation) - Nhiệm vụ (Task) - Hành động (Action) - Kết quả (Result).",
+        order: 3,
+        vocabularies: [
+          { word: "Scalability", phonetic: "/ˌskeɪləˈbɪləti/", meaning: "Khả năng mở rộng hệ thống", example: "We designed the microservice for high scalability." },
+          { word: "Troubleshoot", phonetic: "/ˈtrʌblʃuːt/", meaning: "Dò tìm và khắc phục sự cố", example: "I had to troubleshoot the memory leak in production." },
+          { word: "Deadline", phonetic: "/ˈdedlaɪn/", meaning: "Hạn chót hoàn thành", example: "We managed to deliver before the deadline." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "Luyện Phát Âm Tiếng Anh Chuẩn Quốc Tế IPA & Ngữ Điệu Tự Nhiên",
+    titleEn: "Master English Pronunciation & International Phonetic Alphabet",
+    category: "pronunciation",
+    level: "Cơ bản - Trung cấp (A1-B1)",
+    badge: "Khuyên học",
+    instructor: "Rachel & Đội ngũ Ngôn ngữ học",
+    thumbnail: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
+    youtubeUrl: "https://www.youtube.com/watch?v=n4NVPg2kHv4",
+    youtubeId: "n4NVPg2kHv4",
+    views: 2480,
+    rating: 4.95,
+    description: "Nắm vững 44 âm trong bảng phiên âm quốc tế IPA, khắc phục tật nuốt âm cuối, nói tiếng Anh có ngữ điệu trầm bổng như người bản xứ.",
+    lessons: [
+      {
+        id: 1,
+        title: "Bài 1: Bí quyết phát âm chính xác các Nguyên âm đơn & Nguyên âm đôi",
+        youtubeUrl: "https://www.youtube.com/watch?v=n4NVPg2kHv4",
+        youtubeId: "n4NVPg2kHv4",
+        duration: "19:15",
+        description: "Khẩu hình miệng chuẩn xác cho các âm nguyên âm ngắn /ɪ/, /e/, /æ/ và nguyên âm dài /iː/, /uː/.",
+        order: 1,
+        vocabularies: [
+          { word: "Pronunciation", phonetic: "/prəˌnʌnsiˈeɪʃn/", meaning: "Sự phát âm", example: "Her English pronunciation is flawless." },
+          { word: "Vowel", phonetic: "/ˈvaʊəl/", meaning: "Nguyên âm", example: "English has both short and long vowels." },
+          { word: "Articulation", phonetic: "/ɑːˌtɪkjuˈleɪʃn/", meaning: "Sự phát âm rõ ràng, khẩu hình", example: "Pay attention to tongue articulation." }
+        ]
+      },
+      {
+        id: 2,
+        title: "Bài 2: Làm chủ các Phụ âm khó và Quy tắc Nối âm (Connected Speech)",
+        youtubeUrl: "https://www.youtube.com/watch?v=cM35H7pEsqk",
+        youtubeId: "cM35H7pEsqk",
+        duration: "16:40",
+        description: "Luyện tập các âm /θ/, /ð/, /ʃ/, /ʒ/ và kỹ thuật linking words giúp câu nói mượt mà không bị ngắt quãng.",
+        order: 2,
+        vocabularies: [
+          { word: "Consonant", phonetic: "/ˈkɒnsənənt/", meaning: "Phụ âm", example: "Consonant clusters require practice." },
+          { word: "Intonation", phonetic: "/ˌɪntəˈneɪʃn/", meaning: "Ngữ điệu câu", example: "Falling intonation is used in statements." },
+          { word: "Linking", phonetic: "/ˈlɪŋkɪŋ/", meaning: "Sự nối âm", example: "Linking makes your speech sound natural." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 4,
+    title: "Luyện Nghe Nói Tiếng Anh Phản Xạ Qua Tình Huống Thực Tế",
+    titleEn: "Active English Listening & Shadowing Technique",
+    category: "listening",
+    level: "Cơ bản - Trung cấp (A2-B1)",
+    badge: "Thực chiến",
+    instructor: "Mark Kister (English Fluency Coach)",
+    thumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+    youtubeUrl: "https://www.youtube.com/watch?v=7_t_B4r53pM",
+    youtubeId: "7_t_B4r53pM",
+    views: 1890,
+    rating: 4.88,
+    description: "Phương pháp Shadowing (nhại giọng tức thời) kết hợp luyện nghe phản xạ đa ngữ cảnh, giúp tai bắt âm nhạy và miệng bật từ vựng không cần dịch nhẩm sang tiếng Việt.",
+    lessons: [
+      {
+        id: 1,
+        title: "Bài 1: Phương pháp Luyện Nghe Chủ Động & Bắt Từ Khóa (Active Listening)",
+        youtubeUrl: "https://www.youtube.com/watch?v=7_t_B4r53pM",
+        youtubeId: "7_t_B4r53pM",
+        duration: "17:50",
+        description: "Bỏ thói quen cố nghe từng từ một, tập trung vào trọng âm câu và từ mang nội dung chính (content words).",
+        order: 1,
+        vocabularies: [
+          { word: "Comprehension", phonetic: "/ˌkɒmprɪˈhenʃn/", meaning: "Sự thấu hiểu / Khả năng hiểu", example: "Listening comprehension improves with consistency." },
+          { word: "Fluency", phonetic: "/ˈfluːənsi/", meaning: "Sự trôi chảy, lưu loát", example: "Fluency is more important than perfection." },
+          { word: "Context", phonetic: "/ˈkɒntekst/", meaning: "Bối cảnh / Ngữ cảnh", example: "Guess the meaning from context." }
+        ]
+      },
+      {
+        id: 2,
+        title: "Bài 2: Kỹ thuật Shadowing thực hành phản xạ nói trong 15 phút mỗi ngày",
+        youtubeUrl: "https://www.youtube.com/watch?v=8qJ3zC2M9Jg",
+        youtubeId: "8qJ3zC2M9Jg",
+        duration: "15:20",
+        description: "Quy trình 4 bước Shadowing cùng audio chuẩn để rèn cơ miệng và phản xạ tức thời.",
+        order: 2,
+        vocabularies: [
+          { word: "Shadowing", phonetic: "/ˈʃædəʊɪŋ/", meaning: "Kỹ thuật nhại giọng", example: "Shadowing trains your tongue muscles." },
+          { word: "Rhythm", phonetic: "/ˈrɪðəm/", meaning: "Nhịp điệu", example: "Feel the natural rhythm of English speech." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 5,
+    title: "Ngữ Pháp Tiếng Anh Ứng Dụng Trong Đời Sống & Công Việc",
+    titleEn: "Practical English Grammar in Use",
+    category: "grammar",
+    level: "Cơ bản - Nâng cao (A2-B2)",
+    badge: "Toàn diện",
+    instructor: "Sarah Jenkins (Oxford CELTA)",
+    thumbnail: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80",
+    youtubeUrl: "https://www.youtube.com/watch?v=jul22654iL0",
+    youtubeId: "jul22654iL0",
+    views: 1640,
+    rating: 4.85,
+    description: "Học ngữ pháp theo lối tư duy ứng dụng thực tế, không học vẹt công thức: Các thì then chốt, câu bị động, mệnh đề quan hệ và cách viết email lịch thiệp.",
+    lessons: [
+      {
+        id: 1,
+        title: "Bài 1: Làm chủ Các Thì Quá Khứ & Hiện Tại Hoàn Thành không bị nhầm lẫn",
+        youtubeUrl: "https://www.youtube.com/watch?v=jul22654iL0",
+        youtubeId: "jul22654iL0",
+        duration: "23:40",
+        description: "Bản đồ thời gian trực quan phân biệt Past Simple, Present Perfect và Present Perfect Continuous.",
+        order: 1,
+        vocabularies: [
+          { word: "Experience", phonetic: "/ɪkˈspɪəriəns/", meaning: "Trải nghiệm / Kinh nghiệm", example: "Have you ever experienced this before?" },
+          { word: "Recently", phonetic: "/ˈriːsntli/", meaning: "Gần đây", example: "I have recently finished my assignment." }
+        ]
+      },
+      {
+        id: 2,
+        title: "Bài 2: Câu Điều Kiện & Động Từ Khuyết Thiếu trong Đàm phán và Email",
+        youtubeUrl: "https://www.youtube.com/watch?v=W5iP_1F25fQ",
+        youtubeId: "W5iP_1F25fQ",
+        duration: "20:15",
+        description: "Sử dụng Would, Could, If clause một cách lịch sự, tinh tế khi thương lượng với đối tác và đồng nghiệp.",
+        order: 2,
+        vocabularies: [
+          { word: "Conditional", phonetic: "/kənˈdɪʃənl/", meaning: "Điều kiện", example: "Conditional sentences help state hypothetical situations." },
+          { word: "Polite", phonetic: "/pəˈlaɪt/", meaning: "Lịch sự / Nhã nhặn", example: "Could you please review this when polite?" }
+        ]
+      }
+    ]
+  }
+];
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     VOCABULARY_DATA,
@@ -788,6 +1041,7 @@ if (typeof module !== 'undefined' && module.exports) {
     TECH_NEWS_DATA,
     IT_COURSES_DATA,
     IT_VOCABULARY_DATA,
+    ENGLISH_COURSES_DATA,
     CODE_PLAYGROUND_TEMPLATES
   };
 }

@@ -13,10 +13,12 @@ router.get('/', async (req, res) => {
     }
 
     if (search) {
+      const { escapeRegex } = require('../middleware/security');
+      const safeSearch = escapeRegex(search);
       query.$or = [
-        { title: { $regex: search, $options: 'i' } },
-        { summary: { $regex: search, $options: 'i' } },
-        { content: { $regex: search, $options: 'i' } }
+        { title: { $regex: safeSearch, $options: 'i' } },
+        { summary: { $regex: safeSearch, $options: 'i' } },
+        { content: { $regex: safeSearch, $options: 'i' } }
       ];
     }
 

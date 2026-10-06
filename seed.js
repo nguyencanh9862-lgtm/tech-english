@@ -5,7 +5,8 @@ const Grammar = require('./models/Grammar');
 const Quiz = require('./models/Quiz');
 const News = require('./models/News');
 const ITCourse = require('./models/ITCourse');
-const { TECH_NEWS_DATA, IT_COURSES_DATA } = require('./js/data');
+const Course = require('./models/Course');
+const { TECH_NEWS_DATA, IT_COURSES_DATA, ENGLISH_COURSES_DATA } = require('./js/data');
 
 dotenv.config();
 
@@ -235,6 +236,31 @@ async function seedDatabase() {
     console.log(`✅ Seeded ${IT_COURSES_DATA.length} IT courses & lessons.`);
   } else {
     console.log(`ℹ️ ITCourse collection already has ${itCourseCount} courses. Skipping.`);
+  }
+
+  const courseCount = await Course.countDocuments();
+  if (courseCount === 0) {
+    console.log('🌱 Seeding English Video Courses...');
+    await Course.insertMany(ENGLISH_COURSES_DATA);
+    console.log(`✅ Seeded ${ENGLISH_COURSES_DATA.length} English video courses.`);
+  } else {
+    console.log(`ℹ️ Course collection already has ${courseCount} courses. Skipping.`);
+  }
+
+  // Seed secure default admin account if not existing
+  const User = require('./models/User');
+  const bcrypt = require('bcryptjs');
+  const adminExists = await User.findOne({ email: 'admin@englishmaster.vn' });
+  if (!adminExists) {
+    const hashedAdminPassword = await bcrypt.hash(process.env.ADMIN_DEFAULT_PASSWORD || 'admin123', 10);
+    await User.create({
+      name: 'Quản trị viên',
+      email: 'admin@englishmaster.vn',
+      password: hashedAdminPassword,
+      role: 'admin',
+      authProvider: 'local'
+    });
+    console.log('✅ Default admin account seeded securely with hashed password.');
   }
 
   console.log('🎉 Seeding process completed successfully!');

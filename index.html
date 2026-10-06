@@ -12,38 +12,178 @@
 </head>
 <body>
 
+  <!-- ===== TOP SCROLL PROGRESS BAR ===== -->
+  <div class="scroll-progress-line" id="scrollProgressLine"></div>
+
   <!-- ===== HEADER / NAVBAR ===== -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#" class="nav-logo">
-        <i class="fas fa-laptop-code" style="color:#6366f1"></i>
-        <span>Tech<strong>English</strong></span>
+      <!-- Brand Logo -->
+      <a href="#home" class="nav-logo">
+        <div class="logo-icon-box">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <span class="logo-text">Tech<span class="logo-gradient">English</span></span>
+        <span class="logo-badge-pro">PRO</span>
       </a>
 
+      <!-- Navigation Menu -->
       <nav class="nav-menu" id="navMenu">
         <ul class="nav-list">
-          <li><a href="#home" class="nav-link active">Trang chủ</a></li>
-          <li><a href="#it-academy" class="nav-link"><i class="fas fa-code"></i> Học CNTT</a></li>
-          <li><a href="#tech-news" class="nav-link"><i class="fas fa-newspaper"></i> Tin tức CNTT</a></li>
-          <li><a href="#code-playground" class="nav-link"><i class="fas fa-terminal"></i> Thực hành Code</a></li>
-          <li><a href="#vocabulary" class="nav-link">Từ vựng</a></li>
-          <li><a href="#grammar" class="nav-link">Ngữ pháp</a></li>
-          <li><a href="#quiz" class="nav-link">Kiểm tra</a></li>
-          <li><a href="#flashcard" class="nav-link">Flashcard</a></li>
+          <li class="nav-item">
+            <a href="#home" class="nav-link active">
+              <i class="fas fa-house"></i>
+              <span>Trang chủ</span>
+            </a>
+          </li>
+
+          <!-- Video Courses (Featured) -->
+          <li class="nav-item">
+            <a href="#video-courses" class="nav-link nav-link--highlight">
+              <i class="fab fa-youtube nav-icon-youtube"></i>
+              <span>Khóa học Video</span>
+              <span class="nav-badge-hot">MỚI</span>
+            </a>
+          </li>
+
+          <!-- IT & Code Dropdown -->
+          <li class="nav-item nav-item--dropdown">
+            <a href="#it-academy" class="nav-link nav-link--has-dropdown" aria-haspopup="true">
+              <i class="fas fa-code"></i>
+              <span>CNTT & Code</span>
+              <i class="fas fa-chevron-down nav-chevron"></i>
+            </a>
+            <div class="nav-dropdown-menu">
+              <a href="#it-academy" class="dropdown-card-item">
+                <div class="dropdown-icon-box icon-it">
+                  <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Lộ trình CNTT Chuyên Ngành</div>
+                  <div class="dropdown-desc">Bài giảng song ngữ & thuật ngữ IT thực chiến</div>
+                </div>
+              </a>
+              <a href="#code-playground" class="dropdown-card-item">
+                <div class="dropdown-icon-box icon-code">
+                  <i class="fas fa-terminal"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">DevSandbox Code Live</div>
+                  <div class="dropdown-desc">Viết & chạy thử JavaScript trực tiếp trên web</div>
+                </div>
+              </a>
+              <a href="#tech-news" class="dropdown-card-item">
+                <div class="dropdown-icon-box icon-news">
+                  <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Cổng Tin Tức Công Nghệ</div>
+                  <div class="dropdown-desc">Cập nhật tin tức AI, Cloud, Security & Từ vựng Tech</div>
+                </div>
+              </a>
+            </div>
+          </li>
+
+          <!-- English Skills Dropdown -->
+          <li class="nav-item nav-item--dropdown">
+            <a href="#vocabulary" class="nav-link nav-link--has-dropdown" aria-haspopup="true">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Học Tiếng Anh</span>
+              <i class="fas fa-chevron-down nav-chevron"></i>
+            </a>
+            <div class="nav-dropdown-menu">
+              <a href="#vocabulary" class="dropdown-card-item">
+                <div class="dropdown-icon-box icon-vocab">
+                  <i class="fas fa-book-bookmark"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Kho Từ Vựng Theo Chủ Đề</div>
+                  <div class="dropdown-desc">10,000+ từ vựng kèm phát âm bản xứ chuẩn IPA</div>
+                </div>
+              </a>
+              <a href="#grammar" class="dropdown-card-item">
+                <div class="dropdown-icon-box icon-grammar">
+                  <i class="fas fa-pen-nib"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Ngữ Pháp Ứng Dụng</div>
+                  <div class="dropdown-desc">Quy tắc ngữ pháp & mẫu câu giao tiếp từ A1 tới B2</div>
+                </div>
+              </a>
+              <a href="#quiz" class="dropdown-card-item">
+                <div class="dropdown-icon-box icon-quiz">
+                  <i class="fas fa-circle-question"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Trắc Nghiệm Quiz Phản Xạ</div>
+                  <div class="dropdown-desc">Luyện tập câu hỏi trắc nghiệm & tích lũy XP</div>
+                </div>
+              </a>
+              <a href="#flashcard" class="dropdown-card-item">
+                <div class="dropdown-icon-box icon-flashcard">
+                  <i class="fas fa-clone"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Thẻ Ghi Nhớ Flashcard</div>
+                  <div class="dropdown-desc">Ghi nhớ ngắt quãng Spaced Repetition siêu tốc</div>
+                </div>
+              </a>
+            </div>
+          </li>
+
+          <!-- Progress shortcut -->
+          <li class="nav-item">
+            <a href="#progress" class="nav-link">
+              <i class="fas fa-chart-line"></i>
+              <span>Tiến độ</span>
+            </a>
+          </li>
         </ul>
-        <div class="nav-actions" id="navAuthContainer">
+
+        <!-- Right Side Actions -->
+        <div class="nav-actions">
+          <!-- Spotlight Search Trigger -->
+          <button class="nav-search-btn" onclick="openSpotlightModal()" title="Tìm kiếm nhanh toàn trang (Ctrl+K)">
+            <i class="fas fa-search"></i>
+            <span class="search-text">Tìm kiếm</span>
+            <kbd class="search-shortcut">Ctrl K</kbd>
+          </button>
+
+          <!-- Quick Stats Pills -->
+          <div class="nav-stat-pill nav-stat-streak" title="Chuỗi ngày học liên tục 🔥" onclick="scrollToSection('progress')">
+            <span class="pill-emoji">🔥</span>
+            <strong id="navStreakCount">7</strong><span class="pill-suffix">d</span>
+          </div>
+          <div class="nav-stat-pill nav-stat-xp" title="Điểm kinh nghiệm tích lũy ⚡" onclick="scrollToSection('progress')">
+            <span class="pill-emoji pill-bolt">⚡</span>
+            <strong id="navXpCount">250</strong><span class="pill-suffix">XP</span>
+          </div>
+
+          <!-- Theme Toggle (Dark / Light) -->
           <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
             <i class="fas fa-moon" id="themeIcon"></i>
           </button>
-          <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin">
-            <i class="fab fa-google"></i> Đăng nhập
-          </button>
-          <a href="admin/index.html" class="btn btn--outline nav-cta" style="font-size:.85rem;padding:.55rem 1.1rem">
-            <i class="fas fa-shield-halved"></i> Admin
-          </a>
+
+          <!-- User Authentication Box (Dynamic) -->
+          <div class="nav-auth-wrapper" id="navAuthContainer">
+            <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin">
+              <svg class="google-svg" viewBox="0 0 24 24" width="16" height="16">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Đăng nhập</span>
+            </button>
+            <a href="admin/index.html" class="nav-admin-btn" title="Trang quản trị Admin">
+              <i class="fas fa-shield-halved"></i>
+              <span>Admin</span>
+            </a>
+          </div>
         </div>
       </nav>
 
+      <!-- Mobile Hamburger Button -->
       <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
         <span></span><span></span><span></span>
       </button>
@@ -59,7 +199,7 @@
     </div>
     <div class="container hero-container">
       <div class="hero-content" data-aos="fade-right">
-        <span class="hero-badge"><i class="fas fa-rocket"></i> Nền tảng Học Tiếng Anh & CNTT Song Ngữ Toàn Diện</span>
+        <span class="hero-badge"><span class="pulse-dot"></span><i class="fas fa-rocket"></i> Nền tảng Học Tiếng Anh & CNTT Song Ngữ Toàn Diện</span>
         <h1 class="hero-title">
           Tiếng Anh & CNTT<br>
           <span class="gradient-text">Bứt phá Sự nghiệp Tech</span>
@@ -68,11 +208,11 @@
           Kết hợp hoàn hảo giữa <strong>học Tiếng Anh chuyên ngành</strong> và <strong>kiến thức Lập trình thực chiến</strong>: Web, Backend, Thuật toán, DevOps, AI cùng cổng tin tức công nghệ cập nhật liên tục!
         </p>
         <div class="hero-actions">
-          <button class="btn btn--primary btn--lg" onclick="scrollToSection('it-academy')">
-            <i class="fas fa-laptop-code"></i> Khám phá Học CNTT
+          <button class="btn btn--primary btn--lg btn--shimmer" onclick="scrollToSection('video-courses')">
+            <i class="fab fa-youtube" style="color:#ffffff"></i> Khám phá Khóa học Video
           </button>
-          <button class="btn btn--outline btn--lg" onclick="scrollToSection('tech-news')">
-            <i class="fas fa-newspaper"></i> Tin tức Công nghệ
+          <button class="btn btn--outline btn--lg" onclick="scrollToSection('it-academy')">
+            <i class="fas fa-laptop-code"></i> Học CNTT Song ngữ
           </button>
         </div>
         <div class="hero-stats">
@@ -96,29 +236,49 @@
         <div class="hero-card-group">
           <div class="floating-card card--word">
             <div class="word-of-day">
-              <span class="wod-label">Word of the Day</span>
+              <span class="wod-label"><i class="fas fa-sparkles" style="color:#f59e0b;margin-right:3px"></i> Word of the Day</span>
               <h3 class="wod-word">Serendipity</h3>
               <p class="wod-phonetic">/ˌserənˈdɪpɪti/</p>
-              <p class="wod-meaning">n. May mắn tình cờ; điều kỳ diệu bất ngờ</p>
-              <button class="btn btn--ghost btn--sm" onclick="speakWord('Serendipity')">
+              <p class="wod-meaning">n. May mắn tình cờ; điều kỳ diệu bất ngờ trong hành trình tech</p>
+              <button class="btn btn--ghost btn--sm" id="btnSpeakWod" onclick="speakWOD()">
                 <i class="fas fa-volume-up"></i> Nghe phát âm
+                <span class="audio-wave-bars" id="wodAudioWave">
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                </span>
               </button>
             </div>
           </div>
           <div class="floating-card card--progress">
             <div class="progress-mini">
               <i class="fas fa-fire" style="color:#ff6b35"></i>
-              <span>7 ngày liên tiếp 🔥</span>
+              <span>7 ngày học liên tục 🔥</span>
             </div>
             <div class="progress-bar-wrap">
               <div class="progress-bar-fill" style="width:72%"></div>
             </div>
-            <small>72% mục tiêu tuần</small>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <small>72% mục tiêu tuần</small>
+              <small style="color:#10b981;font-weight:700">+120 XP hôm nay</small>
+            </div>
+            <div class="week-streak-row">
+              <div class="streak-day-dot active"><span class="day-circle"><i class="fas fa-fire"></i></span><span>T2</span></div>
+              <div class="streak-day-dot active"><span class="day-circle"><i class="fas fa-fire"></i></span><span>T3</span></div>
+              <div class="streak-day-dot active"><span class="day-circle"><i class="fas fa-fire"></i></span><span>T4</span></div>
+              <div class="streak-day-dot active"><span class="day-circle"><i class="fas fa-fire"></i></span><span>T5</span></div>
+              <div class="streak-day-dot active"><span class="day-circle"><i class="fas fa-fire"></i></span><span>T6</span></div>
+              <div class="streak-day-dot active"><span class="day-circle"><i class="fas fa-fire"></i></span><span>T7</span></div>
+              <div class="streak-day-dot"><span class="day-circle">CN</span><span>CN</span></div>
+            </div>
           </div>
           <div class="floating-card card--level">
             <i class="fas fa-trophy" style="color:#f59e0b"></i>
-            <span>Level B2</span>
-            <span class="badge-new">Upper Intermediate</span>
+            <div>
+              <span>Level B2</span>
+              <span class="badge-new">Upper Intermediate</span>
+            </div>
           </div>
         </div>
       </div>
@@ -176,6 +336,44 @@
           <h3>Miễn phí mãi mãi</h3>
           <p>Tất cả tính năng cơ bản hoàn toàn miễn phí, không giới hạn thời gian</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIDEO COURSES SECTION ===== -->
+  <section class="video-courses-section" id="video-courses">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fab fa-youtube" style="color:#ef4444"></i> English Video Courses</span>
+        <h2 class="section-title">Khóa Học Tiếng Anh <span class="gradient-text">Video Chuẩn Quốc Tế</span></h2>
+        <p class="section-desc">Học trực quan qua video YouTube bài giảng chất lượng cao: Giao tiếp thực tế, Tiếng Anh CNTT, Phát âm IPA và Ngữ pháp có kèm từ vựng & xem trực tiếp trên website.</p>
+      </div>
+
+      <!-- Action Toolbar: Category tabs, Search, Create Course Button -->
+      <div class="courses-toolbar">
+        <div class="courses-filter-tabs" id="coursesFilterTabs">
+          <button class="course-tab-btn active" data-cat="all" onclick="filterCourses('all', this)"><i class="fas fa-layer-group"></i> Tất cả khóa học</button>
+          <button class="course-tab-btn" data-cat="communication" onclick="filterCourses('communication', this)"><i class="fas fa-comments"></i> Giao tiếp</button>
+          <button class="course-tab-btn" data-cat="it" onclick="filterCourses('it', this)"><i class="fas fa-laptop-code"></i> Tiếng Anh CNTT</button>
+          <button class="course-tab-btn" data-cat="pronunciation" onclick="filterCourses('pronunciation', this)"><i class="fas fa-microphone-lines"></i> Phát âm IPA</button>
+          <button class="course-tab-btn" data-cat="listening" onclick="filterCourses('listening', this)"><i class="fas fa-headphones"></i> Luyện nghe phản xạ</button>
+          <button class="course-tab-btn" data-cat="grammar" onclick="filterCourses('grammar', this)"><i class="fas fa-pen-nib"></i> Ngữ pháp ứng dụng</button>
+        </div>
+
+        <div class="courses-actions-row">
+          <div class="courses-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="courseSearchInput" placeholder="Tìm khóa học, giảng viên, chủ đề..." oninput="handleCourseSearch(this.value)" />
+          </div>
+          <button class="btn-create-course" onclick="openCreateCourseModal()">
+            <i class="fas fa-circle-plus"></i> Tạo khóa học mới
+          </button>
+        </div>
+      </div>
+
+      <!-- Courses Grid -->
+      <div class="courses-grid" id="coursesGrid">
+        <!-- Rendered by JS -->
       </div>
     </div>
   </section>
@@ -343,14 +541,21 @@
         <p class="section-desc">Hơn 10,000 từ được phân loại theo chủ đề và cấp độ</p>
       </div>
 
-      <!-- Category Filter -->
-      <div class="vocab-filter">
-        <button class="filter-btn active" data-filter="all">Tất cả</button>
-        <button class="filter-btn" data-filter="daily">Hàng ngày</button>
-        <button class="filter-btn" data-filter="business">Kinh doanh</button>
-        <button class="filter-btn" data-filter="travel">Du lịch</button>
-        <button class="filter-btn" data-filter="academic">Học thuật</button>
-        <button class="filter-btn" data-filter="idiom">Thành ngữ</button>
+      <!-- Category Filter & Google Sheet Sync Toolbar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+        <div class="vocab-filter" style="margin-bottom:0">
+          <button class="filter-btn active" data-filter="all">Tất cả</button>
+          <button class="filter-btn" data-filter="daily">Hàng ngày</button>
+          <button class="filter-btn" data-filter="business">Kinh doanh</button>
+          <button class="filter-btn" data-filter="travel">Du lịch</button>
+          <button class="filter-btn" data-filter="academic">Học thuật</button>
+          <button class="filter-btn" data-filter="idiom">Thành ngữ</button>
+        </div>
+        <button class="btn-sheet-client" onclick="openClientSheetModal()" title="Học từ vựng từ bảng tính Google Sheet của bạn">
+          <i class="fas fa-file-excel" style="color:#10b981"></i>
+          <span>Học từ Google Sheet</span>
+          <span class="sheet-pill-tag">Live</span>
+        </button>
       </div>
 
       <div class="vocab-grid" id="vocabGrid">
@@ -726,8 +931,11 @@
     </div>
   </footer>
 
-  <!-- ===== SCROLL TO TOP ===== -->
-  <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+  <!-- ===== SCROLL TO TOP WITH CIRCULAR PROGRESS RING ===== -->
+  <button class="scroll-top" id="scrollTop" onclick="scrollToTop()" title="Lên đầu trang">
+    <svg class="progress-ring" width="44" height="44">
+      <circle class="progress-ring-circle" stroke="#6366f1" stroke-width="3.5" fill="transparent" r="18" cx="22" cy="22"/>
+    </svg>
     <i class="fas fa-arrow-up"></i>
   </button>
 
@@ -815,6 +1023,247 @@
       <button class="modal-close-btn" onclick="closeCourseModal()"><i class="fas fa-times"></i></button>
       <div id="courseModalContent">
         <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIDEO COURSE PLAYER MODAL ===== -->
+  <div class="detail-modal-overlay" id="videoCourseModal" style="display:none">
+    <div class="video-modal-box">
+      <button class="modal-close-btn" onclick="closeVideoCourseModal()"><i class="fas fa-times"></i></button>
+      <div id="videoCourseModalContent">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CREATE ENGLISH COURSE MODAL ===== -->
+  <div class="detail-modal-overlay" id="createCourseModal" style="display:none">
+    <div class="detail-modal-box" style="max-width:720px">
+      <button class="modal-close-btn" onclick="closeCreateCourseModal()"><i class="fas fa-times"></i></button>
+      <div style="margin-bottom:1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div>
+          <h3 style="font-size:1.4rem;color:var(--text-primary);display:flex;align-items:center;gap:.6rem">
+            <i class="fab fa-youtube" style="color:#ef4444"></i> Tạo Khóa Học Tiếng Anh Mới
+          </h3>
+          <p style="color:var(--text-secondary);font-size:.9rem;margin-top:.25rem">
+            Gắn link YouTube bài giảng, tạo danh sách bài học và chia sẻ nội dung học tiếng Anh trực quan.
+          </p>
+        </div>
+        <button type="button" class="btn btn--outline btn--sm" onclick="fillSampleCourseData()" style="font-size:.82rem;gap:.4rem">
+          <i class="fas fa-magic" style="color:#f59e0b"></i> Điền thử dữ liệu mẫu
+        </button>
+      </div>
+
+      <form id="createCourseForm" onsubmit="handleCreateCourseSubmit(event)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+          <div class="form-group">
+            <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+              Tên khóa học (Tiếng Việt) <span style="color:#ef4444">*</span>
+            </label>
+            <input type="text" id="courseInputTitle" required placeholder="VD: Tiếng Anh Giao Tiếp Thực Chiến..." style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)" />
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+              Tên tiếng Anh (English Title)
+            </label>
+            <input type="text" id="courseInputTitleEn" placeholder="VD: Practical Everyday English..." style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)" />
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+          <div class="form-group">
+            <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+              Chuyên mục <span style="color:#ef4444">*</span>
+            </label>
+            <select id="courseInputCat" style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)">
+              <option value="communication">Giao tiếp hàng ngày</option>
+              <option value="it">Tiếng Anh CNTT & Tech</option>
+              <option value="pronunciation">Phát âm & Ngữ điệu (IPA)</option>
+              <option value="listening">Luyện nghe phản xạ</option>
+              <option value="grammar">Ngữ pháp ứng dụng</option>
+              <option value="ielts">Luyện thi (IELTS/TOEIC)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+              Trình độ
+            </label>
+            <select id="courseInputLevel" style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)">
+              <option value="Cơ bản (A1-A2)">Cơ bản (A1-A2)</option>
+              <option value="Trung cấp (B1-B2)">Trung cấp (B1-B2)</option>
+              <option value="Nâng cao (C1-C2)">Nâng cao (C1-C2)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+              Giảng viên / Kênh
+            </label>
+            <input type="text" id="courseInputInstructor" placeholder="VD: Cô Mai Phương / Rachel" style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)" />
+          </div>
+        </div>
+
+        <!-- YouTube Link with Live Preview -->
+        <div class="form-group" style="margin-bottom:1rem">
+          <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+            <i class="fab fa-youtube" style="color:#ef4444"></i> Link YouTube Video chính <span style="color:#ef4444">*</span>
+          </label>
+          <input type="url" id="courseInputYtUrl" required placeholder="https://www.youtube.com/watch?v=... hoặc https://youtu.be/..." oninput="handleYoutubeInputPreview(this.value, 'ytMainPreview')" style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)" />
+          <div class="yt-preview-box" id="ytMainPreview">
+            <img src="" class="yt-preview-thumb" id="ytMainPreviewImg" alt="Thumbnail" />
+            <div class="yt-preview-info">
+              <div class="yt-preview-status"><i class="fas fa-check-circle"></i> Đã nhận diện YouTube Video!</div>
+              <div id="ytMainPreviewId" style="color:var(--text-secondary);font-size:.8rem;font-family:monospace"></div>
+              <div style="color:#10b981;font-size:.78rem;margin-top:.2rem">Tự động chọn làm bài học số 1 & ảnh bìa khóa học</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:1rem">
+          <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+            Mô tả chi tiết khóa học <span style="color:#ef4444">*</span>
+          </label>
+          <textarea id="courseInputDesc" required rows="3" placeholder="Mô tả mục tiêu khóa học, đối tượng học viên và kiến thức đạt được..." style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary);resize:vertical"></textarea>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:.75rem;margin-top:1.5rem">
+          <button type="button" class="btn btn--outline" onclick="closeCreateCourseModal()">Hủy bỏ</button>
+          <button type="submit" class="btn btn--primary" id="btnSubmitCourse">
+            <i class="fas fa-circle-check"></i> Lưu & Xuất bản Khóa học
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== ADD LESSON TO COURSE MODAL ===== -->
+  <div class="detail-modal-overlay" id="addLessonModal" style="display:none">
+    <div class="detail-modal-box" style="max-width:600px">
+      <button class="modal-close-btn" onclick="closeAddLessonModal()"><i class="fas fa-times"></i></button>
+      <div style="margin-bottom:1.25rem">
+        <h3 style="font-size:1.3rem;color:var(--text-primary);display:flex;align-items:center;gap:.5rem">
+          <i class="fas fa-video" style="color:#6366f1"></i> Thêm Bài Học Video Mới
+        </h3>
+        <p style="color:var(--text-secondary);font-size:.88rem;margin-top:.25rem" id="addLessonCourseName">
+          Khóa học: ...
+        </p>
+      </div>
+
+      <form id="addLessonForm" onsubmit="handleAddLessonSubmit(event)">
+        <input type="hidden" id="addLessonCourseId" value="" />
+        <div class="form-group" style="margin-bottom:1rem">
+          <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+            Tiêu đề bài học <span style="color:#ef4444">*</span>
+          </label>
+          <input type="text" id="lessonInputTitle" required placeholder="VD: Bài 2: Cách hỏi đường và địa điểm..." style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)" />
+        </div>
+
+        <div class="form-group" style="margin-bottom:1rem">
+          <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+            <i class="fab fa-youtube" style="color:#ef4444"></i> Link YouTube Video <span style="color:#ef4444">*</span>
+          </label>
+          <input type="url" id="lessonInputYtUrl" required placeholder="https://www.youtube.com/watch?v=..." oninput="handleYoutubeInputPreview(this.value, 'ytLessonPreview')" style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)" />
+          <div class="yt-preview-box" id="ytLessonPreview">
+            <img src="" class="yt-preview-thumb" id="ytLessonPreviewImg" alt="Thumbnail" />
+            <div class="yt-preview-info">
+              <div class="yt-preview-status"><i class="fas fa-check-circle"></i> Đã nhận diện YouTube Video!</div>
+              <div id="ytLessonPreviewId" style="color:var(--text-secondary);font-size:.8rem;font-family:monospace"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+          <div class="form-group">
+            <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+              Thời lượng (phút:giây)
+            </label>
+            <input type="text" id="lessonInputDuration" placeholder="VD: 15:30" value="15:00" style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)" />
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary)">
+              Ghi chú tóm tắt bài học
+            </label>
+            <input type="text" id="lessonInputDesc" placeholder="Tóm tắt nội dung trọng tâm..." style="width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary)" />
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:.75rem;margin-top:1.5rem">
+          <button type="button" class="btn btn--outline" onclick="closeAddLessonModal()">Hủy</button>
+          <button type="submit" class="btn btn--primary">
+            <i class="fas fa-plus"></i> Thêm bài học
+          </button>
+        </div>
+      </form>
+    </div>
+  <!-- ===== CLIENT GOOGLE SHEET STUDY MODAL ===== -->
+  <div class="detail-modal-overlay" id="clientSheetModal" style="display:none">
+    <div class="detail-modal-box" style="max-width:850px;width:95%">
+      <button class="modal-close-btn" onclick="closeClientSheetModal()"><i class="fas fa-times"></i></button>
+      <div style="margin-bottom:1.25rem">
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <div style="width:40px;height:40px;border-radius:12px;background:rgba(16,185,129,0.15);color:#10b981;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0">
+            <i class="fas fa-file-excel"></i>
+          </div>
+          <div>
+            <h3 style="font-size:1.35rem;font-weight:800;color:var(--text-primary)">
+              Học Tiếng Anh Từ Google Sheets Của Bạn
+            </h3>
+            <p style="color:var(--text-secondary);font-size:.85rem;margin-top:2px">
+              Dán link bảng tính bất kỳ để tự động biến thành Thẻ Flashcard 3D, Phát âm giọng bản xứ & Trắc nghiệm Quiz!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sheet URL Input Bar -->
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;margin-bottom:1.25rem">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <input type="url" id="clientSheetUrlInput" placeholder="Dán link Google Sheet từ vựng (https://docs.google.com/spreadsheets/d/...)" style="flex:1;min-width:260px;padding:.75rem 1rem;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-size:.9rem" />
+          <button class="btn btn--primary" onclick="loadClientSheetData()" id="btnClientLoadSheet" style="background:linear-gradient(135deg,#10b981,#059669);border:none;box-shadow:0 4px 12px rgba(16,185,129,0.3);gap:.5rem">
+            <i class="fas fa-bolt"></i> Nạp Bảng Tính
+          </button>
+          <button class="btn btn--outline" onclick="loadClientSampleSheet()" title="Dùng bảng từ vựng mẫu demo" style="gap:.4rem">
+            <i class="fas fa-magic" style="color:#f59e0b"></i> Dùng Sheet Mẫu
+          </button>
+        </div>
+        <div style="font-size:.76rem;color:var(--text-muted);margin-top:.45rem;display:flex;align-items:center;gap:.35rem">
+          <i class="fas fa-circle-info" style="color:#38bdf8"></i> Cần bật: <strong>Chia sẻ -> Bất kỳ ai có đường liên kết đều có thể xem</strong> (Anyone with the link can view).
+        </div>
+      </div>
+
+      <!-- Study Container (Flashcard / List / Quiz) -->
+      <div id="clientSheetStudyContainer" style="display:none">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SPOTLIGHT GLOBAL SEARCH (COMMAND PALETTE) ===== -->
+  <div class="spotlight-overlay" id="spotlightModal" onclick="handleSpotlightOverlayClick(event)">
+    <div class="spotlight-box">
+      <div class="spotlight-input-wrap">
+        <i class="fas fa-search"></i>
+        <input type="text" class="spotlight-input" id="spotlightInput" placeholder="Tìm khóa học, video, từ vựng, ngữ pháp, code..." oninput="handleSpotlightSearch(this.value)" autocomplete="off" />
+        <button class="spotlight-kbd-close" onclick="closeSpotlightModal()">Esc</button>
+      </div>
+
+      <div class="spotlight-tabs" id="spotlightTabs">
+        <button class="spotlight-tab-btn active" data-type="all" onclick="filterSpotlightType('all', this)">Tất cả</button>
+        <button class="spotlight-tab-btn" data-type="course" onclick="filterSpotlightType('course', this)"><i class="fab fa-youtube" style="color:#ef4444"></i> Khóa học Video</button>
+        <button class="spotlight-tab-btn" data-type="vocab" onclick="filterSpotlightType('vocab', this)"><i class="fas fa-book-open" style="color:#6366f1"></i> Từ vựng</button>
+        <button class="spotlight-tab-btn" data-type="grammar" onclick="filterSpotlightType('grammar', this)"><i class="fas fa-pen-nib" style="color:#10b981"></i> Ngữ pháp</button>
+        <button class="spotlight-tab-btn" data-type="it" onclick="filterSpotlightType('it', this)"><i class="fas fa-code" style="color:#f59e0b"></i> Lập trình CNTT</button>
+        <button class="spotlight-tab-btn" data-type="news" onclick="filterSpotlightType('news', this)"><i class="fas fa-newspaper" style="color:#38bdf8"></i> Tin tức Tech</button>
+      </div>
+
+      <div class="spotlight-results" id="spotlightResults">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="spotlight-footer">
+        <span><kbd style="background:var(--bg-card);padding:.15rem .35rem;border-radius:4px;border:1px solid var(--border-color);font-size:.7rem">↑</kbd> <kbd style="background:var(--bg-card);padding:.15rem .35rem;border-radius:4px;border:1px solid var(--border-color);font-size:.7rem">↓</kbd> để di chuyển</span>
+        <span><kbd style="background:var(--bg-card);padding:.15rem .35rem;border-radius:4px;border:1px solid var(--border-color);font-size:.7rem">Enter</kbd> để mở</span>
+        <span><kbd style="background:var(--bg-card);padding:.15rem .35rem;border-radius:4px;border:1px solid var(--border-color);font-size:.7rem">Esc</kbd> để thoát</span>
       </div>
     </div>
   </div>
