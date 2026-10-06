@@ -9,6 +9,10 @@ let state = {
   learnedWords: parseInt(localStorage.getItem('em_words') || '0'),
   earnedBadges: JSON.parse(localStorage.getItem('em_badges') || '[]'),
   lastSeen: localStorage.getItem('em_lastSeen') || null,
+  soundEnabled: localStorage.getItem('em_sound') !== 'false',
+  speechAccent: localStorage.getItem('em_speech_accent') || 'en-US',
+  speechRate: parseFloat(localStorage.getItem('em_speech_rate') || '1.0'),
+  bookmarkedWords: JSON.parse(localStorage.getItem('em_bookmarked_vocab') || '[]'),
   quiz: {
     type: null,
     questions: [],
@@ -36,8 +40,12 @@ let currentCard = {};
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initNavbar();
+  initSoundFX();
+  initConfetti();
   initCounters();
   renderVocabGrid();
+  updateSavedVocabCount();
+  initWordOfTheDay();
   renderGrammar(0);
   renderFlashcards('all');
   renderProgressDashboard();
@@ -58,6 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
   syncITCoursesWithBackend();
   initVideoCourses();
   syncCoursesWithBackend();
+  initSpeechStudio();
+  initMatchGame();
+  initDictationLab();
+  initSentenceBuilder();
+  initTechInterview();
 });
 
 function getAppImageUrl(img) {
@@ -196,35 +209,99 @@ function initAOS() {
   aosEls.forEach(el => obs.observe(el));
 }
 
-// ===== VOCABULARY =====
+// ===== VOCABULARY & BOOKMARKS =====
+function isWordBookmarked(id) {
+  const strId = String(id);
+  return state.bookmarkedWords.some(item => String(item.id || item) === strId);
+}
+
+function updateSavedVocabCount() {
+  const count = state.bookmarkedWords.length;
+  const badge = document.getElementById('savedVocabBadgeCount');
+  if (badge) badge.textContent = count;
+}
+
+function toggleBookmarkWord(id) {
+  const strId = String(id);
+  const existingIdx = state.bookmarkedWords.findIndex(item => String(item.id || item) === strId);
+  const foundWord = VOCABULARY_DATA.find(w => String(w.id) === strId);
+
+  if (existingIdx >= 0) {
+    state.bookmarkedWords.splice(existingIdx, 1);
+    showToast(`Đã bỏ lưu từ "${foundWord ? foundWord.word : id}"`, 'info');
+    playSound('click');
+  } else {
+    state.bookmarkedWords.push(foundWord || { id: strId });
+    showToast(`⭐ Đã lưu từ "${foundWord ? foundWord.word : id}" vào Sổ tay!`, 'success');
+    playSound('match');
+  }
+
+  localStorage.setItem('em_bookmarked_vocab', JSON.stringify(state.bookmarkedWords));
+  updateSavedVocabCount();
+
+  // Re-render to reflect bookmark state
+  renderVocabGrid(state.vocab.filter, state.vocab.shown);
+}
+
 function renderVocabGrid(filter = 'all', limit = 8) {
   const grid = document.getElementById('vocabGrid');
-  const data = filter === 'all' ? VOCABULARY_DATA : VOCABULARY_DATA.filter(w => w.category === filter);
+  if (!grid) return;
+
+  let data = VOCABULARY_DATA;
+  if (filter === 'saved') {
+    data = VOCABULARY_DATA.filter(w => isWordBookmarked(w.id));
+    if (data.length === 0 && state.bookmarkedWords.length > 0) {
+      // In case saved words were custom objects
+      data = state.bookmarkedWords.filter(w => w.word);
+    }
+  } else if (filter !== 'all') {
+    data = VOCABULARY_DATA.filter(w => w.category === filter);
+  }
+
+  if (filter === 'saved' && data.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; background: var(--bg-card); border-radius: 16px; border: 1px dashed var(--border-color)">
+        <i class="fas fa-star" style="font-size: 2.5rem; color: #f59e0b; margin-bottom: 0.75rem; opacity: 0.7"></i>
+        <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 0.35rem">Chưa có từ vựng nào được lưu</h4>
+        <p style="color: var(--text-secondary); font-size: 0.9rem">Bấm vào biểu tượng ngôi sao ⭐ trên bất kỳ thẻ từ vựng nào để thêm vào Sổ tay ôn tập nhé!</p>
+      </div>
+    `;
+    return;
+  }
+
   const shown = data.slice(0, limit);
 
-  grid.innerHTML = shown.map(w => `
-    <div class="vocab-card" data-category="${w.category}" data-id="${w.id}">
-      <div class="vocab-card-header">
-        <span class="vocab-level level--${w.level.toLowerCase()}">${w.level}</span>
-        <span class="vocab-pos">${w.pos}</span>
+  grid.innerHTML = shown.map(w => {
+    const isBookmarked = isWordBookmarked(w.id);
+    return `
+      <div class="vocab-card" data-category="${w.category || 'daily'}" data-id="${w.id}">
+        <div class="vocab-card-header">
+          <span class="vocab-level level--${(w.level || 'A1').toLowerCase()}">${w.level || 'A1'}</span>
+          <div style="display:flex;align-items:center;gap:.35rem">
+            <span class="vocab-pos">${w.pos || 'n'}</span>
+            <button class="btn-bookmark-word ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmarkWord('${w.id}')" title="${isBookmarked ? 'Bỏ lưu' : 'Lưu vào sổ tay'}">
+              <i class="fas fa-star"></i>
+            </button>
+          </div>
+        </div>
+        ${w.image ? `<img src="${getAppImageUrl(w.image)}" alt="${w.word}" class="vocab-card-img" onerror="this.style.display='none'" />` : ''}
+        <h3 class="vocab-word">${w.word}</h3>
+        <p class="vocab-phonetic">${w.phonetic || ''}</p>
+        <p class="vocab-meaning">${w.meaning || ''}</p>
+        <div class="vocab-card-footer">
+          <button class="btn btn--ghost btn--xs" onclick="speakWord('${w.word}')" title="Phát âm">
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <button class="btn btn--ghost btn--xs" onclick="toggleLearnWord(${w.id}, this)" title="Đánh dấu đã học">
+            <i class="fas fa-circle-check"></i>
+          </button>
+          <button class="btn btn--ghost btn--xs" onclick="showWordDetail(${w.id})">
+            Xem thêm <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
       </div>
-      ${w.image ? `<img src="${getAppImageUrl(w.image)}" alt="${w.word}" class="vocab-card-img" onerror="this.style.display='none'" />` : ''}
-      <h3 class="vocab-word">${w.word}</h3>
-      <p class="vocab-phonetic">${w.phonetic}</p>
-      <p class="vocab-meaning">${w.meaning}</p>
-      <div class="vocab-card-footer">
-        <button class="btn btn--ghost btn--xs" onclick="speakWord('${w.word}')">
-          <i class="fas fa-volume-up"></i>
-        </button>
-        <button class="btn btn--ghost btn--xs" onclick="toggleLearnWord(${w.id}, this)">
-          <i class="fas fa-bookmark"></i>
-        </button>
-        <button class="btn btn--ghost btn--xs" onclick="showWordDetail(${w.id})">
-          Xem thêm <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   // Mark learned
   const learned = JSON.parse(localStorage.getItem('em_learned') || '[]');
@@ -695,13 +772,15 @@ function initStreakCheck() {
 // ===== TEXT TO SPEECH =====
 function speakWOD() {
   const wave = document.getElementById('wodAudioWave');
+  const wodEl = document.getElementById('wodWord');
+  const wordText = wodEl ? wodEl.textContent.trim() : 'Architecture';
   if (wave) wave.classList.add('playing');
-  speakWord('Serendipity', () => {
+  speakWord(wordText, () => {
     if (wave) wave.classList.remove('playing');
   });
 }
 
-function speakWord(text, onEnd) {
+function speakWord(text, onEnd, customRate, customLang) {
   if (!window.speechSynthesis) {
     showToast('Trình duyệt không hỗ trợ phát âm', 'warning');
     if (onEnd) onEnd();
@@ -709,13 +788,15 @@ function speakWord(text, onEnd) {
   }
   window.speechSynthesis.cancel();
   const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'en-US';
-  utt.rate = 0.85;
+  utt.lang = customLang || state.speechAccent || 'en-US';
+  utt.rate = customRate !== undefined ? customRate : (state.speechRate || 0.9);
   utt.pitch = 1;
 
   const voices = window.speechSynthesis.getVoices();
-  const enVoice = voices.find(v => v.lang.startsWith('en-') && !v.name.includes('Google'));
-  if (enVoice) utt.voice = enVoice;
+  const langPrefix = utt.lang.toLowerCase();
+  const matchedVoice = voices.find(v => v.lang.toLowerCase().startsWith(langPrefix)) ||
+                      voices.find(v => v.lang.startsWith('en-'));
+  if (matchedVoice) utt.voice = matchedVoice;
 
   if (onEnd) {
     utt.onend = onEnd;
@@ -2853,5 +2934,1171 @@ function answerClientSheetQuiz(selectedIdx, correctIdx) {
     renderClientSheetStudyUI();
   }, 1200);
 }
+
+// ===================================================================
+// AUDIO SYNTHESIZER (WEB AUDIO API SOUND FX)
+// ===================================================================
+let webAudioContext = null;
+
+function getAudioContext() {
+  if (!webAudioContext) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      webAudioContext = new AudioContextClass();
+    }
+  }
+  if (webAudioContext && webAudioContext.state === 'suspended') {
+    webAudioContext.resume();
+  }
+  return webAudioContext;
+}
+
+function initSoundFX() {
+  const btn = document.getElementById('soundToggleBtn');
+  const icon = document.getElementById('soundIcon');
+  if (btn && icon) {
+    if (!state.soundEnabled) {
+      btn.classList.add('muted');
+      icon.className = 'fas fa-volume-xmark';
+    } else {
+      btn.classList.remove('muted');
+      icon.className = 'fas fa-volume-high';
+    }
+  }
+}
+
+function toggleSoundFX() {
+  state.soundEnabled = !state.soundEnabled;
+  localStorage.setItem('em_sound', state.soundEnabled ? 'true' : 'false');
+  initSoundFX();
+  if (state.soundEnabled) {
+    playSound('ding');
+    showToast('Âm thanh hiệu ứng: Bật', 'info');
+  } else {
+    showToast('Âm thanh hiệu ứng: Tắt', 'info');
+  }
+}
+
+function playSound(type) {
+  if (!state.soundEnabled) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+
+    if (type === 'match' || type === 'success') {
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc1.type = 'sine';
+      osc2.type = 'triangle';
+      osc1.frequency.setValueAtTime(587.33, now);
+      osc1.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+      osc2.frequency.setValueAtTime(880, now);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + 0.45);
+      osc2.stop(now + 0.45);
+    } else if (type === 'error' || type === 'buzz') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } else if (type === 'levelup' || type === 'victory') {
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = now + idx * 0.08;
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, start);
+        gain.gain.setValueAtTime(0.2, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + 0.35);
+      });
+    } else if (type === 'click') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(320, now);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.05);
+    } else if (type === 'ding') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, now);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.5);
+    }
+  } catch (e) {}
+}
+
+// ===================================================================
+// CONFETTI CELEBRATION ENGINE
+// ===================================================================
+let confettiAnimationId = null;
+let confettiParticles = [];
+
+function initConfetti() {
+  const canvas = document.getElementById('confettiCanvas');
+  if (!canvas) return;
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+}
+
+function launchConfetti(count = 110) {
+  const canvas = document.getElementById('confettiCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#38bdf8', '#8b5cf6', '#ef4444'];
+  confettiParticles = [];
+
+  for (let i = 0; i < count; i++) {
+    confettiParticles.push({
+      x: canvas.width * 0.5 + (Math.random() - 0.5) * 350,
+      y: canvas.height * 0.45 + (Math.random() - 0.5) * 150,
+      size: Math.random() * 8 + 5,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      vx: (Math.random() - 0.5) * 14,
+      vy: Math.random() * -12 - 4,
+      gravity: 0.35 + Math.random() * 0.2,
+      rotation: Math.random() * 360,
+      rotationSpeed: (Math.random() - 0.5) * 12,
+      opacity: 1
+    });
+  }
+
+  if (confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
+
+  function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+
+    for (let p of confettiParticles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += p.gravity;
+      p.rotation += p.rotationSpeed;
+      p.opacity -= 0.007;
+
+      if (p.opacity > 0 && p.y < canvas.height + 50) {
+        alive = true;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = Math.max(0, p.opacity);
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+        ctx.restore();
+      }
+    }
+
+    if (alive) {
+      confettiAnimationId = requestAnimationFrame(render);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiAnimationId = null;
+    }
+  }
+
+  render();
+}
+
+// ===================================================================
+// DYNAMIC WORD OF THE DAY
+// ===================================================================
+function initWordOfTheDay() {
+  if (typeof WORD_OF_THE_DAY_LIST === 'undefined' || !WORD_OF_THE_DAY_LIST.length) return;
+  const dayIndex = Math.floor(Date.now() / 86400000) % WORD_OF_THE_DAY_LIST.length;
+  const wod = WORD_OF_THE_DAY_LIST[dayIndex] || WORD_OF_THE_DAY_LIST[0];
+
+  const wordEl = document.getElementById('wodWord');
+  const phoneticEl = document.getElementById('wodPhonetic');
+  const meaningEl = document.getElementById('wodMeaning');
+  const exampleEl = document.getElementById('wodExample');
+  const tagEl = document.getElementById('wodTag');
+
+  if (wordEl) wordEl.textContent = wod.word;
+  if (phoneticEl) phoneticEl.textContent = wod.phonetic;
+  if (meaningEl) meaningEl.textContent = `${wod.pos}. ${wod.meaning}`;
+  if (exampleEl) exampleEl.textContent = `"${wod.example}"`;
+  if (tagEl) tagEl.textContent = wod.tag || 'Tech Vocabulary';
+}
+
+function practiceWodInStudio() {
+  const wodEl = document.getElementById('wodWord');
+  const word = wodEl ? wodEl.textContent.trim() : 'Architecture';
+  scrollToSection('speech-studio');
+
+  const select = document.getElementById('speechPhraseSelect');
+  if (select) {
+    select.value = 'custom';
+    handleSpeechPhraseChange('custom');
+  }
+  const customInput = document.getElementById('speechCustomInput');
+  if (customInput) {
+    customInput.value = word;
+    handleCustomSpeechInput(word);
+  }
+}
+
+// ===================================================================
+// 1. AI SPEECH & PRONUNCIATION STUDIO
+// ===================================================================
+let speechStudioRecognition = null;
+let isSpeechStudioRecording = false;
+let currentStudioTarget = "Microservices architecture enables independent deployment.";
+
+function initSpeechStudio() {
+  const select = document.getElementById('speechPhraseSelect');
+  const accent = document.getElementById('speechAccentSelect');
+  const rate = document.getElementById('speechRateSelect');
+
+  if (accent) accent.value = state.speechAccent || 'en-US';
+  if (rate) rate.value = (state.speechRate || 1.0).toFixed(1);
+
+  if (select) {
+    currentStudioTarget = select.value;
+    updateStudioTargetDisplay(currentStudioTarget);
+  }
+}
+
+function updateStudioTargetDisplay(text) {
+  currentStudioTarget = text;
+  const targetDisplay = document.getElementById('speechTargetDisplay');
+  if (targetDisplay) targetDisplay.textContent = text;
+}
+
+function handleSpeechPhraseChange(val) {
+  const customWrap = document.getElementById('speechCustomWrap');
+  if (val === 'custom') {
+    if (customWrap) customWrap.style.display = 'block';
+    const input = document.getElementById('speechCustomInput');
+    if (input && input.value.trim()) {
+      updateStudioTargetDisplay(input.value.trim());
+    }
+  } else {
+    if (customWrap) customWrap.style.display = 'none';
+    updateStudioTargetDisplay(val);
+  }
+  resetSpeechStudioResult();
+}
+
+function handleCustomSpeechInput(val) {
+  if (val.trim()) {
+    updateStudioTargetDisplay(val.trim());
+  }
+  resetSpeechStudioResult();
+}
+
+function changeSpeechAccent(acc) {
+  state.speechAccent = acc;
+  localStorage.setItem('em_speech_accent', acc);
+  showToast(`Đã chuyển giọng phát âm: ${acc === 'en-US' ? 'US (Mỹ)' : 'UK (Anh)'}`, 'info');
+}
+
+function changeSpeechRate(rateStr) {
+  const r = parseFloat(rateStr);
+  state.speechRate = r;
+  localStorage.setItem('em_speech_rate', r);
+  showToast(`Tốc độ phát âm: ${rateStr}x`, 'info');
+}
+
+function speakCurrentStudioPhrase() {
+  const wave = document.getElementById('studioAudioWave');
+  if (wave) wave.classList.add('playing');
+  speakWord(currentStudioTarget, () => {
+    if (wave) wave.classList.remove('playing');
+  });
+}
+
+function resetSpeechStudioResult() {
+  const card = document.getElementById('speechResultCard');
+  if (card) card.style.display = 'none';
+}
+
+function toggleSpeechRecording() {
+  if (isSpeechStudioRecording) {
+    stopSpeechStudioRecording();
+  } else {
+    startSpeechStudioRecording();
+  }
+}
+
+function startSpeechStudioRecording() {
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRec) {
+    showToast('Trình duyệt không hỗ trợ Web Speech Recognition. Vui lòng dùng Chrome, Edge hoặc Safari.', 'warning');
+    return;
+  }
+
+  try {
+    speechStudioRecognition = new SpeechRec();
+    speechStudioRecognition.lang = state.speechAccent || 'en-US';
+    speechStudioRecognition.interimResults = false;
+    speechStudioRecognition.maxAlternatives = 1;
+
+    speechStudioRecognition.onstart = () => {
+      isSpeechStudioRecording = true;
+      const btn = document.getElementById('speechMicBtn');
+      const status = document.getElementById('speechMicStatus');
+      const waves = document.getElementById('speechMicWaves');
+      if (btn) btn.classList.add('recording');
+      if (status) status.innerHTML = '<span style="color:#ef4444;font-weight:700">● Đang lắng nghe...</span> Hãy đọc to câu tiếng Anh';
+      if (waves) waves.classList.add('active');
+    };
+
+    speechStudioRecognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      evaluateSpeechPronunciation(transcript, currentStudioTarget);
+    };
+
+    speechStudioRecognition.onerror = (event) => {
+      console.warn('Speech Recognition Error:', event.error);
+      if (event.error === 'not-allowed') {
+        showToast('Vui lòng cấp quyền Microphone để luyện nói', 'error');
+      } else if (event.error !== 'no-speech') {
+        showToast(`Lỗi nhận diện âm thanh: ${event.error}`, 'error');
+      }
+      stopSpeechStudioRecording();
+    };
+
+    speechStudioRecognition.onend = () => {
+      stopSpeechStudioRecording();
+    };
+
+    speechStudioRecognition.start();
+  } catch (err) {
+    console.error('Mic start error:', err);
+    stopSpeechStudioRecording();
+  }
+}
+
+function stopSpeechStudioRecording() {
+  isSpeechStudioRecording = false;
+  const btn = document.getElementById('speechMicBtn');
+  const status = document.getElementById('speechMicStatus');
+  const waves = document.getElementById('speechMicWaves');
+  if (btn) btn.classList.remove('recording');
+  if (status) status.textContent = 'Bấm Micro để bắt đầu luyện nói';
+  if (waves) waves.classList.remove('active');
+
+  if (speechStudioRecognition) {
+    try { speechStudioRecognition.stop(); } catch (e) {}
+    speechStudioRecognition = null;
+  }
+}
+
+function normalizeSpeechWord(w) {
+  return w.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function evaluateSpeechPronunciation(transcript, target) {
+  const resultCard = document.getElementById('speechResultCard');
+  const scoreVal = document.getElementById('speechScoreVal');
+  const scoreBar = document.getElementById('speechScoreBarFill');
+  const scoreCircle = document.getElementById('speechScoreCircle');
+  const feedbackTitle = document.getElementById('speechFeedbackTitle');
+  const feedbackDesc = document.getElementById('speechFeedbackDesc');
+  const wordsFlow = document.getElementById('speechWordsFlow');
+  const recognizedEl = document.getElementById('speechRecognizedText');
+
+  if (!resultCard) return;
+
+  const targetWords = target.trim().split(/\s+/);
+  const recognizedWords = transcript.trim().split(/\s+/).map(normalizeSpeechWord);
+
+  let matchCount = 0;
+  let wordChipsHtml = '';
+
+  targetWords.forEach(tw => {
+    const cleanTw = normalizeSpeechWord(tw);
+    const isMatched = recognizedWords.some(rw => rw === cleanTw || (rw.length > 3 && cleanTw.includes(rw)) || (cleanTw.length > 3 && rw.includes(cleanTw)));
+
+    if (isMatched) {
+      matchCount++;
+      wordChipsHtml += `<span class="speech-word-chip match"><i class="fas fa-check"></i> ${tw}</span>`;
+    } else {
+      wordChipsHtml += `<span class="speech-word-chip miss"><i class="fas fa-xmark"></i> ${tw}</span>`;
+    }
+  });
+
+  const accuracy = Math.round((matchCount / Math.max(1, targetWords.length)) * 100);
+
+  if (scoreVal) scoreVal.textContent = `${accuracy}%`;
+  if (scoreBar) scoreBar.style.width = `${accuracy}%`;
+  if (wordsFlow) wordsFlow.innerHTML = wordChipsHtml;
+  if (recognizedEl) recognizedEl.textContent = `"${transcript}"`;
+
+  if (scoreCircle) {
+    scoreCircle.className = 'speech-score-circle';
+    if (accuracy >= 80) {
+      scoreCircle.classList.remove('warning', 'danger');
+    } else if (accuracy >= 55) {
+      scoreCircle.classList.add('warning');
+    } else {
+      scoreCircle.classList.add('danger');
+    }
+  }
+
+  if (accuracy >= 85) {
+    if (feedbackTitle) feedbackTitle.innerHTML = '🎉 Phát âm Chuẩn Bản Xứ (Excellent!)';
+    if (feedbackDesc) feedbackDesc.textContent = 'Ngữ điệu và phát âm của bạn rất chuẩn xác, đạt chuẩn người bản ngữ!';
+    playSound('levelup');
+    launchConfetti();
+    addXP(25);
+    showToast('🌟 +25 XP! Bạn phát âm cực kỳ chuẩn xác!', 'success');
+  } else if (accuracy >= 60) {
+    if (feedbackTitle) feedbackTitle.innerHTML = '👍 Rất Tốt (Good job!)';
+    if (feedbackDesc) feedbackDesc.textContent = 'Bạn phát âm đúng phần lớn từ. Hãy chú ý các từ màu đỏ để hoàn thiện hơn!';
+    playSound('match');
+    addXP(10);
+  } else {
+    if (feedbackTitle) feedbackTitle.innerHTML = '💪 Hãy Cố Gắng Lên (Keep practicing!)';
+    if (feedbackDesc) feedbackDesc.textContent = 'Bấm nút "Nghe mẫu" để nghe lại người bản ngữ, sau đó nhấn mic và thử lại nhé!';
+    playSound('error');
+  }
+
+  resultCard.style.display = 'block';
+  resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ===================================================================
+// 2. FAST-PACED MATCH GAME (QUIZLET STYLE)
+// ===================================================================
+let matchGameInterval = null;
+let matchGameStartTime = 0;
+let matchGameElapsed = 0;
+let matchCount = 0;
+let matchErrors = 0;
+let firstSelectedTile = null;
+let isMatchLocked = false;
+
+function initMatchGame() {
+  const bestRecord = localStorage.getItem('em_match_best_time');
+  const bestEl = document.getElementById('matchBestVal');
+  if (bestEl && bestRecord) {
+    bestEl.textContent = bestRecord;
+  }
+  startMatchGame('it');
+}
+
+function startMatchGame(category = 'it') {
+  if (matchGameInterval) clearInterval(matchGameInterval);
+  matchCount = 0;
+  matchErrors = 0;
+  firstSelectedTile = null;
+  isMatchLocked = false;
+
+  const countEl = document.getElementById('matchCount');
+  if (countEl) countEl.textContent = '0';
+
+  const timerEl = document.getElementById('matchTimerVal');
+  if (timerEl) timerEl.textContent = '00:00.0';
+
+  const victoryOverlay = document.getElementById('matchVictoryOverlay');
+  if (victoryOverlay) victoryOverlay.style.display = 'none';
+
+  let pool = VOCABULARY_DATA;
+  if (category === 'it' && typeof IT_VOCABULARY_DATA !== 'undefined' && IT_VOCABULARY_DATA.length) {
+    pool = IT_VOCABULARY_DATA;
+  } else if (category !== 'all') {
+    const filtered = VOCABULARY_DATA.filter(w => w.category === category);
+    if (filtered.length >= 6) pool = filtered;
+  }
+
+  const shuffledPool = [...pool].sort(() => Math.random() - 0.5).slice(0, 6);
+
+  const tiles = [];
+  shuffledPool.forEach((item, idx) => {
+    tiles.push({
+      id: `pair-${idx}`,
+      text: item.word,
+      type: 'en',
+      pairId: `pair-${idx}`
+    });
+    tiles.push({
+      id: `pair-${idx}-vi`,
+      text: item.meaning,
+      type: 'vi',
+      pairId: `pair-${idx}`
+    });
+  });
+
+  tiles.sort(() => Math.random() - 0.5);
+
+  const grid = document.getElementById('matchGrid');
+  if (!grid) return;
+
+  grid.innerHTML = tiles.map(t => `
+    <div class="match-tile" data-pair-id="${t.pairId}" data-type="${t.type}" onclick="handleMatchTileClick(this)">
+      ${t.text}
+    </div>
+  `).join('');
+
+  matchGameStartTime = Date.now();
+  matchGameInterval = setInterval(() => {
+    matchGameElapsed = Date.now() - matchGameStartTime;
+    const totalSeconds = (matchGameElapsed / 1000).toFixed(1);
+    const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+    const secs = String((totalSeconds % 60).toFixed(1)).padStart(4, '0');
+    if (timerEl) timerEl.textContent = `${mins}:${secs}`;
+  }, 100);
+}
+
+function handleMatchTileClick(tileEl) {
+  if (isMatchLocked) return;
+  if (tileEl.classList.contains('matched') || tileEl.classList.contains('selected')) return;
+
+  playSound('click');
+
+  if (!firstSelectedTile) {
+    firstSelectedTile = tileEl;
+    tileEl.classList.add('selected');
+  } else {
+    const firstPair = firstSelectedTile.dataset.pairId;
+    const secondPair = tileEl.dataset.pairId;
+    const firstType = firstSelectedTile.dataset.type;
+    const secondType = tileEl.dataset.type;
+
+    tileEl.classList.add('selected');
+
+    if (firstPair === secondPair && firstType !== secondType) {
+      playSound('match');
+      firstSelectedTile.classList.remove('selected');
+      tileEl.classList.remove('selected');
+      firstSelectedTile.classList.add('matched');
+      tileEl.classList.add('matched');
+      firstSelectedTile = null;
+
+      matchCount++;
+      const countEl = document.getElementById('matchCount');
+      if (countEl) countEl.textContent = matchCount;
+
+      if (matchCount === 6) {
+        completeMatchGame();
+      }
+    } else {
+      isMatchLocked = true;
+      matchErrors++;
+      playSound('error');
+      firstSelectedTile.classList.add('shake');
+      tileEl.classList.add('shake');
+
+      setTimeout(() => {
+        if (firstSelectedTile) {
+          firstSelectedTile.classList.remove('selected', 'shake');
+        }
+        tileEl.classList.remove('selected', 'shake');
+        firstSelectedTile = null;
+        isMatchLocked = false;
+      }, 450);
+    }
+  }
+}
+
+function completeMatchGame() {
+  if (matchGameInterval) clearInterval(matchGameInterval);
+
+  const totalSecs = (matchGameElapsed / 1000).toFixed(1);
+  const mins = String(Math.floor(totalSecs / 60)).padStart(2, '0');
+  const secs = String((totalSecs % 60).toFixed(1)).padStart(4, '0');
+  const formattedTime = `${mins}:${secs}`;
+
+  const bestRecord = localStorage.getItem('em_match_best_time');
+  let isNewBest = false;
+  if (!bestRecord || parseFloat(totalSecs) < parseFloat(bestRecord.replace(':', '.'))) {
+    localStorage.setItem('em_match_best_time', formattedTime);
+    isNewBest = true;
+    const bestEl = document.getElementById('matchBestVal');
+    if (bestEl) bestEl.textContent = formattedTime;
+  }
+
+  playSound('victory');
+  launchConfetti();
+  addXP(50);
+
+  const victoryOverlay = document.getElementById('matchVictoryOverlay');
+  const timePill = document.getElementById('victoryTimePill');
+  const errorsEl = document.getElementById('victoryErrors');
+  const bestRecordEl = document.getElementById('victoryBestRecord');
+
+  if (timePill) timePill.textContent = formattedTime;
+  if (errorsEl) errorsEl.textContent = matchErrors;
+  if (bestRecordEl) bestRecordEl.textContent = isNewBest ? 'Kỷ lục mới! 👑' : (bestRecord || formattedTime);
+
+  if (victoryOverlay) {
+    victoryOverlay.style.display = 'flex';
+  }
+}
+
+function restartMatchGame() {
+  const sel = document.getElementById('matchCategorySelect');
+  const cat = sel ? sel.value : 'it';
+  startMatchGame(cat);
+}
+
+// ===================================================================
+// 3. DICTATION LAB (BBC STYLE)
+// ===================================================================
+let currentDictIndex = 0;
+let isDictHintVisible = false;
+
+function initDictationLab() {
+  if (typeof DICTATION_EXERCISES === 'undefined' || !DICTATION_EXERCISES.length) return;
+  const select = document.getElementById('dictationIndexSelect');
+  if (select) {
+    select.innerHTML = DICTATION_EXERCISES.map((ex, idx) => `
+      <option value="${idx}">Bài ${idx + 1} (${ex.level} - ${ex.category.toUpperCase()})</option>
+    `).join('');
+  }
+  loadDictationExercise(0);
+}
+
+function loadDictationExercise(idx) {
+  if (!DICTATION_EXERCISES || !DICTATION_EXERCISES[idx]) return;
+  currentDictIndex = idx;
+  const ex = DICTATION_EXERCISES[idx];
+
+  const levelBadge = document.getElementById('dictLevelBadge');
+  const maskedHint = document.getElementById('dictMaskedHint');
+  const userInput = document.getElementById('dictationUserInput');
+  const wordCount = document.getElementById('dictWordCount');
+  const resultBox = document.getElementById('dictResultBox');
+  const hintBtnText = document.getElementById('dictHintBtnText');
+
+  if (levelBadge) levelBadge.textContent = `Level ${ex.level}`;
+  if (maskedHint) {
+    maskedHint.textContent = ex.hint;
+    maskedHint.style.display = 'none';
+  }
+  if (hintBtnText) hintBtnText.textContent = 'Hiện gợi ý chữ cái đầu';
+  isDictHintVisible = false;
+
+  if (userInput) userInput.value = '';
+  if (wordCount) wordCount.textContent = '0 từ';
+  if (resultBox) resultBox.style.display = 'none';
+
+  const select = document.getElementById('dictationIndexSelect');
+  if (select) select.value = String(idx);
+}
+
+function playDictationAudio(speed = 1.0) {
+  const ex = DICTATION_EXERCISES[currentDictIndex];
+  if (!ex) return;
+
+  const wave = document.getElementById('dictationWave');
+  if (wave) wave.classList.add('playing');
+
+  speakWord(ex.audioText, () => {
+    if (wave) wave.classList.remove('playing');
+  }, speed);
+}
+
+function toggleDictationHint() {
+  isDictHintVisible = !isDictHintVisible;
+  const maskedHint = document.getElementById('dictMaskedHint');
+  const hintBtnText = document.getElementById('dictHintBtnText');
+
+  if (maskedHint) maskedHint.style.display = isDictHintVisible ? 'block' : 'none';
+  if (hintBtnText) hintBtnText.textContent = isDictHintVisible ? 'Ẩn gợi ý chữ cái' : 'Hiện gợi ý chữ cái đầu';
+}
+
+function handleDictationInput() {
+  const input = document.getElementById('dictationUserInput');
+  const wordCount = document.getElementById('dictWordCount');
+  if (!input || !wordCount) return;
+  const words = input.value.trim().split(/\s+/).filter(Boolean);
+  wordCount.textContent = `${words.length} từ`;
+}
+
+function checkDictationAnswer() {
+  const ex = DICTATION_EXERCISES[currentDictIndex];
+  const input = document.getElementById('dictationUserInput');
+  if (!ex || !input) return;
+
+  const userText = input.value.trim();
+  if (!userText) {
+    showToast('Hãy gõ câu bạn nghe được trước khi kiểm tra!', 'warning');
+    return;
+  }
+
+  const origWords = ex.audioText.trim().split(/\s+/);
+  const userWords = userText.split(/\s+/);
+
+  let correctCount = 0;
+  let breakdownHtml = '';
+
+  origWords.forEach((ow, i) => {
+    const cleanOw = ow.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const cleanUw = (userWords[i] || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    if (cleanOw === cleanUw) {
+      correctCount++;
+      breakdownHtml += `<span class="diff-word correct">${ow}</span> `;
+    } else if (cleanUw) {
+      breakdownHtml += `<span class="diff-word wrong">${userWords[i]}</span> `;
+    } else {
+      breakdownHtml += `<span class="diff-word missing">[${ow}]</span> `;
+    }
+  });
+
+  const accuracy = Math.round((correctCount / origWords.length) * 100);
+
+  const resultBox = document.getElementById('dictResultBox');
+  const scoreBanner = document.getElementById('dictScoreBanner');
+  const origTextEl = document.getElementById('dictOriginalText');
+  const breakdownEl = document.getElementById('dictDiffBreakdown');
+  const meaningEl = document.getElementById('dictVietnameseText');
+
+  if (origTextEl) origTextEl.textContent = ex.audioText;
+  if (breakdownEl) breakdownEl.innerHTML = breakdownHtml;
+  if (meaningEl) meaningEl.textContent = ex.textVi;
+
+  if (scoreBanner) {
+    if (accuracy >= 85) {
+      scoreBanner.innerHTML = `
+        <span class="dict-score-pill" style="color:#10b981"><i class="fas fa-crown"></i> Độ chính xác: ${accuracy}%</span>
+        <span style="color:#10b981;font-weight:700">+30 XP Thưởng</span>
+      `;
+      playSound('match');
+      launchConfetti();
+      addXP(30);
+    } else {
+      scoreBanner.innerHTML = `
+        <span class="dict-score-pill" style="color:#f59e0b"><i class="fas fa-chart-simple"></i> Độ chính xác: ${accuracy}%</span>
+        <span style="color:var(--text-muted)">Hãy nghe lại và đối chiếu các từ sai màu đỏ</span>
+      `;
+      playSound('ding');
+    }
+  }
+
+  if (resultBox) {
+    resultBox.style.display = 'block';
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function nextDictationExercise() {
+  if (currentDictIndex < DICTATION_EXERCISES.length - 1) {
+    loadDictationExercise(currentDictIndex + 1);
+  } else {
+    loadDictationExercise(0);
+    showToast('Bạn đã hoàn thành tất cả bài luyện chính tả! Lặp lại từ bài 1.', 'success');
+  }
+}
+
+// ===================================================================
+// 4. DUOLINGO STYLE SENTENCE BUILDER
+// ===================================================================
+let currentBuilderIndex = 0;
+let assembledChips = [];
+
+function initSentenceBuilder() {
+  if (typeof SENTENCE_BUILDER_DATA === 'undefined' || !SENTENCE_BUILDER_DATA.length) return;
+  loadSentenceBuilder(0);
+}
+
+function loadSentenceBuilder(idx) {
+  if (!SENTENCE_BUILDER_DATA || !SENTENCE_BUILDER_DATA[idx]) return;
+  currentBuilderIndex = idx;
+  const puzzle = SENTENCE_BUILDER_DATA[idx];
+  assembledChips = [];
+
+  const stageTag = document.getElementById('builderStageTag');
+  const promptVi = document.getElementById('builderPromptVi');
+  const answerZone = document.getElementById('builderAnswerZone');
+  const bank = document.getElementById('builderBank');
+  const feedback = document.getElementById('builderFeedbackBanner');
+  const btnNext = document.getElementById('btnNextBuilder');
+
+  if (stageTag) stageTag.textContent = `Câu ${idx + 1} / ${SENTENCE_BUILDER_DATA.length}`;
+  if (promptVi) promptVi.textContent = puzzle.vietnamese;
+  if (feedback) feedback.style.display = 'none';
+  if (btnNext) btnNext.style.display = 'none';
+
+  renderAnswerZone();
+
+  const allWords = [...puzzle.words, ...(puzzle.distractors || [])].sort(() => Math.random() - 0.5);
+
+  if (bank) {
+    bank.innerHTML = allWords.map((w, wIdx) => `
+      <div class="builder-chip" data-word="${w}" data-chip-id="chip-${wIdx}" onclick="handleWordBankChipClick(this)">
+        ${w}
+      </div>
+    `).join('');
+  }
+}
+
+function renderAnswerZone() {
+  const answerZone = document.getElementById('builderAnswerZone');
+  if (!answerZone) return;
+
+  if (assembledChips.length === 0) {
+    answerZone.innerHTML = `<span class="builder-placeholder" id="builderPlaceholder">Click chọn các thẻ từ bên dưới để xếp vào đây...</span>`;
+  } else {
+    answerZone.innerHTML = assembledChips.map((chip, idx) => `
+      <div class="builder-answer-chip" data-idx="${idx}" data-chip-id="${chip.chipId}" title="Click để hoàn trả từ">
+        ${chip.word}
+      </div>
+    `).join('');
+  }
+}
+
+function handleWordBankChipClick(chipEl) {
+  if (chipEl.classList.contains('placed')) return;
+  playSound('click');
+
+  const word = chipEl.dataset.word;
+  const chipId = chipEl.dataset.chipId;
+
+  assembledChips.push({ word, chipId });
+  chipEl.classList.add('placed');
+  renderAnswerZone();
+}
+
+function handleAnswerZoneClick(event) {
+  const answerChip = event.target.closest('.builder-answer-chip');
+  if (!answerChip) return;
+
+  playSound('click');
+  const idx = parseInt(answerChip.dataset.idx);
+  const chipId = answerChip.dataset.chipId;
+
+  assembledChips.splice(idx, 1);
+  renderAnswerZone();
+
+  const bankChip = document.querySelector(`.builder-chip[data-chip-id="${chipId}"]`);
+  if (bankChip) bankChip.classList.remove('placed');
+}
+
+function resetCurrentSentenceBuilder() {
+  assembledChips = [];
+  renderAnswerZone();
+  document.querySelectorAll('.builder-chip').forEach(c => c.classList.remove('placed'));
+  const feedback = document.getElementById('builderFeedbackBanner');
+  if (feedback) feedback.style.display = 'none';
+}
+
+function checkSentenceBuilder() {
+  const puzzle = SENTENCE_BUILDER_DATA[currentBuilderIndex];
+  if (!puzzle) return;
+
+  if (assembledChips.length === 0) {
+    showToast('Hãy xếp các từ vào câu trước khi kiểm tra!', 'warning');
+    return;
+  }
+
+  const assembledSentence = assembledChips.map(c => c.word).join(' ');
+  const targetSentence = puzzle.correctSentence;
+
+  const feedback = document.getElementById('builderFeedbackBanner');
+  const feedbackContent = document.getElementById('builderFeedbackContent');
+  const btnNext = document.getElementById('btnNextBuilder');
+
+  const cleanAssembled = assembledSentence.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const cleanTarget = targetSentence.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+  if (cleanAssembled === cleanTarget) {
+    playSound('match');
+    launchConfetti();
+    addXP(20);
+
+    if (feedback) {
+      feedback.className = 'builder-feedback-banner success';
+      feedback.style.display = 'flex';
+    }
+    if (feedbackContent) {
+      feedbackContent.innerHTML = `
+        <h4 style="font-weight:800"><i class="fas fa-circle-check"></i> Chính xác tuyệt vời! (+20 XP)</h4>
+        <p style="font-size:0.92rem;margin-top:2px">"${puzzle.correctSentence}"</p>
+      `;
+    }
+    if (btnNext) btnNext.style.display = 'inline-flex';
+  } else {
+    playSound('error');
+    if (feedback) {
+      feedback.className = 'builder-feedback-banner error';
+      feedback.style.display = 'flex';
+    }
+    if (feedbackContent) {
+      feedbackContent.innerHTML = `
+        <h4 style="font-weight:800"><i class="fas fa-circle-xmark"></i> Chưa chính xác</h4>
+        <p style="font-size:0.92rem;margin-top:2px">Thử đổi lại trật tự các khối từ hoặc loại bỏ từ không phù hợp nhé!</p>
+      `;
+    }
+  }
+}
+
+function nextSentenceBuilder() {
+  if (currentBuilderIndex < SENTENCE_BUILDER_DATA.length - 1) {
+    loadSentenceBuilder(currentBuilderIndex + 1);
+  } else {
+    loadSentenceBuilder(0);
+    showToast('Chúc mừng! Bạn đã hoàn thành toàn bộ câu đố xếp câu!', 'success');
+  }
+}
+
+// ===================================================================
+// 5. TECH INTERVIEW SIMULATOR (STAR METHOD)
+// ===================================================================
+let currentInterviewIndex = 0;
+let filteredInterviewList = [];
+let isInterviewRecording = false;
+let interviewRecordTimerInterval = null;
+let interviewRecordSeconds = 0;
+let interviewRecognition = null;
+let isModelAnswerVisible = false;
+
+function initTechInterview() {
+  if (typeof TECH_INTERVIEW_QUESTIONS === 'undefined' || !TECH_INTERVIEW_QUESTIONS.length) return;
+  filteredInterviewList = [...TECH_INTERVIEW_QUESTIONS];
+  loadInterviewQuestion(0);
+}
+
+function filterInterviewCategory(category, btnEl) {
+  document.querySelectorAll('.interview-tab-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+
+  if (category === 'all') {
+    filteredInterviewList = [...TECH_INTERVIEW_QUESTIONS];
+  } else {
+    filteredInterviewList = TECH_INTERVIEW_QUESTIONS.filter(q => q.category === category);
+  }
+
+  if (filteredInterviewList.length === 0) {
+    filteredInterviewList = [...TECH_INTERVIEW_QUESTIONS];
+  }
+  loadInterviewQuestion(0);
+}
+
+function loadInterviewQuestion(idx) {
+  if (!filteredInterviewList || !filteredInterviewList[idx]) return;
+  currentInterviewIndex = idx;
+  const q = filteredInterviewList[idx];
+
+  const catBadge = document.getElementById('interviewCategoryBadge');
+  const indexIndicator = document.getElementById('interviewIndexIndicator');
+  const qEn = document.getElementById('interviewQuestionEn');
+  const qVi = document.getElementById('interviewQuestionVi');
+  const qHint = document.getElementById('interviewQuestionHint');
+  const modelEn = document.getElementById('interviewModelAnswerEn');
+  const modelVi = document.getElementById('interviewModelAnswerVi');
+  const vocabList = document.getElementById('interviewKeyVocabList');
+
+  if (catBadge) catBadge.textContent = q.categoryLabel || 'IT & Tech Interview';
+  if (indexIndicator) indexIndicator.textContent = `${idx + 1} / ${filteredInterviewList.length}`;
+  if (qEn) qEn.textContent = q.question;
+  if (qVi) qVi.textContent = q.questionVi;
+  if (qHint) qHint.textContent = q.hint;
+  if (modelEn) modelEn.textContent = q.modelAnswer;
+  if (modelVi) modelVi.textContent = q.modelAnswerVi;
+
+  if (vocabList && q.keyVocab) {
+    vocabList.innerHTML = q.keyVocab.map(v => `
+      <div class="model-vocab-pill">
+        <strong>${v.word}</strong>: ${v.meaning}
+      </div>
+    `).join('');
+  }
+
+  isModelAnswerVisible = false;
+  const modelBox = document.getElementById('interviewModelBox');
+  const eyeIcon = document.getElementById('modelAnswerEyeIcon');
+  const btnText = document.getElementById('modelAnswerBtnText');
+  if (modelBox) modelBox.style.display = 'none';
+  if (eyeIcon) eyeIcon.className = 'fas fa-eye';
+  if (btnText) btnText.textContent = 'Xem câu trả lời mẫu của Senior Engineer';
+
+  clearInterviewRecording();
+
+  const savedRating = localStorage.getItem(`em_interview_rating_${q.id}`) || '0';
+  renderInterviewStars(parseInt(savedRating));
+}
+
+function prevInterviewQuestion() {
+  if (currentInterviewIndex > 0) {
+    loadInterviewQuestion(currentInterviewIndex - 1);
+  }
+}
+
+function nextInterviewQuestion() {
+  if (currentInterviewIndex < filteredInterviewList.length - 1) {
+    loadInterviewQuestion(currentInterviewIndex + 1);
+  }
+}
+
+function speakInterviewQuestion() {
+  const q = filteredInterviewList[currentInterviewIndex];
+  if (q) speakWord(q.question);
+}
+
+function speakModelAnswer() {
+  const q = filteredInterviewList[currentInterviewIndex];
+  if (q) speakWord(q.modelAnswer);
+}
+
+function toggleModelAnswer() {
+  isModelAnswerVisible = !isModelAnswerVisible;
+  const modelBox = document.getElementById('interviewModelBox');
+  const eyeIcon = document.getElementById('modelAnswerEyeIcon');
+  const btnText = document.getElementById('modelAnswerBtnText');
+
+  if (modelBox) modelBox.style.display = isModelAnswerVisible ? 'block' : 'none';
+  if (eyeIcon) eyeIcon.className = isModelAnswerVisible ? 'fas fa-eye-slash' : 'fas fa-eye';
+  if (btnText) btnText.textContent = isModelAnswerVisible ? 'Thu gọn câu trả lời mẫu' : 'Xem câu trả lời mẫu của Senior Engineer';
+}
+
+function toggleInterviewRecording() {
+  if (isInterviewRecording) {
+    stopInterviewRecording();
+  } else {
+    startInterviewRecording();
+  }
+}
+
+function startInterviewRecording() {
+  isInterviewRecording = true;
+  interviewRecordSeconds = 0;
+  const btn = document.getElementById('btnInterviewRecord');
+  const recText = document.getElementById('interviewRecText');
+  const timer = document.getElementById('interviewRecordTimer');
+  const transcriptBox = document.getElementById('interviewTranscriptBox');
+  const transcriptText = document.getElementById('interviewTranscriptText');
+  const clearBtn = document.getElementById('btnInterviewClearRec');
+
+  if (recText) recText.textContent = 'Dừng & Hoàn tất trả lời';
+  if (btn) btn.classList.add('btn--danger');
+  if (clearBtn) clearBtn.style.display = 'inline-flex';
+  if (transcriptBox) transcriptBox.style.display = 'block';
+  if (transcriptText) transcriptText.textContent = 'Đang lắng nghe... Hãy trình bày câu trả lời của bạn';
+
+  interviewRecordTimerInterval = setInterval(() => {
+    interviewRecordSeconds++;
+    const m = String(Math.floor(interviewRecordSeconds / 60)).padStart(2, '0');
+    const s = String(interviewRecordSeconds % 60).padStart(2, '0');
+    if (timer) timer.textContent = `${m}:${s}`;
+  }, 1000);
+
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SpeechRec) {
+    try {
+      interviewRecognition = new SpeechRec();
+      interviewRecognition.lang = 'en-US';
+      interviewRecognition.interimResults = true;
+      interviewRecognition.continuous = true;
+
+      interviewRecognition.onresult = (event) => {
+        let fullTranscript = '';
+        for (let i = 0; i < event.results.length; i++) {
+          fullTranscript += event.results[i][0].transcript + ' ';
+        }
+        if (transcriptText) transcriptText.textContent = fullTranscript;
+      };
+
+      interviewRecognition.onerror = () => {};
+      interviewRecognition.start();
+    } catch (e) {}
+  }
+}
+
+function stopInterviewRecording() {
+  isInterviewRecording = false;
+  if (interviewRecordTimerInterval) clearInterval(interviewRecordTimerInterval);
+
+  const btn = document.getElementById('btnInterviewRecord');
+  const recText = document.getElementById('interviewRecText');
+
+  if (recText) recText.textContent = 'Bấm để ghi âm trả lời lại';
+  if (btn) btn.classList.remove('btn--danger');
+
+  if (interviewRecognition) {
+    try { interviewRecognition.stop(); } catch (e) {}
+    interviewRecognition = null;
+  }
+
+  playSound('ding');
+  showToast('Đã lưu bài luyện trả lời phỏng vấn của bạn!', 'success');
+}
+
+function clearInterviewRecording() {
+  isInterviewRecording = false;
+  if (interviewRecordTimerInterval) clearInterval(interviewRecordTimerInterval);
+  if (interviewRecognition) {
+    try { interviewRecognition.stop(); } catch (e) {}
+    interviewRecognition = null;
+  }
+
+  const timer = document.getElementById('interviewRecordTimer');
+  const transcriptBox = document.getElementById('interviewTranscriptBox');
+  const clearBtn = document.getElementById('btnInterviewClearRec');
+  const recText = document.getElementById('interviewRecText');
+  const btn = document.getElementById('btnInterviewRecord');
+
+  if (timer) timer.textContent = '00:00';
+  if (transcriptBox) transcriptBox.style.display = 'none';
+  if (clearBtn) clearBtn.style.display = 'none';
+  if (recText) recText.textContent = 'Bấm để bắt đầu trả lời';
+  if (btn) btn.classList.remove('btn--danger');
+}
+
+function rateInterviewConfidence(stars) {
+  const q = filteredInterviewList[currentInterviewIndex];
+  if (!q) return;
+
+  localStorage.setItem(`em_interview_rating_${q.id}`, String(stars));
+  renderInterviewStars(stars);
+  playSound('ding');
+  showToast(`Đã lưu đánh giá ${stars} sao cho câu hỏi này!`, 'info');
+}
+
+function renderInterviewStars(stars) {
+  const buttons = document.querySelectorAll('#interviewStars .star-btn');
+  buttons.forEach((btn, idx) => {
+    btn.classList.toggle('active', idx < stars);
+  });
+
+  const status = document.getElementById('interviewEvalStatus');
+  if (status) {
+    if (stars === 0) status.textContent = 'Chưa đánh giá';
+    else if (stars <= 2) status.textContent = `${stars}/5 Sao (Cần ôn thêm)`;
+    else if (stars <= 4) status.textContent = `${stars}/5 Sao (Khá tự tin)`;
+    else status.textContent = `5/5 Sao (Sẵn sàng phỏng vấn! 🎯)`;
+  }
+}
+
 
 

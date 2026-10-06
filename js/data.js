@@ -1032,6 +1032,213 @@ const ENGLISH_COURSES_DATA = [
   }
 ];
 
+// --------- TECH INTERVIEW QUESTIONS ---------
+const TECH_INTERVIEW_QUESTIONS = [
+  {
+    id: "interview-1",
+    category: "backend",
+    categoryLabel: "Backend & Database",
+    question: "Can you explain how indexes work in MongoDB and when you should use them?",
+    questionVi: "Bạn có thể giải thích cơ chế hoạt động của index trong MongoDB và khi nào nên áp dụng không?",
+    hint: "Tập trung vào cấu trúc B-tree, scan performance O(log N) thay vì full-collection scan O(N), và nhược điểm write overhead.",
+    modelAnswer: "Indexes in MongoDB use B-tree data structures to hold a small portion of the collection's dataset in an easy-to-traverse form. Without indexes, MongoDB must perform a collection scan, examining every single document to select those that match the query statement. We should index fields frequently used in query filters, sort operations, and compound keys.",
+    modelAnswerVi: "Index trong MongoDB sử dụng cấu trúc cây B-tree để lưu trữ một phần nhỏ tập dữ liệu của collection theo dạng dễ duyệt qua. Nếu không có index, MongoDB phải thực hiện duyệt toàn bộ collection (collection scan), kiểm tra từng document để tìm kết quả. Chúng ta nên đánh index cho các trường thường xuyên dùng trong điều kiện tìm kiếm, sắp xếp và các truy vấn kết hợp.",
+    keyVocab: [
+      { word: "B-tree data structure", meaning: "Cấu trúc dữ liệu cây tự cân bằng" },
+      { word: "Collection scan", meaning: "Quét duyệt qua toàn bộ bảng dữ liệu O(N)" },
+      { word: "Compound index", meaning: "Chỉ mục kết hợp trên nhiều trường dữ liệu" }
+    ]
+  },
+  {
+    id: "interview-2",
+    category: "system",
+    categoryLabel: "Kiến trúc Hệ thống & Tối ưu",
+    question: "How do you optimize web application performance on both frontend and backend?",
+    questionVi: "Bạn tối ưu hóa hiệu năng ứng dụng web ở cả phía frontend và backend như thế nào?",
+    hint: "Frontend: Lazy loading, caching, bundle splitting. Backend: Indexing, database queries, Redis caching.",
+    modelAnswer: "On the frontend, I use code splitting, lazy loading for heavy images, and optimize bundle sizes. On the backend, I create compound indexes on MongoDB collections, implement Redis caching for frequent queries, and use asynchronous processing for heavy tasks.",
+    modelAnswerVi: "Ở frontend, tôi chia nhỏ mã nguồn (code splitting), tải lười hình ảnh nặng và tối ưu hóa dung lượng bundle. Ở backend, tôi tạo chỉ mục kép trong MongoDB, triển khai bộ đệm Redis cho các truy vấn thường xuyên và sử dụng xử lý bất đồng bộ cho các tác vụ nặng.",
+    keyVocab: [
+      { word: "Code splitting", meaning: "Phân tách gói mã nguồn để tải nhanh hơn" },
+      { word: "Redis caching", meaning: "Bộ đệm dữ liệu truy cập siêu nhanh trong RAM" },
+      { word: "Asynchronous processing", meaning: "Xử lý tác vụ bất đồng bộ không chặn luồng" }
+    ]
+  },
+  {
+    id: "interview-3",
+    category: "agile",
+    categoryLabel: "Làm việc nhóm & Agile",
+    question: "How do you handle disagreements with a teammate regarding technical architecture?",
+    questionVi: "Bạn giải quyết mâu thuẫn ý kiến với đồng nghiệp về kiến trúc kỹ thuật như thế nào?",
+    hint: "Tập trung vào sự tôn trọng, dữ liệu benchmark thực tế, trade-offs (được và mất) thay vì cái tôi cá nhân.",
+    modelAnswer: "I believe constructive disagreement leads to better architecture. I always focus on objective trade-offs, scalability, and benchmarks rather than personal opinions. I schedule a brief technical sync with the team lead to decide based on project requirements.",
+    modelAnswerVi: "Tôi tin rằng bất đồng mang tính xây dựng sẽ tạo ra kiến trúc tốt hơn. Tôi luôn tập trung vào sự đánh đổi khách quan, khả năng mở rộng và các chỉ số đo lường thực tế thay vì quan điểm cá nhân. Tôi thường lên lịch trao đổi kỹ thuật ngắn với trưởng nhóm để cùng đưa ra quyết định dựa trên yêu cầu dự án.",
+    keyVocab: [
+      { word: "Constructive disagreement", meaning: "Bất đồng mang tính xây dựng" },
+      { word: "Trade-offs", meaning: "Sự đánh đổi được mất giữa các giải pháp" },
+      { word: "Scalability", meaning: "Khả năng mở rộng của hệ thống" }
+    ]
+  },
+  {
+    id: "interview-4",
+    category: "web",
+    categoryLabel: "Frontend & Web",
+    question: "What are the key differences between Server-Side Rendering (SSR) and Client-Side Rendering (CSR)?",
+    questionVi: "Đâu là những điểm khác biệt chính giữa Server-Side Rendering (SSR) và Client-Side Rendering (CSR)?",
+    hint: "So sánh về SEO, Time-to-First-Byte (TTFB), First Contentful Paint (FCP), và tải trọng máy chủ.",
+    modelAnswer: "With CSR, the browser downloads a minimal HTML document and renders the UI using JavaScript, which offers rich interactivity but slower initial load and weaker SEO. In contrast, SSR generates the full HTML on the server for each request, ensuring faster initial content display and excellent search engine indexing.",
+    modelAnswerVi: "Với CSR, trình duyệt tải về file HTML tối giản và dựng giao diện bằng JavaScript, mang lại tính tương tác mượt mà nhưng thời gian tải đầu tiên chậm hơn và SEO kém hơn. Ngược lại, SSR tạo sẵn toàn bộ HTML trên máy chủ cho mỗi yêu cầu, đảm bảo hiển thị nội dung ban đầu nhanh chóng và tối ưu cho công cụ tìm kiếm.",
+    keyVocab: [
+      { word: "Client-Side Rendering", meaning: "Dựng giao diện phía trình duyệt người dùng" },
+      { word: "Server-Side Rendering", meaning: "Dựng giao diện sẵn tại máy chủ" },
+      { word: "First Contentful Paint", meaning: "Thời gian hiển thị phần tử nội dung đầu tiên" }
+    ]
+  },
+  {
+    id: "interview-5",
+    category: "general",
+    categoryLabel: "Phỏng vấn mở đầu",
+    question: "Can you tell me a little bit about yourself and your tech stack?",
+    questionVi: "Bạn có thể giới thiệu đôi nét về bản thân và tech stack bạn đang sử dụng không?",
+    hint: "Dùng cấu trúc: Hiện tại tôi là [Vị trí] với [X năm kinh nghiệm], thế mạnh của tôi là [Công nghệ], và dự án gần nhất tôi làm là [Dự án].",
+    modelAnswer: "Sure! I'm a fullstack software developer with over two years of experience building modern web applications. My core stack includes React, Node.js, and MongoDB. Recently, I've been optimizing backend microservices and improving API response times.",
+    modelAnswerVi: "Chắc chắn rồi! Tôi là một lập trình viên fullstack với hơn hai năm kinh nghiệm xây dựng các ứng dụng web hiện đại. Công nghệ cốt lõi của tôi bao gồm React, Node.js và MongoDB. Gần đây, tôi đang tập trung tối ưu hóa các microservice phía backend và cải thiện thời gian phản hồi của API.",
+    keyVocab: [
+      { word: "Core stack", meaning: "Công nghệ cốt lõi / chính" },
+      { word: "Microservices", meaning: "Kiến trúc dịch vụ vi mô" },
+      { word: "Response time", meaning: "Thời gian phản hồi của hệ thống" }
+    ]
+  },
+  {
+    id: "interview-6",
+    category: "behavioral",
+    categoryLabel: "Xử lý sự cố & Thử thách",
+    question: "Describe a critical production bug you encountered and how you solved it.",
+    questionVi: "Hãy kể về một lỗi nghiêm trọng trên production bạn từng gặp và cách bạn khắc phục nó.",
+    hint: "Áp dụng công thức STAR: Situation (Bối cảnh) -> Task (Nhiệm vụ) -> Action (Hành động debug) -> Result (Kết quả và bài học).",
+    modelAnswer: "During a peak promotion campaign, our payment gateway started returning 500 errors. I immediately checked the server logs, reproduced the race condition in staging, rolled out a hotfix to introduce proper database transactions, and added automated unit tests to prevent regression.",
+    modelAnswerVi: "Trong một đợt cao điểm khuyến mãi, cổng thanh toán của chúng tôi bắt đầu trả về lỗi 500. Tôi lập tức kiểm tra nhật ký máy chủ, tái hiện lỗi xung đột tiến trình (race condition) trên môi trường staging, phát hành một bản vá nóng áp dụng transaction database chuẩn xác, đồng thời bổ sung các bài unit test tự động để tránh tái diễn.",
+    keyVocab: [
+      { word: "Race condition", meaning: "Lỗi tương tranh dữ liệu khi nhiều tiến trình chạy song song" },
+      { word: "Hotfix", meaning: "Bản vá lỗi khẩn cấp trực tiếp lên production" },
+      { word: "Regression", meaning: "Lỗi phát sinh làm hỏng tính năng cũ khi cập nhật code mới" }
+    ]
+  }
+];
+
+// --------- DICTATION EXERCISES ---------
+const DICTATION_EXERCISES = [
+  {
+    id: "dict-1",
+    audioText: "We need to deploy the latest release to production tonight.",
+    textVi: "Chúng ta cần triển khai bản phát hành mới nhất lên máy chủ production tối nay.",
+    hint: "W_ n___ t_ d_____ t__ l_____ r______ t_ p_________ t______.",
+    level: "B1",
+    category: "it"
+  },
+  {
+    id: "dict-2",
+    audioText: "Unit tests help us catch critical bugs before they reach the users.",
+    textVi: "Các bài kiểm thử đơn vị giúp chúng ta bắt được các lỗi nghiêm trọng trước khi chúng đến tay người dùng.",
+    hint: "U___ t____ h___ u_ c____ c_______ b___ b_____ t___ r____ t__ u____.",
+    level: "B1",
+    category: "it"
+  },
+  {
+    id: "dict-3",
+    audioText: "Could you please review my pull request when you have time?",
+    textVi: "Bạn có thể vui lòng xem qua pull request của tôi khi bạn rảnh không?",
+    hint: "C____ y__ p_____ r_____ m_ p___ r______ w___ y__ h___ t___?",
+    level: "A2",
+    category: "work"
+  },
+  {
+    id: "dict-4",
+    audioText: "An effective algorithm significantly reduces server CPU consumption.",
+    textVi: "Một thuật toán hiệu quả giúp giảm đáng kể mức tiêu thụ CPU của máy chủ.",
+    hint: "A_ e________ a________ s___________ r______ s_____ C__ c__________.",
+    level: "B2",
+    category: "it"
+  },
+  {
+    id: "dict-5",
+    audioText: "Security vulnerabilities should be patched as soon as possible.",
+    textVi: "Các lỗ hổng bảo mật nên được vá càng sớm càng tốt.",
+    hint: "S_______ v______________ s_____ b_ p______ a_ s___ a_ p_______.",
+    level: "B2",
+    category: "security"
+  }
+];
+
+// --------- SENTENCE BUILDER PUZZLE DATA ---------
+const SENTENCE_BUILDER_DATA = [
+  {
+    id: "builder-1",
+    vietnamese: "Chúng tôi triển khai các tính năng mới sau mỗi hai tuần chạy nước rút.",
+    correctSentence: "We deploy new features after every two week sprint.",
+    words: ["We", "deploy", "new", "features", "after", "every", "two", "week", "sprint"],
+    distractors: ["code", "server", "debug"]
+  },
+  {
+    id: "builder-2",
+    vietnamese: "Trí tuệ nhân tạo đang thay đổi cách các lập trình viên viết mã nguồn.",
+    correctSentence: "Artificial intelligence is changing how software developers write code.",
+    words: ["Artificial", "intelligence", "is", "changing", "how", "software", "developers", "write", "code"],
+    distractors: ["server", "compile", "bug"]
+  },
+  {
+    id: "builder-3",
+    vietnamese: "Hãy sao chép kho lưu trữ Git này về máy tính cá nhân của bạn.",
+    correctSentence: "Please clone this Git repository to your local machine.",
+    words: ["Please", "clone", "this", "Git", "repository", "to", "your", "local", "machine"],
+    distractors: ["push", "commit", "server"]
+  },
+  {
+    id: "builder-4",
+    vietnamese: "Bạn có thể vui lòng giải thích sự khác biệt giữa hai giải pháp này không?",
+    correctSentence: "Could you please explain the difference between these two solutions?",
+    words: ["Could", "you", "please", "explain", "the", "difference", "between", "these", "two", "solutions"],
+    distractors: ["why", "where", "problem"]
+  }
+];
+
+// --------- WORD OF THE DAY SPOTLIGHT ---------
+const WORD_OF_THE_DAY_LIST = [
+  {
+    word: "Architecture",
+    phonetic: "/ˈɑː.kɪ.tek.tʃər/",
+    pos: "n",
+    meaning: "Kiến trúc hệ thống, cấu trúc thiết kế phần mềm tổng thể",
+    example: "Clean architecture ensures long-term scalability and easy maintenance.",
+    exampleVi: "Kiến trúc sạch đảm bảo khả năng mở rộng lâu dài và bảo trì dễ dàng.",
+    category: "it",
+    level: "B2",
+    tag: "DevOps & System"
+  },
+  {
+    word: "Asynchronous",
+    phonetic: "/eɪˈsɪŋ.krə.nəs/",
+    pos: "adj",
+    meaning: "Bất đồng bộ (trong lập trình, xử lý không chờ đợi kết quả ngay)",
+    example: "JavaScript uses an asynchronous event loop to handle non-blocking I/O operations.",
+    exampleVi: "JavaScript sử dụng vòng lặp sự kiện bất đồng bộ để xử lý các tác vụ I/O không chặn luồng.",
+    category: "it",
+    level: "B2",
+    tag: "Web Development"
+  },
+  {
+    word: "Refactoring",
+    phonetic: "/riːˈfæk.tər.ɪŋ/",
+    pos: "n",
+    meaning: "Tái cấu trúc mã nguồn để gọn gàng, dễ bảo trì mà không làm thay đổi hành vi bên ngoài",
+    example: "Regular code refactoring significantly reduces technical debt.",
+    exampleVi: "Tái cấu trúc code định kỳ giúp giảm đáng kể nợ kỹ thuật của dự án.",
+    category: "it",
+    level: "B1",
+    tag: "Software Engineering"
+  }
+];
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     VOCABULARY_DATA,
@@ -1042,6 +1249,11 @@ if (typeof module !== 'undefined' && module.exports) {
     IT_COURSES_DATA,
     IT_VOCABULARY_DATA,
     ENGLISH_COURSES_DATA,
-    CODE_PLAYGROUND_TEMPLATES
+    CODE_PLAYGROUND_TEMPLATES,
+    TECH_INTERVIEW_QUESTIONS,
+    DICTATION_EXERCISES,
+    SENTENCE_BUILDER_DATA,
+    WORD_OF_THE_DAY_LIST
   };
 }
+

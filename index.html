@@ -131,6 +131,63 @@
             </div>
           </li>
 
+          <!-- Practice Arena / Studio Dropdown -->
+          <li class="nav-item nav-item--dropdown">
+            <a href="#speech-studio" class="nav-link nav-link--has-dropdown" aria-haspopup="true">
+              <i class="fas fa-gamepad"></i>
+              <span>Đấu trường Luyện tập</span>
+              <span class="nav-badge-hot" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">AI</span>
+              <i class="fas fa-chevron-down nav-chevron"></i>
+            </a>
+            <div class="nav-dropdown-menu">
+              <a href="#speech-studio" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(236,72,153,0.15);color:#ec4899">
+                  <i class="fas fa-microphone-lines"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Luyện Phát Âm AI Studio</div>
+                  <div class="dropdown-desc">Nhận diện giọng nói & chấm điểm độ chuẩn xác</div>
+                </div>
+              </a>
+              <a href="#match-game" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(14,165,233,0.15);color:#0ea5e9">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Ghép Thẻ Tốc Độ (Match Game)</div>
+                  <div class="dropdown-desc">Phản xạ nối từ kiểu Quizlet chạy đua thời gian</div>
+                </div>
+              </a>
+              <a href="#dictation-lab" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(16,185,129,0.15);color:#10b981">
+                  <i class="fas fa-headphones-simple"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Chép Chính Tả (Dictation Lab)</div>
+                  <div class="dropdown-desc">Luyện nghe sâu theo câu, bắt từng âm chuẩn BBC</div>
+                </div>
+              </a>
+              <a href="#sentence-builder" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(245,158,11,0.15);color:#f59e0b">
+                  <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Xếp Câu Phản Xạ (Duolingo Style)</div>
+                  <div class="dropdown-desc">Ghép khối từ thành câu hoàn chỉnh và chính xác</div>
+                </div>
+              </a>
+              <a href="#tech-interview" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(99,102,241,0.15);color:#6366f1">
+                  <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Mô Phỏng Phỏng Vấn IT</div>
+                  <div class="dropdown-desc">Luyện phỏng vấn Tech song ngữ theo khung STAR</div>
+                </div>
+              </a>
+            </div>
+          </li>
+
           <!-- Progress shortcut -->
           <li class="nav-item">
             <a href="#progress" class="nav-link">
@@ -158,6 +215,11 @@
             <span class="pill-emoji pill-bolt">⚡</span>
             <strong id="navXpCount">250</strong><span class="pill-suffix">XP</span>
           </div>
+
+          <!-- Sound FX Toggle (On/Off) -->
+          <button class="theme-toggle-btn sound-toggle-btn" id="soundToggleBtn" title="Bật / Tắt âm thanh hiệu ứng (Sound FX)" onclick="toggleSoundFX()" aria-label="Toggle Sound Effects">
+            <i class="fas fa-volume-high" id="soundIcon"></i>
+          </button>
 
           <!-- Theme Toggle (Dark / Light) -->
           <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
@@ -234,21 +296,30 @@
       </div>
       <div class="hero-visual" data-aos="fade-left">
         <div class="hero-card-group">
-          <div class="floating-card card--word">
+          <div class="floating-card card--word" id="wordOfTheDayCard">
             <div class="word-of-day">
-              <span class="wod-label"><i class="fas fa-sparkles" style="color:#f59e0b;margin-right:3px"></i> Word of the Day</span>
-              <h3 class="wod-word">Serendipity</h3>
-              <p class="wod-phonetic">/ˌserənˈdɪpɪti/</p>
-              <p class="wod-meaning">n. May mắn tình cờ; điều kỳ diệu bất ngờ trong hành trình tech</p>
-              <button class="btn btn--ghost btn--sm" id="btnSpeakWod" onclick="speakWOD()">
-                <i class="fas fa-volume-up"></i> Nghe phát âm
-                <span class="audio-wave-bars" id="wodAudioWave">
-                  <span class="wave-bar"></span>
-                  <span class="wave-bar"></span>
-                  <span class="wave-bar"></span>
-                  <span class="wave-bar"></span>
-                </span>
-              </button>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem">
+                <span class="wod-label"><i class="fas fa-sparkles" style="color:#f59e0b;margin-right:3px"></i> Word of the Day</span>
+                <span class="badge-tag" id="wodTag" style="font-size:.7rem;padding:2px 8px;border-radius:20px;background:rgba(99,102,241,0.15);color:#6366f1;font-weight:700">DevOps & System</span>
+              </div>
+              <h3 class="wod-word" id="wodWord">Architecture</h3>
+              <p class="wod-phonetic" id="wodPhonetic">/ˈɑː.kɪ.tek.tʃər/</p>
+              <p class="wod-meaning" id="wodMeaning">n. Kiến trúc hệ thống, cấu trúc thiết kế phần mềm tổng thể</p>
+              <p class="wod-example" id="wodExample" style="font-size:.78rem;color:var(--text-muted);font-style:italic;margin-top:.4rem;line-height:1.4">"Clean architecture ensures long-term scalability."</p>
+              <div style="display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap">
+                <button class="btn btn--ghost btn--sm" id="btnSpeakWod" onclick="speakWOD()">
+                  <i class="fas fa-volume-up"></i> Phát âm
+                  <span class="audio-wave-bars" id="wodAudioWave">
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                  </span>
+                </button>
+                <button class="btn btn--primary btn--sm" onclick="practiceWodInStudio()" title="Luyện phát âm từ này ngay với AI Studio" style="padding:.4rem .75rem;font-size:.8rem;gap:.35rem">
+                  <i class="fas fa-microphone"></i> Luyện AI
+                </button>
+              </div>
             </div>
           </div>
           <div class="floating-card card--progress">
@@ -550,6 +621,9 @@
           <button class="filter-btn" data-filter="travel">Du lịch</button>
           <button class="filter-btn" data-filter="academic">Học thuật</button>
           <button class="filter-btn" data-filter="idiom">Thành ngữ</button>
+          <button class="filter-btn filter-btn--saved" data-filter="saved" title="Xem các từ bạn đã lưu đánh dấu">
+            <i class="fas fa-star" style="color:#f59e0b;margin-right:4px"></i> Đã lưu (<span id="savedVocabBadgeCount">0</span>)
+          </button>
         </div>
         <button class="btn-sheet-client" onclick="openClientSheetModal()" title="Học từ vựng từ bảng tính Google Sheet của bạn">
           <i class="fas fa-file-excel" style="color:#10b981"></i>
@@ -779,6 +853,497 @@
           <button class="btn btn--success btn--sm" onclick="markCard('easy')">
             <i class="fas fa-check"></i> Dễ
           </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 1. AI SPEECH & PRONUNCIATION STUDIO ===== -->
+  <section class="speech-studio-section" id="speech-studio">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-microphone-lines" style="color:#ec4899"></i> AI Speech Studio</span>
+        <h2 class="section-title">Luyện Phát Âm <span class="gradient-text">Chuẩn Bản Xứ với AI</span></h2>
+        <p class="section-desc">Phát âm chuẩn xác cùng trợ lý AI thời gian thực. Lắng nghe ngữ điệu bản xứ, ghi âm luyện nói và nhận điểm số phân tích chi tiết từng từ!</p>
+      </div>
+
+      <div class="speech-studio-wrapper">
+        <div class="speech-studio-card">
+          <!-- Top Toolbar: Preset selector + speed/accent control -->
+          <div class="speech-toolbar">
+            <div class="speech-select-group">
+              <label for="speechPhraseSelect"><i class="fas fa-list-check"></i> Chọn câu thực hành:</label>
+              <select id="speechPhraseSelect" class="select-input" onchange="handleSpeechPhraseChange(this.value)">
+                <optgroup label="Thuật ngữ & Giao tiếp CNTT">
+                  <option value="Microservices architecture enables independent deployment.">Microservices architecture enables independent deployment.</option>
+                  <option value="Asynchronous functions handle non-blocking operations.">Asynchronous functions handle non-blocking operations.</option>
+                  <option value="Continuous integration automates code testing and builds.">Continuous integration automates code testing and builds.</option>
+                  <option value="We need to optimize the database query latency.">We need to optimize the database query latency.</option>
+                  <option value="Could you please review my pull request today?">Could you please review my pull request today?</option>
+                </optgroup>
+                <optgroup label="Giao tiếp & Phỏng vấn Chuyên nghiệp">
+                  <option value="I have over three years of experience with React and Node.js.">I have over three years of experience with React and Node.js.</option>
+                  <option value="Our team follows agile methodology with two week sprints.">Our team follows agile methodology with two week sprints.</option>
+                  <option value="Communication and collaboration are essential for tech teams.">Communication and collaboration are essential for tech teams.</option>
+                </optgroup>
+                <option value="custom">✏️ Nhập câu bạn tự chọn...</option>
+              </select>
+            </div>
+
+            <div class="speech-settings-pills">
+              <div class="speech-setting-pill" title="Giọng phát âm">
+                <i class="fas fa-globe"></i>
+                <select id="speechAccentSelect" onchange="changeSpeechAccent(this.value)">
+                  <option value="en-US">US (Mỹ)</option>
+                  <option value="en-GB">UK (Anh)</option>
+                </select>
+              </div>
+              <div class="speech-setting-pill" title="Tốc độ phát âm">
+                <i class="fas fa-gauge-high"></i>
+                <select id="speechRateSelect" onchange="changeSpeechRate(this.value)">
+                  <option value="0.8">0.8x Chậm</option>
+                  <option value="1.0" selected>1.0x Chuẩn</option>
+                  <option value="1.2">1.2x Nhanh</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom text input -->
+          <div class="speech-custom-wrap" id="speechCustomWrap" style="display:none">
+            <input type="text" id="speechCustomInput" placeholder="Nhập câu tiếng Anh bạn muốn luyện nói..." oninput="handleCustomSpeechInput(this.value)" />
+          </div>
+
+          <!-- Target Phrase Display -->
+          <div class="speech-target-box">
+            <div class="speech-target-label">
+              <span>Mục tiêu luyện đọc:</span>
+              <button class="btn btn--ghost btn--xs" onclick="speakCurrentStudioPhrase()" title="Nghe người bản xứ phát âm mẫu">
+                <i class="fas fa-volume-high"></i> Nghe mẫu
+                <span class="audio-wave-bars" id="studioAudioWave">
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                </span>
+              </button>
+            </div>
+            <div class="speech-target-text" id="speechTargetDisplay">
+              Microservices architecture enables independent deployment.
+            </div>
+            <div class="speech-target-phonetic" id="speechTargetPhonetic">
+              Nhấn biểu tượng micro bên dưới và đọc to, rõ ràng vào mic
+            </div>
+          </div>
+
+          <!-- Microphone Recording Stage -->
+          <div class="speech-mic-stage">
+            <div class="speech-mic-halo" id="speechMicHalo">
+              <button class="speech-mic-btn" id="speechMicBtn" onclick="toggleSpeechRecording()" title="Bấm để bắt đầu ghi âm phát âm">
+                <i class="fas fa-microphone" id="speechMicIcon"></i>
+              </button>
+            </div>
+            <div class="speech-mic-status" id="speechMicStatus">
+              Bấm Micro để bắt đầu luyện nói
+            </div>
+            <div class="speech-mic-waves" id="speechMicWaves">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <!-- Recognition & Scoring Result Box -->
+          <div class="speech-result-card" id="speechResultCard" style="display:none">
+            <div class="speech-result-header">
+              <div class="speech-score-circle" id="speechScoreCircle">
+                <span class="score-val" id="speechScoreVal">0%</span>
+                <span class="score-label">Độ chuẩn</span>
+              </div>
+              <div class="speech-feedback-meta">
+                <h4 id="speechFeedbackTitle">Kết quả phân tích</h4>
+                <p id="speechFeedbackDesc">AI đang so sánh giọng của bạn với phát âm bản xứ...</p>
+                <div class="speech-score-bar-wrap">
+                  <div class="speech-score-bar-fill" id="speechScoreBarFill" style="width:0%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detailed Word-by-word Breakdown -->
+            <div class="speech-word-breakdown">
+              <div class="breakdown-title"><i class="fas fa-spell-check"></i> Đánh giá chi tiết từng từ:</div>
+              <div class="speech-words-flow" id="speechWordsFlow">
+                <!-- Injected by JS -->
+              </div>
+              <div class="speech-transcript-preview">
+                AI nghe thấy: <strong id="speechRecognizedText">...</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. FAST-PACED MATCH GAME (QUIZLET STYLE) ===== -->
+  <section class="match-game-section" id="match-game">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-bolt" style="color:#0ea5e9"></i> Fast Match Arena</span>
+        <h2 class="section-title">Ghép Thẻ Tốc Độ <span class="gradient-text">Quizlet Style</span></h2>
+        <p class="section-desc">Rèn luyện phản xạ liên kết từ tiếng Anh và nghĩa tiếng Việt với tốc độ cao nhất. Ghép đôi chuẩn xác, phá kỷ lục thời gian và nhận điểm thưởng XP!</p>
+      </div>
+
+      <div class="match-game-wrapper">
+        <!-- Top Game Header: Category selector, Timer, Matches count, Best score -->
+        <div class="match-hud">
+          <div class="hud-item hud-category">
+            <label for="matchCategorySelect"><i class="fas fa-layer-group"></i> Chủ đề:</label>
+            <select id="matchCategorySelect" onchange="startMatchGame(this.value)">
+              <option value="it">CNTT & Lập trình (Tech)</option>
+              <option value="daily">Giao tiếp Hàng ngày</option>
+              <option value="business">Kinh doanh & Phỏng vấn</option>
+              <option value="academic">Học thuật chuyên sâu</option>
+            </select>
+          </div>
+
+          <div class="hud-item hud-timer">
+            <span class="hud-label"><i class="fas fa-stopwatch"></i> Thời gian:</span>
+            <span class="hud-timer-val" id="matchTimerVal">00:00.0</span>
+          </div>
+
+          <div class="hud-item hud-progress">
+            <span class="hud-label"><i class="fas fa-check-double"></i> Đã ghép:</span>
+            <span class="hud-progress-val"><strong id="matchCount">0</strong> / 6</span>
+          </div>
+
+          <div class="hud-item hud-best">
+            <span class="hud-label"><i class="fas fa-trophy" style="color:#f59e0b"></i> Kỷ lục:</span>
+            <span class="hud-best-val" id="matchBestVal">--:--</span>
+          </div>
+
+          <button class="btn btn--outline btn--sm hud-restart-btn" onclick="restartMatchGame()" title="Chơi lại ván mới">
+            <i class="fas fa-arrow-rotate-right"></i> Ván mới
+          </button>
+        </div>
+
+        <!-- 12 Cards Grid -->
+        <div class="match-grid" id="matchGrid">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Victory Modal / Overlay inside Game -->
+        <div class="match-victory-overlay" id="matchVictoryOverlay" style="display:none">
+          <div class="match-victory-card">
+            <div class="victory-icon-box">
+              <i class="fas fa-crown"></i>
+            </div>
+            <h3>Xuất Sắc! Hoàn Thành Ghép Thẻ!</h3>
+            <p>Bạn đã ghép chuẩn xác tất cả các từ trong thời gian:</p>
+            <div class="victory-time-pill" id="victoryTimePill">00:15.4</div>
+            <div class="victory-stats-row">
+              <div class="vstat">
+                <span class="vstat-num" id="victoryErrors">0</span>
+                <span class="vstat-label">Số lỗi sai</span>
+              </div>
+              <div class="vstat">
+                <span class="vstat-num">+50 XP</span>
+                <span class="vstat-label">Thưởng kinh nghiệm</span>
+              </div>
+              <div class="vstat">
+                <span class="vstat-num" id="victoryBestRecord">Mới!</span>
+                <span class="vstat-label">Kỷ lục cá nhân</span>
+              </div>
+            </div>
+            <div class="victory-actions">
+              <button class="btn btn--primary" onclick="restartMatchGame()">
+                <i class="fas fa-play"></i> Chơi Ván Mới
+              </button>
+              <button class="btn btn--outline" onclick="scrollToSection('dictation-lab')">
+                <i class="fas fa-headphones"></i> Sang Dictation Lab
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. DICTATION & LISTENING LAB (BBC STYLE) ===== -->
+  <section class="dictation-lab-section" id="dictation-lab">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-headphones-simple" style="color:#10b981"></i> Dictation Lab</span>
+        <h2 class="section-title">Phòng Nghe & <span class="gradient-text">Chép Chính Tả</span></h2>
+        <p class="section-desc">Phương pháp nghe chép chính tả (Dictation) giúp tai bạn phân biệt từng liên âm, nuốt âm và tăng cường khả năng nghe sâu vượt trội!</p>
+      </div>
+
+      <div class="dictation-lab-wrapper">
+        <div class="dictation-card">
+          <!-- Header controls -->
+          <div class="dictation-header">
+            <div class="dictation-level-badge" id="dictLevelBadge">Level B1</div>
+            <div class="dictation-selector-wrap">
+              <span>Bài số:</span>
+              <select id="dictationIndexSelect" onchange="loadDictationExercise(parseInt(this.value))">
+                <!-- Injected by JS -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Audio Player Stage -->
+          <div class="dictation-player-stage">
+            <div class="dictation-sound-wave" id="dictationWave">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="dictation-audio-btns">
+              <button class="btn btn--primary dict-play-btn" id="btnDictPlayNormal" onclick="playDictationAudio(1.0)">
+                <i class="fas fa-play"></i> Nghe tốc độ chuẩn (1.0x)
+              </button>
+              <button class="btn btn--outline dict-play-btn" id="btnDictPlaySlow" onclick="playDictationAudio(0.75)">
+                <i class="fas fa-turtle"></i> Nghe chậm (0.75x)
+              </button>
+            </div>
+            <div class="dictation-hint-toggle">
+              <button class="btn btn--ghost btn--xs" onclick="toggleDictationHint()">
+                <i class="fas fa-lightbulb" style="color:#f59e0b"></i> <span id="dictHintBtnText">Hiện gợi ý chữ cái đầu</span>
+              </button>
+            </div>
+            <div class="dictation-masked-hint" id="dictMaskedHint" style="display:none">
+              <!-- Masked clue injected by JS -->
+            </div>
+          </div>
+
+          <!-- Dictation Input Area -->
+          <div class="dictation-input-zone">
+            <label for="dictationUserInput">Gõ chính xác câu bạn nghe được:</label>
+            <textarea id="dictationUserInput" rows="3" placeholder="Lắng nghe audio và gõ lại câu tiếng Anh ở đây..." oninput="handleDictationInput()"></textarea>
+            <div class="dictation-input-meta">
+              <span id="dictWordCount">0 từ</span>
+              <button class="btn btn--primary btn--sm" id="btnCheckDictation" onclick="checkDictationAnswer()">
+                <i class="fas fa-circle-check"></i> Kiểm tra đáp án
+              </button>
+            </div>
+          </div>
+
+          <!-- Result & Comparison Breakdown -->
+          <div class="dictation-result-box" id="dictResultBox" style="display:none">
+            <div class="dictation-score-banner" id="dictScoreBanner">
+              <!-- Score % and badge -->
+            </div>
+            <div class="dictation-comparison">
+              <div class="dictation-diff-row">
+                <span class="diff-title">Văn bản gốc:</span>
+                <p class="diff-original" id="dictOriginalText"></p>
+              </div>
+              <div class="dictation-diff-row">
+                <span class="diff-title">Bài làm của bạn (So sánh từng từ):</span>
+                <div class="diff-breakdown" id="dictDiffBreakdown"></div>
+              </div>
+              <div class="dictation-diff-row">
+                <span class="diff-title">Bản dịch nghĩa:</span>
+                <p class="diff-meaning" id="dictVietnameseText"></p>
+              </div>
+            </div>
+            <div class="dictation-next-action">
+              <button class="btn btn--outline" onclick="nextDictationExercise()">
+                <i class="fas fa-forward"></i> Bài tiếp theo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. DUOLINGO STYLE SENTENCE BUILDER ===== -->
+  <section class="sentence-builder-section" id="sentence-builder">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-puzzle-piece" style="color:#f59e0b"></i> Sentence Builder</span>
+        <h2 class="section-title">Xếp Câu Phản Xạ <span class="gradient-text">Duolingo Style</span></h2>
+        <p class="section-desc">Sắp xếp các khối từ vựng thành câu hoàn chỉnh đúng trật tự ngữ pháp tự nhiên. Luyện khả năng tư duy cấu trúc câu tiếng Anh như một phản xạ tự nhiên!</p>
+      </div>
+
+      <div class="sentence-builder-wrapper">
+        <div class="builder-card">
+          <!-- Top info bar -->
+          <div class="builder-top-bar">
+            <span class="builder-stage-tag" id="builderStageTag">Câu 1 / 4</span>
+            <div class="builder-xp-tag"><i class="fas fa-bolt" style="color:#f59e0b"></i> +20 XP mỗi câu đúng</div>
+          </div>
+
+          <!-- Prompt in Vietnamese -->
+          <div class="builder-prompt-box">
+            <div class="builder-avatar">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="builder-bubble">
+              <span class="builder-bubble-tip">Dịch câu sau sang tiếng Anh:</span>
+              <h3 class="builder-vietnamese-text" id="builderPromptVi">
+                Chúng tôi triển khai các tính năng mới sau mỗi hai tuần chạy nước rút.
+              </h3>
+            </div>
+          </div>
+
+          <!-- Assembled Words Target Slots Zone -->
+          <div class="builder-answer-zone" id="builderAnswerZone" onclick="handleAnswerZoneClick(event)">
+            <span class="builder-placeholder" id="builderPlaceholder">Click chọn các thẻ từ bên dưới để xếp vào đây...</span>
+          </div>
+
+          <!-- Word Bank (Chips) -->
+          <div class="builder-bank" id="builderBank">
+            <!-- Chips injected by JS -->
+          </div>
+
+          <!-- Action buttons -->
+          <div class="builder-actions">
+            <button class="btn btn--outline btn--sm" onclick="resetCurrentSentenceBuilder()">
+              <i class="fas fa-rotate-left"></i> Xóa xếp lại
+            </button>
+            <button class="btn btn--primary" id="btnCheckBuilder" onclick="checkSentenceBuilder()">
+              <i class="fas fa-check"></i> Kiểm tra
+            </button>
+          </div>
+
+          <!-- Feedback Banner -->
+          <div class="builder-feedback-banner" id="builderFeedbackBanner" style="display:none">
+            <div class="feedback-content" id="builderFeedbackContent">
+              <!-- Injected by JS -->
+            </div>
+            <button class="btn btn--primary" id="btnNextBuilder" onclick="nextSentenceBuilder()" style="display:none">
+              Tiếp tục <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5. TECH INTERVIEW SIMULATOR (STAR METHOD) ===== -->
+  <section class="tech-interview-section" id="tech-interview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-user-tie" style="color:#6366f1"></i> Tech Mock Interview</span>
+        <h2 class="section-title">Mô Phỏng Phỏng Vấn IT <span class="gradient-text">Song Ngữ Thực Chiến</span></h2>
+        <p class="section-desc">Tự tin vượt qua vòng phỏng vấn kỹ thuật với nhà tuyển dụng quốc tế. Luyện trả lời theo chuẩn STAR, nghe câu trả lời mẫu của Senior và tự ghi âm luyện nói!</p>
+      </div>
+
+      <div class="tech-interview-wrapper">
+        <!-- Category Filter Tabs -->
+        <div class="interview-tabs-nav" id="interviewTabsNav">
+          <button class="interview-tab-btn active" data-cat="all" onclick="filterInterviewCategory('all', this)">
+            <i class="fas fa-border-all"></i> Tất cả câu hỏi
+          </button>
+          <button class="interview-tab-btn" data-cat="backend" onclick="filterInterviewCategory('backend', this)">
+            <i class="fas fa-server"></i> Backend & Database
+          </button>
+          <button class="interview-tab-btn" data-cat="system" onclick="filterInterviewCategory('system', this)">
+            <i class="fas fa-diagram-project"></i> Kiến trúc Hệ thống
+          </button>
+          <button class="interview-tab-btn" data-cat="agile" onclick="filterInterviewCategory('agile', this)">
+            <i class="fas fa-users-gear"></i> Làm việc nhóm & Agile
+          </button>
+          <button class="interview-tab-btn" data-cat="web" onclick="filterInterviewCategory('web', this)">
+            <i class="fas fa-code"></i> Frontend & Web
+          </button>
+        </div>
+
+        <!-- Question Showcase Card -->
+        <div class="interview-card" id="interviewCard">
+          <div class="interview-meta-header">
+            <span class="badge-tag" id="interviewCategoryBadge">Backend & Database</span>
+            <div class="interview-nav-btns">
+              <button class="btn btn--ghost btn--xs" onclick="prevInterviewQuestion()"><i class="fas fa-chevron-left"></i> Câu trước</button>
+              <span id="interviewIndexIndicator">1 / 4</span>
+              <button class="btn btn--ghost btn--xs" onclick="nextInterviewQuestion()">Câu sau <i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+
+          <div class="interview-question-box">
+            <div class="interview-q-en-row">
+              <h3 class="interview-q-en" id="interviewQuestionEn">
+                Can you explain how indexes work in MongoDB and when you should use them?
+              </h3>
+              <button class="btn btn--ghost btn--sm" onclick="speakInterviewQuestion()" title="Nghe câu hỏi tiếng Anh">
+                <i class="fas fa-volume-high"></i>
+              </button>
+            </div>
+            <p class="interview-q-vi" id="interviewQuestionVi">
+              Bạn có thể giải thích cơ chế hoạt động của index trong MongoDB và khi nào nên áp dụng không?
+            </p>
+          </div>
+
+          <!-- Interview Strategy Tip / STAR hint -->
+          <div class="interview-star-tip">
+            <div class="star-tip-header">
+              <i class="fas fa-lightbulb" style="color:#f59e0b"></i>
+              <strong>Chiến lược trả lời (Gợi ý trọng tâm):</strong>
+            </div>
+            <p id="interviewQuestionHint">
+              Tập trung vào cấu trúc B-tree, scan performance O(log N) thay vì full-collection scan O(N), và nhược điểm write overhead.
+            </p>
+          </div>
+
+          <!-- User Voice Practice Simulator -->
+          <div class="interview-record-box">
+            <div class="record-box-header">
+              <span><i class="fas fa-microphone"></i> Luyện nói câu trả lời của bạn (Voice Practice):</span>
+              <span class="record-timer" id="interviewRecordTimer">00:00</span>
+            </div>
+            <div class="record-box-actions">
+              <button class="btn btn--primary btn--sm" id="btnInterviewRecord" onclick="toggleInterviewRecording()">
+                <i class="fas fa-circle-dot" id="interviewRecIcon" style="color:#ef4444"></i> <span id="interviewRecText">Bấm để bắt đầu trả lời</span>
+              </button>
+              <button class="btn btn--ghost btn--sm" id="btnInterviewClearRec" onclick="clearInterviewRecording()" style="display:none">
+                <i class="fas fa-trash"></i> Xóa ghi âm
+              </button>
+            </div>
+            <div class="record-transcript-box" id="interviewTranscriptBox" style="display:none">
+              <div class="transcript-label">Bản ghi lời nói của bạn:</div>
+              <p class="transcript-text" id="interviewTranscriptText">...</p>
+            </div>
+          </div>
+
+          <!-- Model Answer Section (Collapsible) -->
+          <div class="interview-model-toggle-wrap">
+            <button class="btn btn--outline" id="btnToggleModelAnswer" onclick="toggleModelAnswer()">
+              <i class="fas fa-eye" id="modelAnswerEyeIcon"></i> <span id="modelAnswerBtnText">Xem câu trả lời mẫu của Senior Engineer</span>
+            </button>
+          </div>
+
+          <div class="interview-model-box" id="interviewModelBox" style="display:none">
+            <div class="model-answer-header">
+              <div class="model-badge"><i class="fas fa-circle-check" style="color:#10b981"></i> Model Answer (Senior Level)</div>
+              <button class="btn btn--ghost btn--xs" onclick="speakModelAnswer()" title="Nghe phát âm câu trả lời mẫu">
+                <i class="fas fa-volume-high"></i> Nghe câu trả lời
+              </button>
+            </div>
+            <p class="model-answer-en" id="interviewModelAnswerEn">
+              Indexes in MongoDB use B-tree data structures to hold a small portion of the collection's data set in an easy-to-traverse form.
+            </p>
+            <p class="model-answer-vi" id="interviewModelAnswerVi">
+              Index trong MongoDB sử dụng cấu trúc cây B-tree...
+            </p>
+
+            <!-- Key Vocab Pills -->
+            <div class="model-vocab-box">
+              <div class="model-vocab-title"><i class="fas fa-tags"></i> Thuật ngữ ghi điểm trong câu trả lời:</div>
+              <div class="model-vocab-list" id="interviewKeyVocabList">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Self Evaluation Rating -->
+          <div class="interview-eval-box">
+            <span>Tự đánh giá mức độ tự tin của bạn cho câu hỏi này:</span>
+            <div class="interview-stars" id="interviewStars">
+              <button class="star-btn" data-star="1" onclick="rateInterviewConfidence(1)">★</button>
+              <button class="star-btn" data-star="2" onclick="rateInterviewConfidence(2)">★</button>
+              <button class="star-btn" data-star="3" onclick="rateInterviewConfidence(3)">★</button>
+              <button class="star-btn" data-star="4" onclick="rateInterviewConfidence(4)">★</button>
+              <button class="star-btn" data-star="5" onclick="rateInterviewConfidence(5)">★</button>
+            </div>
+            <span class="eval-status-text" id="interviewEvalStatus">Chưa đánh giá</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1195,6 +1760,8 @@
         </div>
       </form>
     </div>
+  </div>
+
   <!-- ===== CLIENT GOOGLE SHEET STUDY MODAL ===== -->
   <div class="detail-modal-overlay" id="clientSheetModal" style="display:none">
     <div class="detail-modal-box" style="max-width:850px;width:95%">
@@ -1267,6 +1834,9 @@
       </div>
     </div>
   </div>
+
+  <!-- ===== FULLSCREEN CONFETTI CELEBRATION CANVAS ===== -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
