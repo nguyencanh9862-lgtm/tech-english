@@ -19,6 +19,7 @@
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^18.0.5",
+    "ejs": "^7.0.1",
     "express": "^5.2.1",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^8.7.1",

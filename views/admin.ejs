@@ -1,0 +1,73 @@
+<%- include('layouts/header', { title: 'Bảng Quản Trị MVC - TechEnglish' }) %>
+
+<section style="margin-bottom: 30px;">
+  <div style="margin-bottom: 25px;">
+    <h1 style="font-size: 26px; font-weight: 800; color: #1e293b; margin: 0 0 5px;">
+      <i class="fas fa-shield-halved" style="color: #2563eb;"></i> Bảng Quản Trị Hệ Thống MVC (Model &rarr; View)
+    </h1>
+    <p style="color: #64748b; margin: 0; font-size: 14px;">
+      Số liệu thống kê và danh sách người dùng được <strong>Controller</strong> truy vấn từ các <strong>Model</strong> và hiển thị tại đây.
+    </p>
+  </div>
+
+  <!-- Stats Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 800; color: #2563eb;"><%= stats.vocabCount %></div>
+      <div style="font-size: 13px; color: #64748b; font-weight: 600;">Từ vựng</div>
+    </div>
+    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 800; color: #ef4444;"><%= stats.courseCount %></div>
+      <div style="font-size: 13px; color: #64748b; font-weight: 600;">Khóa học Video</div>
+    </div>
+    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 800; color: #6366f1;"><%= stats.grammarCount %></div>
+      <div style="font-size: 13px; color: #64748b; font-weight: 600;">Bài ngữ pháp</div>
+    </div>
+    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 800; color: #10b981;"><%= stats.quizCount %></div>
+      <div style="font-size: 13px; color: #64748b; font-weight: 600;">Câu hỏi Quiz</div>
+    </div>
+    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 800; color: #f59e0b;"><%= stats.userCount %></div>
+      <div style="font-size: 13px; color: #64748b; font-weight: 600;">Người dùng</div>
+    </div>
+  </div>
+
+  <!-- Users Table (from User Model) -->
+  <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; color: #1e293b; margin: 0 0 15px;">
+      Danh Sách Người Dùng (Dữ liệu từ User Model)
+    </h2>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+        <thead>
+          <tr style="border-bottom: 2px solid #e2e8f0; color: #64748b;">
+            <th style="padding: 10px;">Họ tên</th>
+            <th style="padding: 10px;">Email</th>
+            <th style="padding: 10px;">Vai trò</th>
+            <th style="padding: 10px;">XP</th>
+            <th style="padding: 10px;">Streak</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(function(u) { %>
+            <tr style="border-bottom: 1px solid #f1f5f9;">
+              <td style="padding: 12px 10px; font-weight: 600; color: #0f172a;"><%= u.name %></td>
+              <td style="padding: 12px 10px; color: #64748b;"><%= u.email %></td>
+              <td style="padding: 12px 10px;">
+                <span style="background: <%= u.role === 'admin' ? '#fee2e2; color:#b91c1c;' : '#e0f2fe; color:#0369a1;' %> padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700;">
+                  <%= u.role %>
+                </span>
+              </td>
+              <td style="padding: 12px 10px; font-weight: 700; color: #f59e0b;"><%= u.xp || 0 %> XP</td>
+              <td style="padding: 12px 10px; color: #10b981;"><%= u.streak || 1 %> ngày 🔥</td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<%- include('layouts/footer') %>

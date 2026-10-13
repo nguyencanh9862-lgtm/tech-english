@@ -1,0 +1,46 @@
+<%- include('layouts/header', { title: 'Luyện Tập Trắc Nghiệm - TechEnglish MVC' }) %>
+
+<section style="margin-bottom: 30px;">
+  <div style="margin-bottom: 25px;">
+    <h1 style="font-size: 26px; font-weight: 800; color: #1e293b; margin: 0 0 5px;">
+      <i class="fas fa-circle-question" style="color: #10b981;"></i> Ngân Hàng Câu Hỏi Trắc Nghiệm (Model &rarr; View)
+    </h1>
+    <p style="color: #64748b; margin: 0; font-size: 14px;">
+      Dữ liệu câu hỏi được <strong>Controller</strong> truy vấn từ <strong>Quiz Model</strong> và nhóm theo từng chuyên mục hiển thị trực tiếp trên <strong>View</strong>.
+    </p>
+  </div>
+
+  <% Object.keys(groupedQuizzes).forEach(function(category) { %>
+    <% if (groupedQuizzes[category] && groupedQuizzes[category].length > 0) { %>
+      <div style="margin-bottom: 35px;">
+        <h2 style="font-size: 18px; font-weight: 800; color: #0f172a; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+          <span style="background: #10b981; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">
+            <%= groupedQuizzes[category].length %>
+          </span>
+          Chuyên mục: <%= category %>
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px;">
+          <% groupedQuizzes[category].forEach(function(q, idx) { %>
+            <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+              <div style="font-size: 12px; font-weight: 700; color: #10b981; margin-bottom: 6px;">Câu <%= idx + 1 %></div>
+              <h3 style="font-size: 15px; font-weight: 700; color: #1e293b; margin: 0 0 12px; line-height: 1.4;"><%= q.q %></h3>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <% q.options.forEach(function(opt, optIdx) { %>
+                  <div style="padding: 8px 12px; border-radius: 6px; font-size: 13px; background: <%= optIdx === q.answer ? '#dcfce7; border: 1px solid #86efac; color: #15803d; font-weight: 600;' : '#f8fafc; color: #475569;' %>">
+                    <strong><%= String.fromCharCode(65 + optIdx) %>.</strong> <%= opt %>
+                    <% if (optIdx === q.answer) { %>
+                      <i class="fas fa-check-circle" style="float: right; margin-top: 2px;"></i>
+                    <% } %>
+                  </div>
+                <% }); %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    <% } %>
+  <% }); %>
+</section>
+
+<%- include('layouts/footer') %>

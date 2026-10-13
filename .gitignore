@@ -11,6 +11,10 @@ uploads/*
 # System & Log files
 *.log
 .DS_Store
+
 # Testing & Coverage
 coverage/
 .nyc_output/
+
+# Nested clone / backup
+tech-english/

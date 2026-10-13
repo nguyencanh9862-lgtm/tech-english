@@ -85,40 +85,84 @@ npm start
 
 ---
 
-## 📂 Cấu Trúc Thư Mục Dự Án
+## 📂 Kiến Trúc Mô Hình MVC (Model - View - Controller)
+
+Dự án được tái cấu trúc và chuẩn hóa toàn diện theo kiến trúc **MVC**:
 
 ```
 CD ENGLISH/
-├── models/             # Schema Mongoose cho MongoDB
-│   ├── User.js         # Model người dùng & Google OAuth
-│   ├── Vocabulary.js   # Model từ vựng & ảnh minh họa
-│   ├── Grammar.js      # Model ngữ pháp
-│   ├── Quiz.js         # Model câu hỏi quiz
-│   ├── News.js         # Model Tin tức Công nghệ Thông tin
-│   ├── ITCourse.js     # Model Khóa học & Bài học CNTT
-│   └── Media.js        # Model thư viện ảnh
-├── routes/             # RESTful API endpoints
-│   ├── authRoutes.js   # API Google login, local auth, sync progress
-│   ├── userRoutes.js   # API quản lý người dùng (Admin)
-│   ├── vocabRoutes.js  # API CRUD từ vựng
-│   ├── newsRoutes.js   # API CRUD tin tức CNTT
-│   ├── itRoutes.js     # API Khóa học & Thuật ngữ CNTT
-│   ├── grammarRoutes.js
-│   ├── quizRoutes.js
-│   ├── statsRoutes.js
-│   └── uploadRoutes.js # API upload ảnh đơn & đa tệp
-├── uploads/            # Thư mục lưu trữ hình ảnh tải lên
-├── admin/              # Giao diện quản trị Admin Panel (có quản lý News & IT)
+├── config/                 # Cấu hình hệ thống & Cơ sở dữ liệu
+│   └── db.js               # Kết nối MongoDB, auto-seeding & event listeners
+├── models/                 # [M] - Model: Mongoose Schemas & Thực thể dữ liệu
+│   ├── index.js            # Xuất tập trung toàn bộ models
+│   ├── User.js             # Model người dùng & phân quyền
+│   ├── Vocabulary.js       # Model từ vựng & hình ảnh minh họa
+│   ├── Course.js           # Model khóa học video & bài học con
+│   ├── Grammar.js          # Model bài học ngữ pháp
+│   ├── Quiz.js             # Model câu hỏi trắc nghiệm
+│   ├── News.js             # Model tin tức công nghệ CNTT
+│   ├── ITCourse.js         # Model lộ trình học CNTT & thuật ngữ
+│   └── Media.js            # Model tệp tin hình ảnh tải lên
+├── views/                  # [V] - View: Tầng hiển thị & Tài liệu giao diện
+│   └── README.md           # Đặc tả kiến trúc tầng View & kết nối Client-Server
+│   (Giao diện người dùng: index.html & Giao diện Admin: admin/index.html)
+├── controllers/            # [C] - Controller: Tiếp nhận yêu cầu & xử lý nghiệp vụ
+│   ├── index.js            # Xuất tập trung toàn bộ controllers
+│   ├── authController.js   # Đăng nhập Google, auth nội bộ, JWT, đổi mật khẩu
+│   ├── vocabController.js  # CRUD từ vựng, bộ lọc, tìm kiếm
+│   ├── courseController.js # CRUD khóa học video, quản lý bài học con
+│   ├── grammarController.js# CRUD bài học ngữ pháp
+│   ├── quizController.js   # Quản lý ngân hàng câu hỏi trắc nghiệm
+│   ├── itController.js     # Danh mục khóa học & thuật ngữ CNTT
+│   ├── newsController.js   # CRUD tin tức công nghệ
+│   ├── statsController.js  # Thống kê hệ thống
+│   ├── userController.js   # Quản lý người dùng & phân quyền Admin
+│   ├── sheetController.js  # Đồng bộ Google Sheets, import/export CSV
+│   ├── uploadController.js # Tải lên ảnh đơn/đa tệp, thư viện Media
+│   ├── systemController.js # Kiểm tra trạng thái máy chủ (health check)
+│   └── viewController.js   # Điều hướng và xử lý view người dùng & admin
+├── routes/                 # Routing: Định tuyến URL và gắn Controller
+│   ├── index.js            # Router trung tâm gộp toàn bộ endpoints
+│   ├── authRoutes.js       # Endpoints xác thực (/api/auth)
+│   ├── vocabRoutes.js      # Endpoints từ vựng (/api/vocab)
+│   ├── courseRoutes.js     # Endpoints khóa học (/api/courses)
+│   ├── grammarRoutes.js    # Endpoints ngữ pháp (/api/grammar)
+│   ├── quizRoutes.js       # Endpoints trắc nghiệm (/api/quiz)
+│   ├── itRoutes.js         # Endpoints CNTT (/api/it)
+│   ├── newsRoutes.js       # Endpoints tin tức (/api/news)
+│   ├── statsRoutes.js      # Endpoints thống kê (/api/stats)
+│   ├── userRoutes.js       # Endpoints người dùng (/api/users)
+│   ├── sheetRoutes.js      # Endpoints Google Sheets (/api/sheets)
+│   ├── uploadRoutes.js     # Endpoints upload media (/api/upload, /api/media)
+│   ├── systemRoutes.js     # Endpoints trạng thái (/api/health)
+│   └── viewRoutes.js       # Endpoints điều hướng giao diện (/admin)
+├── middleware/             # Middlewares hệ thống
+│   ├── auth.js             # Xác thực JWT & phân quyền Admin
+│   ├── security.js         # Helmet, NoSQL Injection, XSS sanitization
+│   ├── rateLimiter.js      # Giới hạn tần suất request (chống DoS)
+│   └── errorHandler.js     # Bắt và chuẩn hóa lỗi tập trung
+├── utils/                  # Hàm tiện ích dùng chung
+│   ├── youtube.js          # Trích xuất YouTube Video ID
+│   └── sheetParser.js      # Parser CSV & Google Sheets an toàn
+├── uploads/                # Thư mục lưu trữ hình ảnh tải lên
+├── admin/                  # Giao diện quản trị Admin Panel
 │   ├── css/admin.css
 │   ├── js/admin.js
 │   └── index.html
-├── js/
-│   ├── app.js          # Logic website chính, Dark/Light theme, Code Sandbox, News Reader
-│   └── data.js         # Dữ liệu gốc (Vocab, Grammar, Quiz, Tech News, IT Courses, Code Templates)
-├── css/
-│   └── main.css        # Giao diện chính với hệ thống biến màu Light/Dark Mode
-├── server.js           # Server Express & kết nối MongoDB
-├── seed.js             # Script khởi tạo cơ sở dữ liệu mẫu
+├── js/                     # Logic client frontend
+│   ├── app.js              # Tương tác giao diện client & gọi API Controllers
+│   └── data.js             # Dữ liệu tĩnh dự phòng & studios
+├── css/                    # Định dạng giao diện chính (Dark/Light mode)
+│   └── main.css
+├── tests/                  # Bộ kiểm thử tự động (Unit & Integration Tests)
+│   ├── controllers.test.js # Kiểm thử các Controller MVC
+│   ├── api.routes.test.js  # Kiểm thử các API Endpoints
+│   ├── routes.*.test.js    # Kiểm thử chi tiết các luồng API
+│   ├── models.test.js      # Kiểm thử schema models
+│   ├── security.test.js    # Kiểm thử bảo mật & injection
+│   └── utils.test.js       # Kiểm thử các hàm tiện ích
+├── server.js               # Khởi động ứng dụng Express & nạp cấu hình MVC
+├── seed.js                 # Script nạp dữ liệu mẫu vào MongoDB
 ├── package.json
 └── .env
 ```

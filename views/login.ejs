@@ -1,0 +1,30 @@
+<%- include('layouts/header', { title: 'Đăng Nhập / Đăng Ký - TechEnglish MVC' }) %>
+
+<section style="max-width: 440px; margin: 40px auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+  <div style="text-align: center; margin-bottom: 24px;">
+    <h1 style="font-size: 24px; font-weight: 800; color: #1e293b; margin: 0 0 8px;">Đăng Nhập Tài Khoản</h1>
+    <p style="color: #64748b; font-size: 14px; margin: 0;">Kiến trúc xác thực MVC kết nối trực tiếp với <strong>User Model</strong></p>
+  </div>
+
+  <form action="/api/auth/login" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
+    <div>
+      <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Email hoặc Tên đăng nhập</label>
+      <input type="text" name="email" required placeholder="admin@englishmaster.vn" style="width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
+    </div>
+
+    <div>
+      <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Mật khẩu</label>
+      <input type="password" name="password" required placeholder="••••••••" style="width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
+    </div>
+
+    <button type="submit" style="background: #2563eb; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 8px;">
+      Đăng Nhập
+    </button>
+  </form>
+
+  <div style="margin-top: 20px; text-align: center; font-size: 13px; color: #64748b; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+    Tài khoản quản trị mặc định: <code style="color: #2563eb;">admin</code> / <code style="color: #2563eb;">admin123</code>
+  </div>
+</section>
+
+<%- include('layouts/footer') %>

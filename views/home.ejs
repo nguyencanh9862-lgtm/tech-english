@@ -1,0 +1,79 @@
+<%- include('layouts/header', { title: 'Trang Chủ - TechEnglish MVC' }) %>
+
+<section style="margin-bottom: 40px; text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%); border-radius: 16px;">
+  <h1 style="font-size: 32px; font-weight: 800; color: #1e293b; margin-bottom: 12px;">Hệ Thống Học Tiếng Anh Công Nghệ Thông Tin</h1>
+  <p style="font-size: 16px; color: #64748b; max-width: 700px; margin: 0 auto 20px;">
+    Toàn bộ dữ liệu hiển thị trên trang này được <strong>Controller</strong> lấy từ <strong>Model</strong> và truyền trực tiếp vào <strong>View</strong> để render.
+  </p>
+  <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+    <span style="background:#dbeafe; color:#1d4ed8; padding:8px 16px; border-radius:30px; font-weight:700;">
+      <i class="fas fa-book"></i> Từ vựng trong Model: <%= stats.vocabCount %>
+    </span>
+    <span style="background:#dcfce7; color:#15803d; padding:8px 16px; border-radius:30px; font-weight:700;">
+      <i class="fab fa-youtube"></i> Khóa học trong Model: <%= stats.courseCount %>
+    </span>
+    <span style="background:#fef3c7; color:#b45309; padding:8px 16px; border-radius:30px; font-weight:700;">
+      <i class="fas fa-newspaper"></i> Tin công nghệ: <%= newsList.length %>
+    </span>
+  </div>
+</section>
+
+<!-- Section 1: Từ vựng nổi bật lấy trực tiếp từ Vocabulary Model -->
+<section style="margin-bottom: 45px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <h2 style="font-size:22px; font-weight:700; color:#1e293b; margin:0;">
+      <i class="fas fa-star" style="color:#f59e0b;"></i> Từ Vựng Tiêu Biểu (Dữ liệu từ Vocabulary Model)
+    </h2>
+    <a href="/mvc/vocab" style="color:#2563eb; text-decoration:none; font-weight:600;">Xem tất cả &rarr;</a>
+  </div>
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:20px;">
+    <% vocabList.forEach(function(item) { %>
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:18px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h3 style="margin:0; font-size:18px; font-weight:800; color:#0f172a;"><%= item.word %></h3>
+          <span style="background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:12px; font-size:12px; font-weight:700;"><%= item.level %></span>
+        </div>
+        <p style="color:#64748b; font-size:13px; margin:0 0 8px;"><%= item.phonetic %> &bull; <em><%= item.pos %></em></p>
+        <p style="font-weight:600; color:#1e293b; margin:0 0 10px;"><%= item.meaning %></p>
+        <% if (item.example) { %>
+          <div style="background:#f8fafc; padding:8px 10px; border-radius:6px; font-size:12px; color:#475569; border-left:3px solid #3b82f6;">
+            <strong>Ex:</strong> <%= item.example %>
+          </div>
+        <% } %>
+      </div>
+    <% }); %>
+  </div>
+</section>
+
+<!-- Section 2: Khóa học Video lấy trực tiếp từ Course Model -->
+<section style="margin-bottom: 45px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <h2 style="font-size:22px; font-weight:700; color:#1e293b; margin:0;">
+      <i class="fab fa-youtube" style="color:#ef4444;"></i> Khóa Học Video (Dữ liệu từ Course Model)
+    </h2>
+    <a href="/mvc/courses" style="color:#2563eb; text-decoration:none; font-weight:600;">Xem tất cả &rarr;</a>
+  </div>
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:20px;">
+    <% courses.forEach(function(c) { %>
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+        <% if (c.thumbnail) { %>
+          <img src="<%= c.thumbnail %>" alt="<%= c.title %>" style="width:100%; height:180px; object-fit:cover;">
+        <% } %>
+        <div style="padding:16px;">
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span style="background:#fee2e2; color:#b91c1c; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;"><%= c.category %></span>
+            <span style="background:#e0e7ff; color:#4338ca; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;"><%= c.level %></span>
+          </div>
+          <h3 style="font-size:16px; font-weight:700; margin:0 0 8px; color:#1e293b;"><%= c.title %></h3>
+          <p style="font-size:13px; color:#64748b; margin:0 0 12px; line-height:1.5;"><%= c.description %></p>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#94a3b8;">
+            <span><i class="fas fa-chalkboard-user"></i> <%= c.instructor %></span>
+            <span><i class="fas fa-play-circle"></i> <%= (c.lessons && c.lessons.length) || 1 %> bài học</span>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</section>
+
+<%- include('layouts/footer') %>
