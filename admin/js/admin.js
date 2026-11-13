@@ -42,8 +42,43 @@ let adminState = {
 
 let adminCoursesList = (typeof ENGLISH_COURSES_DATA !== 'undefined' ? JSON.parse(JSON.stringify(ENGLISH_COURSES_DATA)) : []);
 
+// ───────────── ADMIN THEME SYNC (LIGHT / DARK MODE) ─────────────
+function initAdminTheme() {
+  const savedTheme = localStorage.getItem('em_theme') || localStorage.getItem('y8_theme');
+  applyAdminTheme(savedTheme === 'dark' ? 'dark' : 'light');
+  window.addEventListener('storage', (e) => {
+    if ((e.key === 'em_theme' || e.key === 'y8_theme') && e.newValue) {
+      applyAdminTheme(e.newValue === 'dark' ? 'dark' : 'light');
+    }
+  });
+}
+
+function applyAdminTheme(theme) {
+  const isDark = theme === 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  if (document.body) {
+    document.body.classList.toggle('dark-theme', isDark);
+  }
+  const icon = document.getElementById('adminThemeIcon');
+  if (icon) {
+    icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+  }
+  localStorage.setItem('em_theme', theme);
+  localStorage.setItem('y8_theme', theme);
+}
+
+function toggleAdminTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || localStorage.getItem('em_theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyAdminTheme(next);
+  if (typeof showAdminToast === 'function') {
+    showAdminToast(next === 'dark' ? '🌙 Đã bật chế độ Giao diện Tối' : '☀️ Đã bật chế độ Giao diện Sáng', 'info');
+  }
+}
+
 // ───────────── INIT ─────────────
 document.addEventListener('DOMContentLoaded', async () => {
+  initAdminTheme();
   // Deep-clone data from data.js as initial fallback
   adminState.vocab      = JSON.parse(JSON.stringify(VOCABULARY_DATA));
   adminState.quizData   = JSON.parse(JSON.stringify(QUIZ_DATA));

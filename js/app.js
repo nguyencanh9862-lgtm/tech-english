@@ -1173,16 +1173,30 @@ async function syncProgressToBackend() {
 // CHỨC NĂNG 1: THEME SÁNG / TỐI (LIGHT / DARK MODE TOGGLE)
 // ===================================================================
 function initTheme() {
-  const savedTheme = localStorage.getItem('em_theme');
-  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-  applyTheme(initialTheme);
+  const savedTheme = localStorage.getItem('em_theme') || localStorage.getItem('y8_theme');
+  const initialTheme = savedTheme === 'dark' ? 'dark' : 'light';
+  applyTheme(initialTheme, false);
+
+  window.addEventListener('storage', (e) => {
+    if ((e.key === 'em_theme' || e.key === 'y8_theme') && e.newValue) {
+      applyTheme(e.newValue === 'dark' ? 'dark' : 'light', true);
+    }
+  });
 }
 
-function applyTheme(theme) {
+function applyTheme(theme, animate = false) {
   const isDark = theme === 'dark';
-  document.body.classList.toggle('dark-theme', isDark);
+  if (animate) {
+    document.documentElement.classList.add('theme-transitioning');
+    clearTimeout(window.__themeTransitionTimer);
+    window.__themeTransitionTimer = setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 320);
+  }
   document.documentElement.setAttribute('data-theme', theme);
+  if (document.body) {
+    document.body.classList.toggle('dark-theme', isDark);
+  }
 
   const icon = document.getElementById('themeIcon');
   if (icon) {
@@ -1192,17 +1206,19 @@ function applyTheme(theme) {
 
   const toggleBtn = document.getElementById('themeToggleBtn');
   if (toggleBtn) {
-    toggleBtn.setAttribute('title', isDark ? 'Chuyển sang Giao diện Sáng' : 'Chuyển sang Giao diện Tối');
+    toggleBtn.setAttribute('title', isDark ? 'Chuyển sang Giao diện Sáng (Light Mode)' : 'Chuyển sang Giao diện Tối (Dark Mode)');
+    toggleBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
   }
 
   localStorage.setItem('em_theme', theme);
+  localStorage.setItem('y8_theme', theme);
 }
 
 function toggleTheme() {
-  const currentTheme = localStorage.getItem('em_theme') || (document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+  const currentTheme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('em_theme') || 'light';
   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  applyTheme(newTheme);
-  showToast(newTheme === 'dark' ? '🌙 Đã bật chế độ Giao diện Tối' : '☀️ Đã bật chế độ Giao diện Sáng', 'info');
+  applyTheme(newTheme, true);
+  showToast(newTheme === 'dark' ? '🌙 Đã bật chế độ Giao diện Tối (Dark Mode)' : '☀️ Đã bật chế độ Giao diện Sáng (Light Mode)', 'info');
 }
 
 // ===================================================================

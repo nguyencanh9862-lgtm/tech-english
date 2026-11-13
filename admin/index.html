@@ -4,9 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Y8 Admin Panel – Quản Trị Hệ Thống</title>
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('em_theme') || localStorage.getItem('y8_theme');
+        document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+      } catch (e) {}
+    })();
+  </script>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.svg" />
-  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/admin.css?v=20261113_v11" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -181,6 +189,9 @@
             <span class="db-indicator"></span>
             <span class="db-text" id="dbStatusText">Đang kết nối MongoDB...</span>
           </div>
+          <button class="topbar-btn" id="adminThemeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleAdminTheme()" aria-label="Toggle Dark/Light Mode">
+            <i class="fas fa-moon" id="adminThemeIcon"></i>
+          </button>
           <button class="topbar-btn" title="Thông báo" onclick="showAdminToast('Không có thông báo mới', 'info')">
             <i class="fas fa-bell"></i>
             <span class="notif-dot"></span>
@@ -231,7 +242,7 @@
   <!-- TOAST -->
   <div class="adm-toast-container" id="admToastContainer"></div>
 
-  <script src="../js/data.js"></script>
-  <script src="js/admin.js"></script>
+  <script src="../js/data.js?v=20261113_v11"></script>
+  <script src="js/admin.js?v=20261113_v11"></script>
 </body>
 </html>

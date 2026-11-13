@@ -330,3 +330,234 @@
 .media-copy-badge:hover {
   background: #e0e7ff;
 }
+
+/* =========================================================
+   ADMIN PANEL DARK MODE (MODERN SAAS / PREMIUM TECH)
+   ========================================================= */
+[data-theme="dark"] body,
+[data-theme="dark"] .admin-body,
+body.dark-theme.admin-body {
+  background: #0b1020;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .sidebar,
+body.dark-theme .sidebar {
+  background: #080c18;
+  border-right: 1px solid #334155;
+}
+
+[data-theme="dark"] .topbar,
+body.dark-theme .topbar {
+  background: #111827;
+  border-bottom: 1px solid #334155;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .breadcrumb,
+[data-theme="dark"] .hamburger-adm,
+body.dark-theme .breadcrumb,
+body.dark-theme .hamburger-adm {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .topbar-btn,
+body.dark-theme .topbar-btn {
+  background: #182235;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .topbar-btn:hover,
+body.dark-theme .topbar-btn:hover {
+  background: #1e293b;
+  border-color: #8b5cf6;
+  color: #38bdf8;
+}
+
+[data-theme="dark"] #adminThemeToggleBtn,
+body.dark-theme #adminThemeToggleBtn {
+  border-color: rgba(251, 191, 36, 0.45);
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .notif-dot,
+body.dark-theme .notif-dot {
+  border-color: #182235;
+}
+
+[data-theme="dark"] .topbar-time,
+body.dark-theme .topbar-time {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .db-status-pill,
+body.dark-theme .db-status-pill {
+  background: #182235;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .page-title,
+[data-theme="dark"] .stat-card-value,
+[data-theme="dark"] .adm-card-header h3,
+[data-theme="dark"] .grammar-adm-header h3,
+[data-theme="dark"] .settings-action-row strong,
+[data-theme="dark"] .col-row strong,
+[data-theme="dark"] .po-stat-row strong,
+[data-theme="dark"] .wdv-header h2,
+[data-theme="dark"] .adm-modal-header h3,
+[data-theme="dark"] .media-name,
+body.dark-theme .page-title,
+body.dark-theme .stat-card-value,
+body.dark-theme .adm-card-header h3,
+body.dark-theme .grammar-adm-header h3,
+body.dark-theme .settings-action-row strong,
+body.dark-theme .col-row strong,
+body.dark-theme .po-stat-row strong,
+body.dark-theme .wdv-header h2,
+body.dark-theme .adm-modal-header h3,
+body.dark-theme .media-name {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .page-subtitle,
+[data-theme="dark"] .stat-card-label,
+[data-theme="dark"] .cat-bar-label,
+[data-theme="dark"] .cat-bar-count,
+[data-theme="dark"] .level-bar-num,
+[data-theme="dark"] .level-bar-lbl,
+[data-theme="dark"] .grammar-adm-body p,
+[data-theme="dark"] .settings-action-row p,
+[data-theme="dark"] .col-row span,
+[data-theme="dark"] .po-stat-row span,
+[data-theme="dark"] .wdv-row label,
+body.dark-theme .page-subtitle,
+body.dark-theme .stat-card-label,
+body.dark-theme .cat-bar-label,
+body.dark-theme .cat-bar-count,
+body.dark-theme .level-bar-num,
+body.dark-theme .level-bar-lbl,
+body.dark-theme .grammar-adm-body p,
+body.dark-theme .settings-action-row p,
+body.dark-theme .col-row span,
+body.dark-theme .po-stat-row span,
+body.dark-theme .wdv-row label {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .adm-card,
+[data-theme="dark"] .grammar-adm-card,
+[data-theme="dark"] .media-card,
+[data-theme="dark"] .adm-modal,
+body.dark-theme .stat-card,
+body.dark-theme .adm-card,
+body.dark-theme .grammar-adm-card,
+body.dark-theme .media-card,
+body.dark-theme .adm-modal {
+  background: #182235;
+  border-color: #334155;
+  color: #f8fafc;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .adm-card-header,
+[data-theme="dark"] .adm-modal-header,
+[data-theme="dark"] .adm-modal-footer,
+[data-theme="dark"] .settings-action-row,
+[data-theme="dark"] .col-row,
+body.dark-theme .adm-card-header,
+body.dark-theme .adm-modal-header,
+body.dark-theme .adm-modal-footer,
+body.dark-theme .settings-action-row,
+body.dark-theme .col-row {
+  border-color: #334155;
+}
+
+[data-theme="dark"] .cat-bar-track,
+body.dark-theme .cat-bar-track {
+  background: #1e293b;
+}
+
+[data-theme="dark"] .quick-btn,
+[data-theme="dark"] .btn-adm--ghost,
+[data-theme="dark"] .page-btn,
+[data-theme="dark"] .quiz-tab,
+body.dark-theme .quick-btn,
+body.dark-theme .btn-adm--ghost,
+body.dark-theme .page-btn,
+body.dark-theme .quiz-tab {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .quick-btn:hover,
+[data-theme="dark"] .btn-adm--ghost:hover,
+[data-theme="dark"] .page-btn:hover:not(:disabled),
+[data-theme="dark"] .quiz-tab:hover,
+[data-theme="dark"] .quiz-tab.active,
+body.dark-theme .quick-btn:hover,
+body.dark-theme .btn-adm--ghost:hover,
+body.dark-theme .page-btn:hover:not(:disabled),
+body.dark-theme .quiz-tab:hover,
+body.dark-theme .quiz-tab.active {
+  border-color: #8b5cf6;
+  color: #38bdf8;
+  background: rgba(139, 92, 246, 0.15);
+}
+
+[data-theme="dark"] .search-box,
+[data-theme="dark"] .filter-bar select,
+[data-theme="dark"] .adm-modal .adm-form-group input,
+[data-theme="dark"] .adm-modal .adm-form-group textarea,
+[data-theme="dark"] .adm-modal .adm-form-group select,
+body.dark-theme .search-box,
+body.dark-theme .filter-bar select,
+body.dark-theme .adm-modal .adm-form-group input,
+body.dark-theme .adm-modal .adm-form-group textarea,
+body.dark-theme .adm-modal .adm-form-group select {
+  background: #111827;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .search-box input,
+body.dark-theme .search-box input {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .adm-modal .adm-form-group label,
+body.dark-theme .adm-modal .adm-form-group label {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .adm-table th,
+body.dark-theme .adm-table th {
+  background: #111827;
+  color: #94a3b8;
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .adm-table td,
+body.dark-theme .adm-table td {
+  border-bottom-color: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .adm-table tr:hover td,
+body.dark-theme .adm-table tr:hover td {
+  background: rgba(139, 92, 246, 0.08);
+}
+
+[data-theme="dark"] .image-dropzone,
+[data-theme="dark"] .table-no-img,
+[data-theme="dark"] .media-copy-badge,
+body.dark-theme .image-dropzone,
+body.dark-theme .table-no-img,
+body.dark-theme .media-copy-badge {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
