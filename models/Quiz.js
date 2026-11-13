@@ -1,29 +1,30 @@
-const mongoose = require('mongoose');
+const { createSQLModel } = require('./sqlModel');
 
-const QuizSchema = new mongoose.Schema({
+/**
+ * MySQL Model: Quiz (Bảng `quizzes`)
+ */
+const Quiz = createSQLModel('Quiz', 'quizzes', {
   category: {
-    type: String,
+    type: 'ENUM',
     required: true,
     enum: ['vocabulary', 'grammar', 'listening', 'mixed']
   },
   q: {
-    type: String,
+    type: 'TEXT',
     required: true
   },
-  options: [{
-    type: String,
-    required: true
-  }],
+  options: {
+    type: 'JSON',
+    default: () => []
+  },
   answer: {
-    type: Number,
+    type: 'INT',
     required: true
   },
   audio: {
-    type: String,
+    type: 'VARCHAR(255)',
     default: ''
   }
-}, {
-  timestamps: true
 });
 
-module.exports = mongoose.model('Quiz', QuizSchema);
+module.exports = Quiz;

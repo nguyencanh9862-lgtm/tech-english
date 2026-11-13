@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
+    "next:dev": "next dev -p 3000",
+    "next:build": "next build",
+    "next:start": "next start -p 3000",
     "seed": "node seed.js",
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
@@ -27,7 +30,13 @@
     "helmet": "^8.3.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.10.4",
-    "multer": "^2.4.0"
+    "multer": "^2.4.0",
+    "mysql2": "^3.24.6",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1"
   },
   "devDependencies": {
     "jest": "^30.5.2",

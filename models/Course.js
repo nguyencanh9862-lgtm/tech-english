@@ -1,81 +1,69 @@
-const mongoose = require('mongoose');
+const { createSQLModel } = require('./sqlModel');
 
-const LessonSchema = new mongoose.Schema({
-  id: { type: Number, required: true },
-  title: { type: String, required: true, trim: true },
-  youtubeUrl: { type: String, required: true, trim: true },
-  youtubeId: { type: String, default: '' },
-  duration: { type: String, default: '10:00' },
-  description: { type: String, default: '' },
-  order: { type: Number, default: 1 },
-  vocabularies: [{
-    word: { type: String, trim: true },
-    phonetic: { type: String, default: '' },
-    meaning: { type: String, trim: true },
-    example: { type: String, default: '' }
-  }]
-}, { _id: false });
-
-const CourseSchema = new mongoose.Schema({
+/**
+ * MySQL Model: Course (Bảng `courses`)
+ */
+const Course = createSQLModel('Course', 'courses', {
   id: {
-    type: Number,
+    type: 'INT',
     required: true,
     unique: true
   },
   title: {
-    type: String,
+    type: 'VARCHAR(500)',
     required: true,
     trim: true
   },
   titleEn: {
-    type: String,
+    type: 'VARCHAR(500)',
     default: '',
     trim: true
   },
   category: {
-    type: String,
+    type: 'VARCHAR(100)',
     required: true,
-    default: 'communication' // communication, it, pronunciation, grammar, business, ielts
+    default: 'communication'
   },
   level: {
-    type: String,
+    type: 'VARCHAR(100)',
     default: 'Cơ bản (A1-A2)'
   },
   description: {
-    type: String,
+    type: 'TEXT',
     required: true
   },
   instructor: {
-    type: String,
+    type: 'VARCHAR(255)',
     default: 'EnglishMaster Team'
   },
   thumbnail: {
-    type: String,
+    type: 'VARCHAR(500)',
     default: ''
   },
   youtubeUrl: {
-    type: String,
+    type: 'VARCHAR(500)',
     default: ''
   },
   youtubeId: {
-    type: String,
+    type: 'VARCHAR(100)',
     default: ''
   },
   badge: {
-    type: String,
+    type: 'VARCHAR(100)',
     default: 'Mới nhất'
   },
   views: {
-    type: Number,
+    type: 'INT',
     default: 0
   },
   rating: {
-    type: Number,
+    type: 'FLOAT',
     default: 5.0
   },
-  lessons: [LessonSchema]
-}, {
-  timestamps: true
+  lessons: {
+    type: 'JSON',
+    default: () => []
+  }
 });
 
-module.exports = mongoose.model('Course', CourseSchema);
+module.exports = Course;

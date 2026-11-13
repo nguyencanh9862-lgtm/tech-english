@@ -1,14 +1,18 @@
-const mongoose = require('mongoose');
+const { getDbState } = require('../config/db');
 
 /**
- * Controller xử lý trạng thái hệ thống và điều hướng
+ * Controller xử lý trạng thái hệ thống và điều hướng (Next.js + Express + MySQL)
  */
 
-// GET /api/health - Kiểm tra tình trạng sức khỏe của server và cơ sở dữ liệu
+// GET /api/health - Kiểm tra tình trạng sức khỏe của server và cơ sở dữ liệu MySQL
 function getHealth(req, res) {
+  const db = getDbState();
   res.json({
     status: 'online',
-    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    database: db.connected ? 'connected' : 'disconnected',
+    dbType: 'MySQL',
+    engine: db.engine,
+    framework: 'Next.js + Express',
     timestamp: new Date().toISOString()
   });
 }

@@ -95,7 +95,7 @@ async function checkDbConnection() {
       if (data.database === 'connected') {
         adminState.dbConnected = true;
         if (pill) pill.className = 'db-status-pill connected';
-        if (text) text.textContent = '🟢 MongoDB Online';
+        if (text) text.textContent = '🟢 MySQL Online (Next.js + Express)';
         return true;
       }
     }

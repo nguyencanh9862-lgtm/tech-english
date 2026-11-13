@@ -1,54 +1,55 @@
-const mongoose = require('mongoose');
+const { createSQLModel } = require('./sqlModel');
 
-const VocabularySchema = new mongoose.Schema({
+/**
+ * MySQL Model: Vocabulary (Bảng `vocabularies`)
+ */
+const Vocabulary = createSQLModel('Vocabulary', 'vocabularies', {
   id: {
-    type: Number,
+    type: 'INT',
     required: true,
     unique: true
   },
   word: {
-    type: String,
+    type: 'VARCHAR(255)',
     required: true,
     trim: true
   },
   phonetic: {
-    type: String,
+    type: 'VARCHAR(255)',
     default: ''
   },
   pos: {
-    type: String,
+    type: 'VARCHAR(50)',
     required: true,
     default: 'n'
   },
   meaning: {
-    type: String,
+    type: 'TEXT',
     required: true,
     trim: true
   },
   example: {
-    type: String,
+    type: 'TEXT',
     default: ''
   },
   exampleVi: {
-    type: String,
+    type: 'TEXT',
     default: ''
   },
   category: {
-    type: String,
+    type: 'VARCHAR(100)',
     required: true,
     default: 'daily'
   },
   level: {
-    type: String,
+    type: 'VARCHAR(50)',
     required: true,
     default: 'A1'
   },
   image: {
-    type: String,
+    type: 'LONGTEXT',
     default: ''
   }
-}, {
-  timestamps: true
 });
 
-module.exports = mongoose.model('Vocabulary', VocabularySchema);
+module.exports = Vocabulary;

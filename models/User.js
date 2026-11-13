@@ -1,62 +1,63 @@
-const mongoose = require('mongoose');
+const { createSQLModel } = require('./sqlModel');
 
-const UserSchema = new mongoose.Schema({
+/**
+ * MySQL Model: User (Bảng `users`)
+ */
+const User = createSQLModel('User', 'users', {
   name: {
-    type: String,
+    type: 'VARCHAR(255)',
     required: true,
     trim: true
   },
   email: {
-    type: String,
+    type: 'VARCHAR(255)',
     required: true,
     unique: true,
     lowercase: true,
     trim: true
   },
   password: {
-    type: String,
+    type: 'VARCHAR(255)',
     default: null
   },
   avatar: {
-    type: String,
+    type: 'VARCHAR(500)',
     default: ''
   },
   googleId: {
-    type: String,
-    sparse: true
+    type: 'VARCHAR(255)',
+    default: null
   },
   authProvider: {
-    type: String,
+    type: 'ENUM',
     enum: ['google', 'local'],
     default: 'local'
   },
   role: {
-    type: String,
+    type: 'ENUM',
     enum: ['user', 'admin'],
     default: 'user'
   },
   xp: {
-    type: Number,
+    type: 'INT',
     default: 0
   },
   streak: {
-    type: Number,
+    type: 'INT',
     default: 0
   },
   learnedWords: {
-    type: [Number],
-    default: []
+    type: 'JSON',
+    default: () => []
   },
   earnedBadges: {
-    type: [String],
-    default: []
+    type: 'JSON',
+    default: () => []
   },
   lastActive: {
-    type: Date,
-    default: Date.now
+    type: 'DATETIME',
+    default: () => new Date()
   }
-}, {
-  timestamps: true
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = User;

@@ -1,38 +1,41 @@
-const mongoose = require('mongoose');
+const { createSQLModel } = require('./sqlModel');
 
-const GrammarSchema = new mongoose.Schema({
+/**
+ * MySQL Model: Grammar (Bảng `grammars`)
+ */
+const Grammar = createSQLModel('Grammar', 'grammars', {
   title: {
-    type: String,
+    type: 'VARCHAR(255)',
     required: true
   },
   icon: {
-    type: String,
+    type: 'VARCHAR(100)',
     default: 'fas fa-circle-dot'
   },
   color: {
-    type: String,
+    type: 'VARCHAR(50)',
     default: '#6366f1'
   },
   formula: {
-    type: String,
+    type: 'VARCHAR(255)',
     default: ''
   },
   description: {
-    type: String,
+    type: 'TEXT',
     default: ''
   },
-  uses: [{
-    type: String
-  }],
-  examples: [{
-    en: String,
-    vi: String
-  }],
-  signals: [{
-    type: String
-  }]
-}, {
-  timestamps: true
+  uses: {
+    type: 'JSON',
+    default: () => []
+  },
+  examples: {
+    type: 'JSON',
+    default: () => []
+  },
+  signals: {
+    type: 'JSON',
+    default: () => []
+  }
 });
 
-module.exports = mongoose.model('Grammar', GrammarSchema);
+module.exports = Grammar;

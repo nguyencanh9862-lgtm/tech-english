@@ -1,59 +1,52 @@
-const mongoose = require('mongoose');
+const { createSQLModel } = require('./sqlModel');
 
-const TopicSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  enTerm: { type: String, default: '' },
-  viDesc: { type: String, required: true },
-  enExplanation: { type: String, default: '' },
-  codeSnippet: { type: String, default: '' },
-  practicalTip: { type: String, default: '' }
-}, { _id: false });
-
-const ITCourseSchema = new mongoose.Schema({
+/**
+ * MySQL Model: ITCourse (Bảng `it_courses`)
+ */
+const ITCourse = createSQLModel('ITCourse', 'it_courses', {
   id: {
-    type: Number,
+    type: 'INT',
     required: true,
     unique: true
   },
   title: {
-    type: String,
+    type: 'VARCHAR(500)',
     required: true,
     trim: true
   },
   titleEn: {
-    type: String,
+    type: 'VARCHAR(500)',
     default: ''
   },
   category: {
-    type: String,
+    type: 'VARCHAR(100)',
     required: true,
-    default: 'web' // 'web', 'backend', 'dsa', 'devops', 'ai', 'security'
+    default: 'web'
   },
   icon: {
-    type: String,
+    type: 'VARCHAR(100)',
     default: 'fas fa-code'
   },
   color: {
-    type: String,
+    type: 'VARCHAR(50)',
     default: '#6366f1'
   },
   level: {
-    type: String,
+    type: 'VARCHAR(100)',
     default: 'Cơ bản - Trung cấp'
   },
   description: {
-    type: String,
+    type: 'TEXT',
     required: true
   },
-  topics: [TopicSchema],
-  keyVocab: [{
-    word: String,
-    phonetic: String,
-    meaning: String,
-    example: String
-  }]
-}, {
-  timestamps: true
+  topics: {
+    type: 'JSON',
+    default: () => []
+  },
+  keyVocab: {
+    type: 'JSON',
+    default: () => []
+  }
 });
 
-module.exports = mongoose.model('ITCourse', ITCourseSchema);
+module.exports = ITCourse;

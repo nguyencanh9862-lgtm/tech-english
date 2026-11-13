@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Vocabulary = require('./models/Vocabulary');
 const Grammar = require('./models/Grammar');
@@ -189,9 +188,10 @@ const INITIAL_QUIZ = [
 ];
 
 async function seedDatabase() {
-  const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cd_english';
-  console.log(`Connecting to MongoDB: ${uri}`);
-  await mongoose.connect(uri);
+  const host = process.env.MYSQL_HOST || '127.0.0.1';
+  const port = process.env.MYSQL_PORT || '3306';
+  const dbName = process.env.MYSQL_DATABASE || 'cd_english';
+  console.log(`Connecting to MySQL: mysql://${host}:${port}/${dbName}`);
 
   const vocabCount = await Vocabulary.countDocuments();
   if (vocabCount === 0) {

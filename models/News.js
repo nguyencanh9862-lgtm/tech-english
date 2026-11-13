@@ -1,63 +1,60 @@
-const mongoose = require('mongoose');
+const { createSQLModel } = require('./sqlModel');
 
-const KeyVocabItemSchema = new mongoose.Schema({
-  word: { type: String, required: true },
-  phonetic: { type: String, default: '' },
-  meaning: { type: String, required: true },
-  example: { type: String, default: '' }
-}, { _id: false });
-
-const NewsSchema = new mongoose.Schema({
+/**
+ * MySQL Model: News (Bảng `news`)
+ */
+const News = createSQLModel('News', 'news', {
   id: {
-    type: Number,
+    type: 'INT',
     required: true,
     unique: true
   },
   title: {
-    type: String,
+    type: 'VARCHAR(500)',
     required: true,
     trim: true
   },
   slug: {
-    type: String,
+    type: 'VARCHAR(500)',
     default: ''
   },
   summary: {
-    type: String,
+    type: 'TEXT',
     required: true
   },
   content: {
-    type: String,
+    type: 'LONGTEXT',
     required: true
   },
   category: {
-    type: String,
+    type: 'VARCHAR(100)',
     required: true,
-    default: 'ai' // 'ai', 'dev', 'security', 'cloud', 'career'
+    default: 'ai'
   },
   categoryLabel: {
-    type: String,
+    type: 'VARCHAR(255)',
     default: 'Trí tuệ nhân tạo'
   },
   image: {
-    type: String,
+    type: 'VARCHAR(500)',
     default: ''
   },
   readTime: {
-    type: String,
+    type: 'VARCHAR(100)',
     default: '5 phút đọc'
   },
   author: {
-    type: String,
+    type: 'VARCHAR(255)',
     default: 'Ban biên tập TechEnglish'
   },
   views: {
-    type: Number,
+    type: 'INT',
     default: 120
   },
-  keyVocab: [KeyVocabItemSchema]
-}, {
-  timestamps: true
+  keyVocab: {
+    type: 'JSON',
+    default: () => []
+  }
 });
 
-module.exports = mongoose.model('News', NewsSchema);
+module.exports = News;

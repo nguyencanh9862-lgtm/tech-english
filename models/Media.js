@@ -1,29 +1,30 @@
-const mongoose = require('mongoose');
+const { createSQLModel } = require('./sqlModel');
 
-const MediaSchema = new mongoose.Schema({
+/**
+ * MySQL Model: Media (Bảng `media`)
+ */
+const Media = createSQLModel('Media', 'media', {
   filename: {
-    type: String,
+    type: 'VARCHAR(255)',
     required: true,
     unique: true
   },
   originalname: {
-    type: String,
+    type: 'VARCHAR(255)',
     required: true
   },
   mimetype: {
-    type: String,
+    type: 'VARCHAR(100)',
     required: true
   },
   size: {
-    type: Number,
+    type: 'INT',
     required: true
   },
   url: {
-    type: String,
+    type: 'VARCHAR(500)',
     required: true
   }
-}, {
-  timestamps: true
 });
 
-module.exports = mongoose.model('Media', MediaSchema);
+module.exports = Media;

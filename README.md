@@ -1,6 +1,6 @@
-# EnglishMaster - Hệ Thống Học Tiếng Anh Fullstack (Node.js + MongoDB + Google Sign-In)
+# EnglishMaster - Hệ Thống Học Tiếng Anh Fullstack (Next.js + Express + MySQL + Google Sign-In)
 
-Hệ thống học tiếng Anh hoàn chỉnh Fullstack với giao diện người dùng hiện đại, trang quản trị Admin Panel toàn diện, cơ sở dữ liệu MongoDB, xác thực tài khoản Google OAuth, quản lý người dùng và tính năng đăng tải ảnh.
+Hệ thống học tiếng Anh hoàn chỉnh Fullstack với giao diện **Next.js App Router** hiện đại, trang quản trị **Admin Panel** toàn diện, backend **Express RESTful API**, cơ sở dữ liệu **MySQL**, xác thực tài khoản Google OAuth, quản lý người dùng và tính năng đăng tải ảnh.
 
 ---
 
@@ -20,14 +20,25 @@ Hệ thống học tiếng Anh hoàn chỉnh Fullstack với giao diện ngườ
 - **Quản lý quyền & tài khoản**: Admin có thể chuyển đổi vai trò (Admin ⮂ Học viên) và xóa người dùng trực tiếp trên cơ sở dữ liệu.
 - **Đăng nhập Admin bằng Google**: Trang quản trị hỗ trợ đăng nhập nhanh bằng Google hoặc tài khoản admin truyền thống.
 
-### 3. Backend & Cơ Sở Dữ Liệu (Node.js + Express + MongoDB)
-- **Mongoose Models**:
-  - `User`: Lưu trữ hồ sơ người dùng, Google ID, email, avatar, vai trò, XP, chuỗi ngày học, từ đã lưu, huy hiệu.
-  - `Vocabulary`: Lưu từ vựng, phiên âm, từ loại, nghĩa, ví dụ, cấp độ, chủ đề và **URL ảnh minh họa**.
-  - `Grammar`: Lưu các bài học ngữ pháp, công thức, ví dụ.
-  - `Quiz`: Lưu ngân hàng câu hỏi trắc nghiệm theo 4 danh mục.
-  - `Media`: Lưu siêu dữ liệu ảnh tải lên.
-- **Auto-seeding**: Tự động nạp dữ liệu mẫu ban đầu vào MongoDB khi khởi động server.
+### 3. Frontend (Next.js App Router) & Backend (Express + MySQL)
+- **Next.js App Router (`src/app/`)**:
+  - `/nextjs`: Trang tổng quan Next.js App Router kết nối trực tiếp Express API & MySQL.
+  - `/vocab`: Kho từ vựng tương tác, tìm kiếm, lọc theo CEFR, phát âm IPA & thêm từ mới vào MySQL.
+  - `/courses`: Trình xem khóa học video YouTube và bài học con từ MySQL.
+  - `/grammar`: Hệ thống bài học ngữ pháp công thức & ví dụ song ngữ từ MySQL.
+  - `/quiz`: Trắc nghiệm phản xạ 4 chuyên mục chấm điểm tức thì từ MySQL.
+  - `/it`: Học viện CNTT song ngữ, code snippets & thuật ngữ IT từ MySQL.
+  - `/news`: Cổng tin tức công nghệ song ngữ kèm từ vựng cốt lõi từ MySQL.
+- **MySQL Models (`models/` & `database/schema.sql`)**:
+  - `User` (`users`): Lưu trữ hồ sơ người dùng, Google ID, email, avatar, vai trò, XP, chuỗi ngày học, từ đã lưu, huy hiệu.
+  - `Vocabulary` (`vocabularies`): Lưu từ vựng, phiên âm, từ loại, nghĩa, ví dụ, cấp độ, chủ đề và **URL ảnh minh họa**.
+  - `Grammar` (`grammars`): Lưu các bài học ngữ pháp, công thức, ví dụ.
+  - `Quiz` (`quizzes`): Lưu ngân hàng câu hỏi trắc nghiệm theo 4 danh mục.
+  - `News` (`news`): Lưu bài báo công nghệ song ngữ.
+  - `ITCourse` (`it_courses`): Lưu module đào tạo CNTT và thuật ngữ.
+  - `Course` (`courses`): Lưu khóa học video và danh sách bài giảng.
+  - `Media` (`media`): Lưu siêu dữ liệu ảnh tải lên.
+- **Auto-seeding**: Tự động khởi tạo bảng và nạp dữ liệu mẫu ban đầu vào MySQL khi khởi động server.
 
 ### 4. Chức Năng Đăng Ảnh & Quản Lý Media trong Admin
 - **Đăng ảnh khi Thêm / Sửa từ vựng**: Hỗ trợ kéo thả ảnh (Drag & Drop), chọn file từ máy tính hoặc dán link URL với live preview tức thì.
@@ -77,11 +88,10 @@ npm start
 *(Chế độ dev tự động reload: `npm run dev`)*
 
 ### 4. Truy cập hệ thống:
-- Website chính (Học Tiếng Anh & CNTT): [http://localhost:5000](http://localhost:5000)
-- Cổng tin tức CNTT: [http://localhost:5000/#tech-news](http://localhost:5000/#tech-news)
-- Học CNTT & Lập trình: [http://localhost:5000/#it-academy](http://localhost:5000/#it-academy)
-- Trình thực hành Code: [http://localhost:5000/#code-playground](http://localhost:5000/#code-playground)
-- Trang Admin: [http://localhost:5000/admin](http://localhost:5000/admin) (Tài khoản: `admin` / `admin123`)
+- Giao diện Next.js App Router: [http://localhost:5000/nextjs](http://localhost:5000/nextjs)
+- Website Full Studio (Học Tiếng Anh & CNTT): [http://localhost:5000](http://localhost:5000)
+- Giao diện MVC Server: [http://localhost:5000/mvc](http://localhost:5000/mvc)
+- Trang Admin (MySQL): [http://localhost:5000/admin](http://localhost:5000/admin) (Tài khoản: `admin` / `admin123`)
 
 ---
 
