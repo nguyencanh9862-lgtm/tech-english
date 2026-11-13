@@ -965,9 +965,9 @@ function renderNavAuth() {
     `;
   } else {
     container.innerHTML = `
-      <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin">
-        <i class="far fa-user"></i>
-        <span>Đăng nhập</span>
+      <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin" style="background:linear-gradient(135deg,#6366f1 0%,#7c3aed 100%);color:#ffffff;border:none;border-radius:999px;padding:0.5rem 1.15rem;font-size:0.84rem;font-weight:700;box-shadow:0 4px 14px rgba(99,102,241,0.35);display:inline-flex;align-items:center;gap:0.45rem;">
+        <i class="far fa-user" style="color:#ffffff !important;font-size:0.85rem;"></i>
+        <span style="color:#ffffff !important;">Đăng nhập</span>
       </button>
     `;
   }

@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Y8 – Nền Tảng Học Tiếng Anh, Lập Trình & Đấu Trường AI</title>
   <meta name="description" content="Y8 – Hệ sinh thái học Tiếng Anh, CNTT & Đấu trường luyện tập AI tương tác miễn phí." />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/favicon.svg" />
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261113_v5" />
+  <link rel="shortcut icon" href="/favicon.svg?v=20261113_v5" />
+  <link rel="apple-touch-icon" href="/favicon.svg?v=20261113_v5" />
+  <link rel="stylesheet" href="css/main.css?v=20261113_v5" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -260,6 +260,8 @@
             <span class="search-text">Tìm kiếm...</span>
           </button>
 
+          <span class="nav-actions-divider" aria-hidden="true"></span>
+
           <!-- Theme Toggle Circle Button -->
           <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
             <i class="fas fa-moon" id="themeIcon"></i>
@@ -278,9 +280,9 @@
 
           <!-- User Authentication Box (Dynamic) -->
           <div class="nav-auth-wrapper" id="navAuthContainer">
-            <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin">
-              <i class="far fa-user"></i>
-              <span>Đăng nhập</span>
+            <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin" style="background:linear-gradient(135deg,#6366f1 0%,#7c3aed 100%);color:#ffffff;border:none;border-radius:999px;padding:0.5rem 1.15rem;font-size:0.84rem;font-weight:700;box-shadow:0 4px 14px rgba(99,102,241,0.35);display:inline-flex;align-items:center;gap:0.45rem;">
+              <i class="far fa-user" style="color:#ffffff !important;font-size:0.85rem;"></i>
+              <span style="color:#ffffff !important;">Đăng nhập</span>
             </button>
           </div>
         </div>
@@ -302,7 +304,7 @@
     </div>
     <div class="container hero-container">
       <div class="hero-content" data-aos="fade-right">
-        <span class="hero-badge"><span class="pulse-dot"></span><i class="fas fa-rocket"></i> Nền tảng Học Tiếng Anh & CNTT Song Ngữ Toàn Diện</span>
+        <span class="hero-badge"><span class="pulse-dot"></span><i class="fas fa-rocket"></i> Nền tảng Học Tiếng Anh & CNTT Song Ngữ Toàn Diện <i class="fas fa-arrow-right" style="font-size:0.72rem;margin-left:4px"></i></span>
         <h1 class="hero-title">
           Tiếng Anh & CNTT<br>
           <span class="gradient-text">Bứt phá Sự nghiệp Tech</span>
@@ -311,11 +313,11 @@
           Kết hợp hoàn hảo giữa <strong>học Tiếng Anh chuyên ngành</strong> và <strong>kiến thức Lập trình thực chiến</strong>: Web, Backend, Thuật toán, DevOps, AI cùng cổng tin tức công nghệ cập nhật liên tục!
         </p>
         <div class="hero-actions">
-          <button class="btn btn--primary btn--lg btn--shimmer" onclick="scrollToSection('video-courses')">
-            <i class="fab fa-youtube" style="color:#ffffff"></i> Khám phá Khóa học Video
+          <button class="btn btn--primary btn--lg btn--shimmer" onclick="scrollToSection('video-courses')" style="border-radius:999px;padding:0.85rem 1.65rem;">
+            <i class="fab fa-youtube" style="color:#ffffff"></i> Khám phá Khóa học Video <i class="fas fa-arrow-right" style="font-size:0.82rem;margin-left:4px"></i>
           </button>
-          <button class="btn btn--outline btn--lg" onclick="scrollToSection('it-academy')">
-            <i class="fas fa-laptop-code"></i> Học CNTT Song ngữ
+          <button class="btn btn--outline btn--lg" onclick="scrollToSection('it-academy')" style="border-radius:999px;padding:0.85rem 1.65rem;">
+            <i class="fas fa-book-open"></i> Học CNTT Song ngữ
           </button>
         </div>
         <div class="hero-stats">
@@ -1879,7 +1881,7 @@
   <!-- ===== FULLSCREEN CONFETTI CELEBRATION CANVAS ===== -->
   <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/data.js?v=20261113_v5"></script>
+  <script src="js/app.js?v=20261113_v5"></script>
 </body>
 </html>
