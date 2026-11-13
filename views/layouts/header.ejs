@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     .mvc-badge-bar {
-      background: linear-gradient(90deg, #0f172a, #be123c, #1e293b);
+      background: linear-gradient(90deg, #0f172a, #312e81, #1e293b);
       color: #fff;
       text-align: center;
       padding: 8px 14px;
@@ -22,15 +22,15 @@
     .mvc-nav-link {
       text-decoration: none;
       color: #334155;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
-      padding: 7px 12px;
+      padding: 6px 11px;
       border-radius: 999px;
       transition: all 0.2s;
     }
     .mvc-nav-link:hover {
-      background: #ffe4e6;
-      color: #e11d48;
+      background: #e0e7ff;
+      color: #6366f1;
     }
   </style>
 </head>
@@ -40,11 +40,11 @@
   </div>
 
   <header class="navbar" style="background: rgba(255,255,255,0.94); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100;">
-    <div class="container nav-container" style="display:flex; justify-content:space-between; align-items:center; padding:12px 20px; flex-wrap:wrap; gap:10px;">
-      <a href="/mvc" class="nav-logo" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
-        <img src="/favicon.svg" alt="Y8 Logo" width="38" height="38" style="border-radius:10px; box-shadow: 0 4px 12px rgba(225,29,72,0.3);">
-        <span style="font-size:23px; font-weight:900; color:#0f172a;">Y<span style="color:#e11d48;">8</span></span>
-        <span style="background:#ffe4e6; color:#e11d48; font-size:11px; padding:2px 8px; border-radius:999px; font-weight:800;">MVC</span>
+    <div class="container nav-container" style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:12px 24px; flex-wrap:wrap; gap:10px;">
+      <a href="/mvc" class="nav-logo" style="text-decoration:none; display:flex; align-items:center; gap:8px;">
+        <img src="/favicon.svg" alt="Y8 Logo" width="36" height="36" style="border-radius:10px; box-shadow: 0 4px 12px rgba(99,102,241,0.3);">
+        <span style="font-size:22px; font-weight:900; color:#0f172a;">Y<span style="color:#6366f1;">8</span></span>
+        <span style="background:rgba(99,102,241,0.12); color:#6366f1; font-size:10.5px; padding:2px 8px; border-radius:999px; font-weight:800;">MVC</span>
       </a>
 
       <nav style="display:flex; gap:4px; font-weight:700; flex-wrap:wrap; align-items:center; background:#f1f5f9; padding:4px; border-radius:999px; border:1px solid #e2e8f0;">
@@ -55,8 +55,8 @@
         <a href="/mvc/quiz" class="mvc-nav-link"><i class="fas fa-circle-question"></i> Quiz</a>
         <a href="/mvc/news" class="mvc-nav-link"><i class="fas fa-newspaper"></i> Tin tức</a>
         <a href="/mvc/it" class="mvc-nav-link"><i class="fas fa-terminal"></i> IT Academy</a>
-        <a href="/mvc/admin" class="mvc-nav-link" style="color:#e11d48;"><i class="fas fa-shield-halved"></i> Admin MVC</a>
-        <a href="/nextjs" class="mvc-nav-link" style="background:#ffe4e6; color:#e11d48;"><i class="fas fa-layer-group"></i> Next.js App</a>
+        <a href="/mvc/admin" class="mvc-nav-link" style="color:#6366f1;"><i class="fas fa-shield-halved"></i> Admin MVC</a>
+        <a href="/nextjs" class="mvc-nav-link" style="background:#e0e7ff; color:#6366f1;"><i class="fas fa-layer-group"></i> Next.js App</a>
         <a href="/index.html" class="mvc-nav-link" style="background:#fff; border:1px solid #e2e8f0;"><i class="fas fa-gamepad"></i> Y8 Studio</a>
       </nav>
     </div>

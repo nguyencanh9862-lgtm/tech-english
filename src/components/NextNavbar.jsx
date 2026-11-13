@@ -32,7 +32,7 @@ export default function NextNavbar() {
   return (
     <>
       <div style={{
-        background: 'linear-gradient(90deg, #0f172a 0%, #881337 50%, #1e293b 100%)',
+        background: 'linear-gradient(90deg, #0f172a 0%, #312e81 50%, #1e293b 100%)',
         color: '#fff',
         padding: '7px 18px',
         fontSize: '12.5px',
@@ -44,7 +44,7 @@ export default function NextNavbar() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
           <span style={{
-            background: 'linear-gradient(135deg, #e11d48, #f43f5e)',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
             padding: '2px 10px',
             borderRadius: '999px',
             fontWeight: 800,
@@ -54,19 +54,19 @@ export default function NextNavbar() {
             Y8 NEXT.JS + EXPRESS + MYSQL
           </span>
           <span>
-            <i className="fas fa-database" style={{ color: '#fde047', marginRight: '6px' }}></i>
+            <i className="fas fa-database" style={{ color: '#38bdf8', marginRight: '6px' }}></i>
             Database: <strong>{health.dbType || 'MySQL'}</strong> ({health.database === 'connected' ? '🟢 Online' : '🔴 Offline'})
           </span>
         </div>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <a href="/index.html" style={{ color: '#fda4af', textDecoration: 'none', fontWeight: 700 }}>
+          <a href="/index.html" style={{ color: '#a5b4fc', textDecoration: 'none', fontWeight: 700 }}>
             <i className="fas fa-gamepad"></i> Y8 Full Studio
           </a>
           <a href="/mvc" style={{ color: '#93c5fd', textDecoration: 'none', fontWeight: 700 }}>
             <i className="fas fa-cubes"></i> Y8 MVC
           </a>
           <a href="/admin/index.html" style={{
-            background: 'linear-gradient(135deg, #e11d48, #f43f5e)',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
             color: '#fff',
             padding: '3px 11px',
             borderRadius: '999px',
@@ -88,41 +88,36 @@ export default function NextNavbar() {
         boxShadow: '0 4px 20px rgba(15, 23, 42, 0.04)'
       }}>
         <div style={{
-          maxWidth: '1280px',
+          maxWidth: '1200px',
           margin: '0 auto',
-          padding: '12px 20px',
+          padding: '12px 24px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: '12px'
         }}>
-          <Link href="/nextjs" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Link href="/nextjs" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <img
               src="/favicon.svg"
               alt="Y8 Logo"
-              width="40"
-              height="40"
-              style={{ borderRadius: '11px', boxShadow: '0 5px 14px rgba(225, 29, 72, 0.32)' }}
+              width="36"
+              height="36"
+              style={{ borderRadius: '10px', boxShadow: '0 4px 12px rgba(99, 102, 241, 0.35)' }}
             />
-            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.05 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                <span style={{ fontSize: '23px', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.5px' }}>
-                  Y<span style={{ color: '#e11d48' }}>8</span>
-                </span>
-                <span style={{
-                  background: '#ffe4e6',
-                  color: '#e11d48',
-                  fontSize: '10px',
-                  padding: '2px 7px',
-                  borderRadius: '999px',
-                  fontWeight: 800
-                }}>
-                  PRO
-                </span>
-              </div>
-              <span style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
-                Edu &amp; AI Arena
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span style={{ fontSize: '22px', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.5px' }}>
+                Y<span style={{ color: '#6366f1' }}>8</span>
+              </span>
+              <span style={{
+                background: 'rgba(99, 102, 241, 0.12)',
+                color: '#6366f1',
+                fontSize: '10px',
+                padding: '2px 7px',
+                borderRadius: '999px',
+                fontWeight: 800
+              }}>
+                PRO
               </span>
             </div>
           </Link>
@@ -152,9 +147,9 @@ export default function NextNavbar() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    background: active ? 'linear-gradient(135deg, #e11d48, #f43f5e)' : 'transparent',
+                    background: active ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : 'transparent',
                     color: active ? '#fff' : '#334155',
-                    boxShadow: active ? '0 4px 12px rgba(225, 29, 72, 0.28)' : 'none',
+                    boxShadow: active ? '0 4px 12px rgba(99, 102, 241, 0.28)' : 'none',
                     transition: 'all 0.15s ease'
                   }}
                 >

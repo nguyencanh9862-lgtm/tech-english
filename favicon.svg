@@ -1,30 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
     <linearGradient id="y8Bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff2a4b" />
-      <stop offset="55%" stop-color="#e11d48" />
-      <stop offset="100%" stop-color="#9f1239" />
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="55%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#4f46e5" />
     </linearGradient>
     <linearGradient id="y8Shine" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.45)" />
+      <stop offset="0%" stop-color="rgba(255,255,255,0.4)" />
       <stop offset="100%" stop-color="rgba(255,255,255,0)" />
     </linearGradient>
-    <linearGradient id="y8Gold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fde047" />
-      <stop offset="100%" stop-color="#f59e0b" />
+    <linearGradient id="y8Accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#a5f3fc" />
     </linearGradient>
-    <filter id="y8Shadow" x="-15%" y="-15%" width="130%" height="130%">
-      <dropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4c0519" flood-opacity="0.5" />
-    </filter>
   </defs>
 
-  <!-- Outer Rounded 3D Badge -->
-  <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#y8Bg)" stroke="#fda4af" stroke-width="3" />
+  <!-- Outer Rounded 3D Badge (Original Indigo-Purple Palette) -->
+  <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#y8Bg)" stroke="#a5b4fc" stroke-width="3" />
   <!-- Top Gloss Highlight -->
   <path d="M 36 9 L 92 9 C 107 9 119 21 119 36 L 119 52 C 90 64 38 64 9 52 L 9 36 C 9 21 21 9 36 9 Z" fill="url(#y8Shine)" />
 
   <!-- Bold "Y" -->
-  <path d="M 20 34 L 36 34 L 47 56 L 58 34 L 74 34 L 54 69 L 54 96 L 39 96 L 39 69 Z" fill="#ffffff" filter="url(#y8Shadow)" />
+  <path d="M 20 34 L 36 34 L 47 56 L 58 34 L 74 34 L 54 69 L 54 96 L 39 96 L 39 69 Z" fill="#ffffff" />
 
   <!-- Bold "8" -->
   <path fill-rule="evenodd" clip-rule="evenodd" d="
@@ -47,8 +44,8 @@
     C 83.2 82.5 86.8 86 92 86
     C 97.2 86 100.8 82.5 100.8 77.5
     C 100.8 72.5 97.2 69 92 69 Z
-  " fill="url(#y8Gold)" filter="url(#y8Shadow)" />
+  " fill="url(#y8Accent)" />
 
   <!-- Sparkle Dot -->
-  <circle cx="24" cy="88" r="5" fill="#fde047" />
+  <circle cx="24" cy="88" r="5" fill="#38bdf8" />
 </svg>
