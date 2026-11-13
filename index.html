@@ -24,27 +24,22 @@
       <!-- Y8 Brand Logo -->
       <a href="#home" class="nav-logo" aria-label="Y8 Trang chủ">
         <div class="y8-emblem-box">
-          <svg viewBox="0 0 128 128" width="36" height="36" class="y8-svg-icon">
+          <svg viewBox="0 0 128 128" width="38" height="38" class="y8-svg-icon">
             <defs>
               <linearGradient id="navY8Bg" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#6366f1" />
-                <stop offset="50%" stop-color="#8b5cf6" />
-                <stop offset="100%" stop-color="#4f46e5" />
-              </linearGradient>
-              <linearGradient id="navY8Accent" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#38bdf8" />
-                <stop offset="100%" stop-color="#a5f3fc" />
+                <stop offset="0%" stop-color="#8b5cf6" />
+                <stop offset="55%" stop-color="#6366f1" />
+                <stop offset="100%" stop-color="#38bdf8" />
               </linearGradient>
             </defs>
-            <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#navY8Bg)" stroke="#a5b4fc" stroke-width="3" />
-            <path d="M 36 9 L 92 9 C 107 9 119 21 119 36 L 119 52 C 90 64 38 64 9 52 L 9 36 C 9 21 21 9 36 9 Z" fill="rgba(255,255,255,0.22)" />
-            <path d="M 20 34 L 36 34 L 47 56 L 58 34 L 74 34 L 54 69 L 54 96 L 39 96 L 39 69 Z" fill="#ffffff" />
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M 92 33 C 104 33 112 40 112 50 C 112 56 108 61 103 63.5 C 109.5 66 114 72 114 80 C 114 91 104.5 97 92 97 C 79.5 97 70 91 70 80 C 70 72 74.5 66 81 63.5 C 76 61 72 56 72 50 C 72 40 80 33 92 33 Z M 92 44 C 87.5 44 84.5 46.8 84.5 50.8 C 84.5 54.8 87.5 57.5 92 57.5 C 96.5 57.5 99.5 54.8 99.5 50.8 C 99.5 46.8 96.5 44 92 44 Z M 92 69 C 86.8 69 83.2 72.5 83.2 77.5 C 83.2 82.5 86.8 86 92 86 C 97.2 86 100.8 82.5 100.8 77.5 C 100.8 72.5 97.2 69 92 69 Z" fill="url(#navY8Accent)" />
-            <circle cx="24" cy="88" r="5" fill="#38bdf8" />
+            <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#navY8Bg)" />
+            <path d="M 36 6 L 92 6 C 108.5 6 122 19.5 122 36 L 122 52 C 92 64 36 64 6 52 L 6 36 C 6 19.5 19.5 6 36 6 Z" fill="rgba(255,255,255,0.22)" />
+            <path d="M 20 35 L 35 35 L 46 57 L 57 35 L 72 35 L 53 69 L 53 95 L 39 95 L 39 69 Z" fill="#ffffff" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M 91 34 C 103 34 111 41 111 50.5 C 111 56.5 107 61.2 102 63.8 C 108.2 66.2 112.5 72 112.5 79.5 C 112.5 90 103.5 96 91 96 C 78.5 96 69.5 90 69.5 79.5 C 69.5 72 73.8 66.2 80 63.8 C 75 61.2 71 56.5 71 50.5 C 71 41 79 34 91 34 Z M 91 44.5 C 86.5 44.5 83.5 47.2 83.5 51 C 83.5 54.8 86.5 57.5 91 57.5 C 95.5 57.5 98.5 54.8 98.5 51 C 98.5 47.2 95.5 44.5 91 44.5 Z M 91 69 C 85.8 69 82.2 72.5 82.2 77.2 C 82.2 82 85.8 85.5 91 85.5 C 96.2 85.5 99.8 82 99.8 77.2 C 99.8 72.5 96.2 69 91 69 Z" fill="#ffffff" />
           </svg>
         </div>
         <div class="y8-brand-row">
-          <span class="logo-text">Y<span class="logo-gradient-y8">8</span></span>
+          <span class="logo-text">Y8</span>
           <span class="logo-badge-pro">PRO</span>
         </div>
       </a>
@@ -212,7 +207,7 @@
           <!-- Y8 Ecosystem & Progress Dropdown -->
           <li class="nav-item nav-item--dropdown">
             <a href="#progress" class="nav-link nav-link--has-dropdown" aria-haspopup="true">
-              <i class="fas fa-cubes"></i>
+              <i class="fas fa-border-all"></i>
               <span>Hệ thống</span>
               <i class="fas fa-chevron-down nav-chevron"></i>
             </a>
@@ -223,7 +218,7 @@
                 </div>
                 <div class="dropdown-content">
                   <div class="dropdown-title">Tiến Độ &amp; Huy Hiệu Học Tập</div>
-                  <div class="dropdown-desc">Theo dõi chuỗi ngày Streak, XP và bảng thành tích</div>
+                  <div class="dropdown-desc">Theo dõi chuỗi ngày Streak (<strong id="navStreakCount">7</strong>d) &amp; <strong id="navXpCount">250</strong> XP</div>
                 </div>
               </a>
               <a href="/nextjs" class="dropdown-card-item">
@@ -259,50 +254,34 @@
 
         <!-- Right Side Actions -->
         <div class="nav-actions">
-          <!-- Spotlight Search Trigger -->
+          <!-- Spotlight Search Pill -->
           <button class="nav-search-btn" onclick="openSpotlightModal()" title="Tìm kiếm nhanh toàn trang (Ctrl+K)">
             <i class="fas fa-search"></i>
-            <span class="search-text">Tìm kiếm</span>
+            <span class="search-text">Tìm kiếm...</span>
           </button>
 
-          <!-- Unified Gamification Stats Capsule -->
-          <div class="nav-stats-capsule" onclick="scrollToSection('progress')" title="Xem tiến độ học tập, Streak & XP">
-            <span class="capsule-item capsule-streak">
-              <span class="pill-emoji">🔥</span>
-              <strong id="navStreakCount">7</strong><span class="pill-suffix">d</span>
-            </span>
-            <span class="capsule-divider"></span>
-            <span class="capsule-item capsule-xp">
-              <span class="pill-emoji">⚡</span>
-              <strong id="navXpCount">250</strong><span class="pill-suffix">XP</span>
-            </span>
-          </div>
+          <!-- Theme Toggle Circle Button -->
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
 
-          <!-- Utility Icon Capsule (Sound + Theme) -->
-          <div class="nav-utility-group">
-            <button class="theme-toggle-btn sound-toggle-btn" id="soundToggleBtn" title="Bật / Tắt âm thanh hiệu ứng (Sound FX)" onclick="toggleSoundFX()" aria-label="Toggle Sound Effects">
-              <i class="fas fa-volume-high" id="soundIcon"></i>
-            </button>
-            <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
-              <i class="fas fa-moon" id="themeIcon"></i>
-            </button>
-          </div>
+          <!-- Notification / Progress Bell Circle Button with Red Dot -->
+          <button class="theme-toggle-btn nav-bell-btn" id="navBellBtn" title="Xem tiến độ học tập, Streak & Thông báo" onclick="scrollToSection('progress')" aria-label="Notifications & Progress">
+            <i class="fas fa-bell"></i>
+            <span class="bell-red-dot"></span>
+          </button>
+
+          <!-- Hidden Sound Toggle for JS state compatibility -->
+          <button class="theme-toggle-btn sound-toggle-btn" id="soundToggleBtn" onclick="toggleSoundFX()" style="display:none" aria-hidden="true">
+            <i class="fas fa-volume-high" id="soundIcon"></i>
+          </button>
 
           <!-- User Authentication Box (Dynamic) -->
           <div class="nav-auth-wrapper" id="navAuthContainer">
             <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin">
-              <svg class="google-svg" viewBox="0 0 24 24" width="15" height="15">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-              </svg>
+              <i class="far fa-user"></i>
               <span>Đăng nhập</span>
             </button>
-            <a href="admin/index.html" class="nav-admin-btn" title="Trang quản trị Y8 Admin">
-              <i class="fas fa-shield-halved"></i>
-              <span>Admin</span>
-            </a>
           </div>
         </div>
       </nav>
