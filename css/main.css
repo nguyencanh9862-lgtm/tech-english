@@ -977,7 +977,7 @@ body.dark-theme .btn--google-nav,
 ================================ */
 
 .hero {
-    min-height: 100vh;
+    min-height: auto;
     background: linear-gradient(
         135deg,
         #f0f4ff 0%,
@@ -986,11 +986,9 @@ body.dark-theme .btn--google-nav,
     );
     position: relative;
     overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 80px;
+    display: block;
+    padding-top: 98px;
+    padding-bottom: 3.5rem;
 }
 
 .hero-bg-shapes {
@@ -1033,15 +1031,20 @@ body.dark-theme .btn--google-nav,
 .hero-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    padding: 5rem 1.5rem;
+    gap: 3.5rem;
+    align-items: start;
+    padding: 0 1.5rem;
 }
 
 @media (max-width: 1024px) {
+    .hero {
+        padding-top: 92px;
+        padding-bottom: 3rem;
+    }
+
     .hero-container {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 2.5rem;
         text-align: center;
     }
 }
@@ -1056,7 +1059,8 @@ body.dark-theme .btn--google-nav,
     border-radius: 100px;
     font-weight: 700;
     font-size: 0.85rem;
-    margin-bottom: 1rem;
+    margin-top: 0;
+    margin-bottom: 0.85rem;
 }
 
 .hero-badge i {
@@ -1064,34 +1068,34 @@ body.dark-theme .btn--google-nav,
 }
 
 .hero-title {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
     color: #0f172a;
 }
 
 .hero-desc {
     color: #64748b;
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
     max-width: 520px;
 }
 
 @media (max-width: 1024px) {
     .hero-desc {
-        margin: 0 auto 2rem;
+        margin: 0 auto 1.5rem;
     }
 }
 
 .hero-actions {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 0.75rem;
 }
 
 @media (max-width: 1024px) {
     .hero-actions {
+        align-items: center;
         justify-content: center;
     }
 }
@@ -1109,7 +1113,7 @@ body.dark-theme .btn--google-nav,
     align-items: center;
     justify-content: flex-start;
     gap: 1.5rem;
-    margin-top: 2.5rem;
+    margin-top: 2rem;
 }
 
 @media (max-width: 1024px) {
@@ -1153,6 +1157,7 @@ body.dark-theme .btn--google-nav,
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    padding-top: 2rem;
 }
 
 @media (max-width: 1024px) {
