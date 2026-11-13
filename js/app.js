@@ -111,6 +111,7 @@ async function syncVocabWithBackend() {
 function initNavbar() {
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
+  const navbar = document.getElementById('navbar');
 
   if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
@@ -125,6 +126,17 @@ function initNavbar() {
       });
     });
   }
+
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 140) current = s.getAttribute('id');
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+    });
+  });
 }
 
 // ===== SCROLL HELPERS =====
