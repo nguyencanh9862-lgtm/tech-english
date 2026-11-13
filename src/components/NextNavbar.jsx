@@ -20,7 +20,7 @@ export default function NextNavbar() {
   }, []);
 
   const navItems = [
-    { href: '/nextjs', label: 'Tổng quan Next.js', icon: 'fas fa-layer-group' },
+    { href: '/nextjs', label: 'Trang chủ Y8', icon: 'fas fa-house' },
     { href: '/vocab', label: 'Từ vựng', icon: 'fas fa-book-open' },
     { href: '/courses', label: 'Khóa học Video', icon: 'fab fa-youtube' },
     { href: '/grammar', label: 'Ngữ pháp', icon: 'fas fa-pen-nib' },
@@ -32,10 +32,10 @@ export default function NextNavbar() {
   return (
     <>
       <div style={{
-        background: 'linear-gradient(90deg, #0f172a 0%, #1e3a8a 50%, #0f766e 100%)',
+        background: 'linear-gradient(90deg, #0f172a 0%, #881337 50%, #1e293b 100%)',
         color: '#fff',
-        padding: '8px 16px',
-        fontSize: '13px',
+        padding: '7px 18px',
+        fontSize: '12.5px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -44,50 +44,51 @@ export default function NextNavbar() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
           <span style={{
-            background: '#2563eb',
+            background: 'linear-gradient(135deg, #e11d48, #f43f5e)',
             padding: '2px 10px',
             borderRadius: '999px',
-            fontWeight: 700,
+            fontWeight: 800,
             fontSize: '11px',
             letterSpacing: '0.4px'
           }}>
-            NEXT.JS APP ROUTER + EXPRESS + MYSQL
+            Y8 NEXT.JS + EXPRESS + MYSQL
           </span>
           <span>
-            <i className="fas fa-database" style={{ color: '#38bdf8', marginRight: '6px' }}></i>
+            <i className="fas fa-database" style={{ color: '#fde047', marginRight: '6px' }}></i>
             Database: <strong>{health.dbType || 'MySQL'}</strong> ({health.database === 'connected' ? '🟢 Online' : '🔴 Offline'})
           </span>
         </div>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <a href="/index.html" style={{ color: '#93c5fd', textDecoration: 'none', fontWeight: 600 }}>
-            <i className="fas fa-bolt"></i> Giao diện Full Studio
+          <a href="/index.html" style={{ color: '#fda4af', textDecoration: 'none', fontWeight: 700 }}>
+            <i className="fas fa-gamepad"></i> Y8 Full Studio
           </a>
-          <a href="/mvc" style={{ color: '#6ee7b7', textDecoration: 'none', fontWeight: 600 }}>
-            <i className="fas fa-cubes"></i> MVC Views
+          <a href="/mvc" style={{ color: '#93c5fd', textDecoration: 'none', fontWeight: 700 }}>
+            <i className="fas fa-cubes"></i> Y8 MVC
           </a>
           <a href="/admin/index.html" style={{
-            background: 'rgba(255,255,255,0.15)',
+            background: 'linear-gradient(135deg, #e11d48, #f43f5e)',
             color: '#fff',
-            padding: '3px 10px',
-            borderRadius: '6px',
+            padding: '3px 11px',
+            borderRadius: '999px',
             textDecoration: 'none',
-            fontWeight: 600
+            fontWeight: 700
           }}>
-            <i className="fas fa-shield-halved"></i> Admin Panel
+            <i className="fas fa-shield-halved"></i> Y8 Admin
           </a>
         </div>
       </div>
 
       <header style={{
-        background: '#ffffff',
+        background: 'rgba(255, 255, 255, 0.92)',
+        backdropFilter: 'blur(20px)',
         borderBottom: '1px solid #e2e8f0',
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        boxShadow: '0 2px 10px rgba(15, 23, 42, 0.04)'
+        boxShadow: '0 4px 20px rgba(15, 23, 42, 0.04)'
       }}>
         <div style={{
-          maxWidth: '1240px',
+          maxWidth: '1280px',
           margin: '0 auto',
           padding: '12px 20px',
           display: 'flex',
@@ -97,38 +98,45 @@ export default function NextNavbar() {
           gap: '12px'
         }}>
           <Link href="/nextjs" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
-              color: '#fff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '18px'
-            }}>
-              <i className="fas fa-laptop-code"></i>
-            </div>
-            <div>
-              <span style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>
-                Mê <span style={{ color: '#2563eb' }}>Linh</span>
-              </span>
-              <span style={{
-                marginLeft: '6px',
-                background: '#dbeafe',
-                color: '#1d4ed8',
-                fontSize: '11px',
-                padding: '2px 8px',
-                borderRadius: '999px',
-                fontWeight: 700
-              }}>
-                Next.js + MySQL
+            <img
+              src="/favicon.svg"
+              alt="Y8 Logo"
+              width="40"
+              height="40"
+              style={{ borderRadius: '11px', boxShadow: '0 5px 14px rgba(225, 29, 72, 0.32)' }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.05 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ fontSize: '23px', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.5px' }}>
+                  Y<span style={{ color: '#e11d48' }}>8</span>
+                </span>
+                <span style={{
+                  background: '#ffe4e6',
+                  color: '#e11d48',
+                  fontSize: '10px',
+                  padding: '2px 7px',
+                  borderRadius: '999px',
+                  fontWeight: 800
+                }}>
+                  PRO
+                </span>
+              </div>
+              <span style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                Edu &amp; AI Arena
               </span>
             </div>
           </Link>
 
-          <nav style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <nav style={{
+            display: 'flex',
+            gap: '4px',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            background: '#f1f5f9',
+            padding: '4px',
+            borderRadius: '999px',
+            border: '1px solid #e2e8f0'
+          }}>
             {navItems.map(item => {
               const active = pathname === item.href || (item.href === '/nextjs' && pathname === '/');
               return (
@@ -137,20 +145,20 @@ export default function NextNavbar() {
                   href={item.href}
                   style={{
                     textDecoration: 'none',
-                    padding: '8px 13px',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 600,
+                    padding: '7px 14px',
+                    borderRadius: '999px',
+                    fontSize: '13.5px',
+                    fontWeight: 700,
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    background: active ? '#eff6ff' : 'transparent',
-                    color: active ? '#2563eb' : '#334155',
-                    border: active ? '1px solid #bfdbfe' : '1px solid transparent',
+                    background: active ? 'linear-gradient(135deg, #e11d48, #f43f5e)' : 'transparent',
+                    color: active ? '#fff' : '#334155',
+                    boxShadow: active ? '0 4px 12px rgba(225, 29, 72, 0.28)' : 'none',
                     transition: 'all 0.15s ease'
                   }}
                 >
-                  <i className={item.icon} style={{ color: active ? '#2563eb' : '#64748b' }}></i>
+                  <i className={item.icon} style={{ color: active ? '#fff' : '#64748b' }}></i>
                   <span>{item.label}</span>
                 </Link>
               );

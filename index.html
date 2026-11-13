@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mê Linh – Học Tiếng Anh Miễn Phí</title>
-  <meta name="description" content="Website học tiếng Anh miễn phí với từ vựng, ngữ pháp, bài kiểm tra và nhiều hơn nữa." />
+  <title>Y8 – Nền Tảng Học Tiếng Anh, Lập Trình & Đấu Trường AI</title>
+  <meta name="description" content="Y8 – Hệ sinh thái học Tiếng Anh, CNTT & Đấu trường luyện tập AI tương tác miễn phí." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -15,16 +18,38 @@
   <!-- ===== TOP SCROLL PROGRESS BAR ===== -->
   <div class="scroll-progress-line" id="scrollProgressLine"></div>
 
-  <!-- ===== HEADER / NAVBAR ===== -->
+  <!-- ===== HEADER / NAVBAR (Y8 REDESIGNED) ===== -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
-      <!-- Brand Logo -->
-      <a href="#home" class="nav-logo">
-        <div class="logo-icon-box">
-          <i class="fas fa-laptop-code"></i>
+      <!-- Y8 Brand Logo -->
+      <a href="#home" class="nav-logo" aria-label="Y8 Trang chủ">
+        <div class="y8-emblem-box">
+          <svg viewBox="0 0 128 128" width="38" height="38" class="y8-svg-icon">
+            <defs>
+              <linearGradient id="navY8Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff2a4b" />
+                <stop offset="55%" stop-color="#e11d48" />
+                <stop offset="100%" stop-color="#9f1239" />
+              </linearGradient>
+              <linearGradient id="navY8Gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fde047" />
+                <stop offset="100%" stop-color="#f59e0b" />
+              </linearGradient>
+            </defs>
+            <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#navY8Bg)" stroke="#fda4af" stroke-width="3" />
+            <path d="M 36 9 L 92 9 C 107 9 119 21 119 36 L 119 52 C 90 64 38 64 9 52 L 9 36 C 9 21 21 9 36 9 Z" fill="rgba(255,255,255,0.28)" />
+            <path d="M 20 34 L 36 34 L 47 56 L 58 34 L 74 34 L 54 69 L 54 96 L 39 96 L 39 69 Z" fill="#ffffff" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M 92 33 C 104 33 112 40 112 50 C 112 56 108 61 103 63.5 C 109.5 66 114 72 114 80 C 114 91 104.5 97 92 97 C 79.5 97 70 91 70 80 C 70 72 74.5 66 81 63.5 C 76 61 72 56 72 50 C 72 40 80 33 92 33 Z M 92 44 C 87.5 44 84.5 46.8 84.5 50.8 C 84.5 54.8 87.5 57.5 92 57.5 C 96.5 57.5 99.5 54.8 99.5 50.8 C 99.5 46.8 96.5 44 92 44 Z M 92 69 C 86.8 69 83.2 72.5 83.2 77.5 C 83.2 82.5 86.8 86 92 86 C 97.2 86 100.8 82.5 100.8 77.5 C 100.8 72.5 97.2 69 92 69 Z" fill="url(#navY8Gold)" />
+            <circle cx="24" cy="88" r="5" fill="#fde047" />
+          </svg>
         </div>
-        <span class="logo-text"> Mê <span class="logo-gradient">Linh</span></span>
-        <span class="logo-badge-pro">PRO</span>
+        <div class="y8-brand-text-wrap">
+          <div class="y8-brand-row">
+            <span class="logo-text">Y<span class="logo-gradient-y8">8</span></span>
+            <span class="logo-badge-pro">PRO</span>
+          </div>
+          <span class="y8-brand-sub">Edu &amp; AI Arena</span>
+        </div>
       </a>
 
       <!-- Navigation Menu -->
@@ -41,8 +66,8 @@
           <li class="nav-item">
             <a href="#video-courses" class="nav-link nav-link--highlight">
               <i class="fab fa-youtube nav-icon-youtube"></i>
-              <span>Khóa học Video</span>
-              <span class="nav-badge-hot">MỚI</span>
+              <span>Video</span>
+              <span class="nav-badge-hot">HOT</span>
             </a>
           </li>
 
@@ -50,7 +75,7 @@
           <li class="nav-item nav-item--dropdown">
             <a href="#it-academy" class="nav-link nav-link--has-dropdown" aria-haspopup="true">
               <i class="fas fa-code"></i>
-              <span>CNTT & Code</span>
+              <span>CNTT &amp; Code</span>
               <i class="fas fa-chevron-down nav-chevron"></i>
             </a>
             <div class="nav-dropdown-menu">
@@ -60,7 +85,7 @@
                 </div>
                 <div class="dropdown-content">
                   <div class="dropdown-title">Lộ trình CNTT Chuyên Ngành</div>
-                  <div class="dropdown-desc">Bài giảng song ngữ & thuật ngữ IT thực chiến</div>
+                  <div class="dropdown-desc">Bài giảng song ngữ &amp; thuật ngữ IT thực chiến</div>
                 </div>
               </a>
               <a href="#code-playground" class="dropdown-card-item">
@@ -69,7 +94,7 @@
                 </div>
                 <div class="dropdown-content">
                   <div class="dropdown-title">DevSandbox Code Live</div>
-                  <div class="dropdown-desc">Viết & chạy thử JavaScript trực tiếp trên web</div>
+                  <div class="dropdown-desc">Viết &amp; chạy thử JavaScript trực tiếp trên web</div>
                 </div>
               </a>
               <a href="#tech-news" class="dropdown-card-item">
@@ -78,7 +103,7 @@
                 </div>
                 <div class="dropdown-content">
                   <div class="dropdown-title">Cổng Tin Tức Công Nghệ</div>
-                  <div class="dropdown-desc">Cập nhật tin tức AI, Cloud, Security & Từ vựng Tech</div>
+                  <div class="dropdown-desc">Cập nhật tin tức AI, Cloud, Security &amp; Từ vựng Tech</div>
                 </div>
               </a>
             </div>
@@ -88,7 +113,7 @@
           <li class="nav-item nav-item--dropdown">
             <a href="#vocabulary" class="nav-link nav-link--has-dropdown" aria-haspopup="true">
               <i class="fas fa-graduation-cap"></i>
-              <span>Học Tiếng Anh</span>
+              <span>Tiếng Anh</span>
               <i class="fas fa-chevron-down nav-chevron"></i>
             </a>
             <div class="nav-dropdown-menu">
@@ -107,7 +132,7 @@
                 </div>
                 <div class="dropdown-content">
                   <div class="dropdown-title">Ngữ Pháp Ứng Dụng</div>
-                  <div class="dropdown-desc">Quy tắc ngữ pháp & mẫu câu giao tiếp từ A1 tới B2</div>
+                  <div class="dropdown-desc">Quy tắc ngữ pháp &amp; mẫu câu giao tiếp từ A1 tới B2</div>
                 </div>
               </a>
               <a href="#quiz" class="dropdown-card-item">
@@ -116,7 +141,7 @@
                 </div>
                 <div class="dropdown-content">
                   <div class="dropdown-title">Trắc Nghiệm Quiz Phản Xạ</div>
-                  <div class="dropdown-desc">Luyện tập câu hỏi trắc nghiệm & tích lũy XP</div>
+                  <div class="dropdown-desc">Luyện tập câu hỏi trắc nghiệm &amp; tích lũy XP</div>
                 </div>
               </a>
               <a href="#flashcard" class="dropdown-card-item">
@@ -135,8 +160,8 @@
           <li class="nav-item nav-item--dropdown">
             <a href="#speech-studio" class="nav-link nav-link--has-dropdown" aria-haspopup="true">
               <i class="fas fa-gamepad"></i>
-              <span>Đấu trường Luyện tập</span>
-              <span class="nav-badge-hot" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">AI</span>
+              <span>Đấu trường AI</span>
+              <span class="nav-badge-hot nav-badge-ai">AI</span>
               <i class="fas fa-chevron-down nav-chevron"></i>
             </a>
             <div class="nav-dropdown-menu">
@@ -146,7 +171,7 @@
                 </div>
                 <div class="dropdown-content">
                   <div class="dropdown-title">Luyện Phát Âm AI Studio</div>
-                  <div class="dropdown-desc">Nhận diện giọng nói & chấm điểm độ chuẩn xác</div>
+                  <div class="dropdown-desc">Nhận diện giọng nói &amp; chấm điểm độ chuẩn xác</div>
                 </div>
               </a>
               <a href="#match-game" class="dropdown-card-item">
@@ -188,26 +213,51 @@
             </div>
           </li>
 
-          <!-- Progress shortcut -->
-          <li class="nav-item">
-            <a href="#progress" class="nav-link">
-              <i class="fas fa-chart-line"></i>
-              <span>Tiến độ</span>
-            </a>
-          </li>
-
-          <!-- Next.js & MVC View Server Navigation -->
-          <li class="nav-item">
-            <a href="/nextjs" class="nav-link" style="color: #0ea5e9; font-weight: 800;">
-              <i class="fas fa-layer-group"></i>
-              <span>Next.js App</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/mvc" class="nav-link" style="color: #2563eb; font-weight: 700;">
+          <!-- Y8 Ecosystem & Progress Dropdown -->
+          <li class="nav-item nav-item--dropdown">
+            <a href="#progress" class="nav-link nav-link--has-dropdown" aria-haspopup="true">
               <i class="fas fa-cubes"></i>
-              <span>Mô hình MVC</span>
+              <span>Hệ thống</span>
+              <i class="fas fa-chevron-down nav-chevron"></i>
             </a>
+            <div class="nav-dropdown-menu">
+              <a href="#progress" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(16,185,129,0.14);color:#10b981">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Tiến Độ &amp; Huy Hiệu Học Tập</div>
+                  <div class="dropdown-desc">Theo dõi chuỗi ngày Streak, XP và bảng thành tích</div>
+                </div>
+              </a>
+              <a href="/nextjs" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(14,165,233,0.14);color:#0284c7">
+                  <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Giao Diện Next.js App Router</div>
+                  <div class="dropdown-desc">Trải nghiệm Next.js + Express REST API + MySQL</div>
+                </div>
+              </a>
+              <a href="/mvc" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(37,99,235,0.14);color:#2563eb">
+                  <i class="fas fa-sitemap"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Mô Hình MVC Tam Giác</div>
+                  <div class="dropdown-desc">Server-Side Rendering Controller &rarr; Model &rarr; View</div>
+                </div>
+              </a>
+              <a href="admin/index.html" class="dropdown-card-item">
+                <div class="dropdown-icon-box" style="background:rgba(225,29,72,0.14);color:#e11d48">
+                  <i class="fas fa-shield-halved"></i>
+                </div>
+                <div class="dropdown-content">
+                  <div class="dropdown-title">Y8 Admin Control Panel</div>
+                  <div class="dropdown-desc">Quản trị dữ liệu MySQL, người dùng &amp; Google Sheets</div>
+                </div>
+              </a>
+            </div>
           </li>
         </ul>
 
@@ -220,30 +270,33 @@
             <kbd class="search-shortcut">Ctrl K</kbd>
           </button>
 
-          <!-- Quick Stats Pills -->
-          <div class="nav-stat-pill nav-stat-streak" title="Chuỗi ngày học liên tục 🔥" onclick="scrollToSection('progress')">
-            <span class="pill-emoji">🔥</span>
-            <strong id="navStreakCount">7</strong><span class="pill-suffix">d</span>
-          </div>
-          <div class="nav-stat-pill nav-stat-xp" title="Điểm kinh nghiệm tích lũy ⚡" onclick="scrollToSection('progress')">
-            <span class="pill-emoji pill-bolt">⚡</span>
-            <strong id="navXpCount">250</strong><span class="pill-suffix">XP</span>
+          <!-- Unified Gamification Stats Capsule -->
+          <div class="nav-stats-capsule" onclick="scrollToSection('progress')" title="Xem tiến độ học tập, Streak & XP">
+            <span class="capsule-item capsule-streak">
+              <span class="pill-emoji">🔥</span>
+              <strong id="navStreakCount">7</strong><span class="pill-suffix">d</span>
+            </span>
+            <span class="capsule-divider"></span>
+            <span class="capsule-item capsule-xp">
+              <span class="pill-emoji">⚡</span>
+              <strong id="navXpCount">250</strong><span class="pill-suffix">XP</span>
+            </span>
           </div>
 
-          <!-- Sound FX Toggle (On/Off) -->
-          <button class="theme-toggle-btn sound-toggle-btn" id="soundToggleBtn" title="Bật / Tắt âm thanh hiệu ứng (Sound FX)" onclick="toggleSoundFX()" aria-label="Toggle Sound Effects">
-            <i class="fas fa-volume-high" id="soundIcon"></i>
-          </button>
-
-          <!-- Theme Toggle (Dark / Light) -->
-          <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
-            <i class="fas fa-moon" id="themeIcon"></i>
-          </button>
+          <!-- Utility Icon Capsule (Sound + Theme) -->
+          <div class="nav-utility-group">
+            <button class="theme-toggle-btn sound-toggle-btn" id="soundToggleBtn" title="Bật / Tắt âm thanh hiệu ứng (Sound FX)" onclick="toggleSoundFX()" aria-label="Toggle Sound Effects">
+              <i class="fas fa-volume-high" id="soundIcon"></i>
+            </button>
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển giao diện Sáng / Tối" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
+              <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+          </div>
 
           <!-- User Authentication Box (Dynamic) -->
           <div class="nav-auth-wrapper" id="navAuthContainer">
             <button class="btn btn--google-nav" onclick="openAuthModal()" id="btnNavLogin">
-              <svg class="google-svg" viewBox="0 0 24 24" width="16" height="16">
+              <svg class="google-svg" viewBox="0 0 24 24" width="15" height="15">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
@@ -251,7 +304,7 @@
               </svg>
               <span>Đăng nhập</span>
             </button>
-            <a href="admin/index.html" class="nav-admin-btn" title="Trang quản trị Admin">
+            <a href="admin/index.html" class="nav-admin-btn" title="Trang quản trị Y8 Admin">
               <i class="fas fa-shield-halved"></i>
               <span>Admin</span>
             </a>
@@ -1464,10 +1517,10 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#" class="nav-logo">
-            <i class="fas fa-graduation-cap"></i>
-            <span>English<strong>Master</strong></span>
+            <img src="/favicon.svg" alt="Y8 Logo" width="34" height="34" style="border-radius:8px" />
+            <span style="font-weight:900;font-size:1.35rem">Y<strong style="color:#e11d48">8</strong></span>
           </a>
-          <p>Nền tảng học tiếng Anh trực tuyến miễn phí, hiệu quả và vui vẻ dành cho người Việt.</p>
+          <p>Nền tảng Y8 – Học tiếng Anh, Lập trình CNTT &amp; Đấu trường AI trực tuyến miễn phí, hiệu quả dành cho người Việt.</p>
           <div class="social-links">
             <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
@@ -1505,7 +1558,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 EnglishMaster. Được tạo với <i class="fas fa-heart" style="color:#ef4444"></i> tại Việt Nam.</p>
+        <p>© 2026 Y8 Edu &amp; AI Arena. Được tạo với <i class="fas fa-heart" style="color:#ef4444"></i> tại Việt Nam.</p>
       </div>
     </div>
   </footer>
@@ -1526,9 +1579,9 @@
     <div class="auth-modal-box">
       <button class="auth-modal-close" onclick="closeAuthModal()"><i class="fas fa-times"></i></button>
       <div class="auth-modal-header">
-        <div class="auth-logo"><i class="fas fa-graduation-cap"></i> English<strong>Master</strong></div>
-        <h3 id="authModalTitle">Đăng nhập tài khoản</h3>
-        <p id="authModalSubtitle">Đồng bộ tiến độ học tập và điểm số trên MongoDB</p>
+        <div class="auth-logo" style="display:inline-flex;align-items:center;gap:8px"><img src="/favicon.svg" alt="Y8" width="28" height="28" style="border-radius:7px" /> Y<strong>8</strong></div>
+        <h3 id="authModalTitle">Đăng nhập tài khoản Y8</h3>
+        <p id="authModalSubtitle">Đồng bộ tiến độ học tập và điểm số trên cơ sở dữ liệu MySQL</p>
       </div>
 
       <!-- TABS -->

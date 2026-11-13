@@ -67,7 +67,7 @@ export default function NextDashboardPage() {
               <span>Nền tảng Next.js App Router + Express API + Cơ sở dữ liệu MySQL</span>
             </div>
             <h1 style={{ fontSize: '34px', fontWeight: 900, margin: '0 0 12px', lineHeight: 1.25 }}>
-              Hệ Thống Học Tiếng Anh & CNTT Song Ngữ Mê Linh PRO
+              Y8 – Hệ Sinh Thái Học Tiếng Anh, Lập Trình &amp; Đấu Trường AI
             </h1>
             <p style={{ fontSize: '16px', opacity: 0.92, lineHeight: 1.6, margin: '0 0 24px' }}>
               Toàn bộ dữ liệu từ vựng, khóa học video, ngữ pháp, ngân hàng câu hỏi Quiz, lộ trình CNTT và tin tức công nghệ được quản lý tập trung trên <strong>MySQL</strong> thông qua <strong>Express RESTful API</strong> và hiển thị tốc độ cao với <strong>Next.js</strong>.
